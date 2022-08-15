@@ -29,7 +29,6 @@ def create_event(host,input_data:dict):
     process input data and create event object
     """
     event_dao  = EventDaoSingleton.get_event_dao()
-    
 
     name = input_data['name'][0]
 
@@ -38,7 +37,7 @@ def create_event(host,input_data:dict):
 
     string_end_date = __process_date(input_data['date_end'][0])
     end_date = date(int(string_end_date[0]),int(string_end_date[1]),int(string_end_date[2]))
-    
+
     time_start = __process_optional_field('time_start',input_data)
     if time_start: #if time_start is not None
         string_time_start = __process_time(time_start)
@@ -51,7 +50,8 @@ def create_event(host,input_data:dict):
     complement = __process_optional_field('complement',input_data)
     parent = __process_optional_field('parent',input_data)
     invited_users =__process_optional_field('invited_users',input_data,default_value=[])
-    
+    if invited_users != []:
+        invited_users = __process_participants(invited_users)
     
     address = Address(input_data['street'][0],input_data['city'][0],input_data['state'][0],input_data['house-number'][0],input_data['zip-code'][0] ,apartment,complement)
     

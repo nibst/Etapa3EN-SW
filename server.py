@@ -27,7 +27,7 @@ class Server(BaseHTTPRequestHandler):
 
         print(f"Posted data: {post_dict}") # do wathever with data
         user = create_user('nibs','nikolasps7@gmail.com','senha123')
-        user.set_id(1660521522845)
+        user.set_id(1660521522845) #for testing purposes
         event = create_event(user,post_dict)
     
         print (event)

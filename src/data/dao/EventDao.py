@@ -2,12 +2,13 @@ import psycopg2
 from src.data.Event import Event
 class EventDaoSingleton:
     """
-    Singleton for event daos
+    Singleton for event data acess object
     """
     #TODO error handling of connection
     __eventDao = None    
     def __init__(self) -> None:
         if EventDaoSingleton.__eventDao is None:
+            #TODO connect parameters in a config file
             self.__conn =  psycopg2.connect(dbname='event_manager', user='postgres', password='123', host='localhost', port='5432')
             self.__cur = self.__conn.cursor()     
             EventDaoSingleton.__eventDao = self
