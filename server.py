@@ -4,7 +4,7 @@ from src.data.Event import Event
 from src.application.create_event import create_event
 from src.data.User import User
 from src.application.create_user import create_user
-from src.application.event_validation import validate_event
+
 
 class Server(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -26,15 +26,10 @@ class Server(BaseHTTPRequestHandler):
             self.wfile.write(file.read()) 
 
         print(f"Posted data: {post_dict}") # do wathever with data
-        print(post_dict['date_end'][0])
-        print(type(post_dict['date_start'][0]))
         user = create_user('nibs','nikolasps7@gmail.com','senha123')
-        user.set_password('senha234')
+        user.set_id(1660521522845)
         event = create_event(user,post_dict)
-        try:
-            validate_event(event)
-        except Exception as e:
-            print(e)
+    
         print (event)
         
 

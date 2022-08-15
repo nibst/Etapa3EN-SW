@@ -6,7 +6,7 @@ from src.data.User import User
 from src.data.Address import Address
 import random
 class Event:
-    def __init__(self,host,name,address,start_date,end_date,event_visibility, check_in,check_out, event_parent = None, list_of_participants_ids = []) -> None:
+    def __init__(self,host,name,address,start_date,end_date,event_visibility, check_in,check_out, event_parent = None, list_of_participants = []) -> None:
         self.host:User = host
         self.name:str = name
         self.address:Address = address
@@ -16,8 +16,8 @@ class Event:
         self.check_in:time = check_in
         self.check_out:time = check_out
         self.event_parent:Event = event_parent #one event can be a child of another event (sub-event)
-        self.list_of_participants_ids:List[int] = list_of_participants_ids #external ID from user
-        self.id = int(str(time.time()) + str(random.randrange(0,9)) + str(random.randrange(0,9))) #internal ID, unique for each event, random number is to guarantee uniqueness
+        self.list_of_participants:List[User] = list_of_participants #list of users that are invited to the event
+        self.id = int(str(int(time.time()*10)) + str(random.randrange(0,9)) + str(random.randrange(0,9))) #internal ID, unique for each event, random number is to guarantee uniqueness
 
     def set_name(self,name):
         self.name = name
@@ -51,13 +51,13 @@ class Event:
 
     def get_list_of_participants(self):
         #TODO careful, returning not a copy of the object
-        return self.list_of_participants_ids
+        return self.list_of_participants
 
-    def add_participant(self,user_id):
-        self.list_of_participants_ids.append(user_id)
+    def add_participant(self,user):
+        self.list_of_participants.append(user)
 
-    def remove_participant(self,user_id):
-        self.list_of_participants_ids.remove(user_id)
+    def remove_participant(self,user):
+        self.list_of_participants.remove(user)
 
     def get_host(self):
         #TODO careful, returning not a copy of the object
@@ -95,3 +95,5 @@ address: {self.address}
 date: {self.start_date} - {self.end_date}
 visibility: {self.visibility} 
 participants: {self.list_of_participants}"""
+
+

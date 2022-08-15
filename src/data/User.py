@@ -1,6 +1,7 @@
 
 
 
+from math import floor
 import random
 import time
 
@@ -10,7 +11,7 @@ class User:
         self.name:str = name
         self.email:str = email
         self.__password:str = password
-        self.id = int(str(time.time()) + str(random.randrange(0,9)) + str(random.randrange(0,9)))#internal ID, unique for each event, random number is to guarantee uniqueness
+        self.id = int(str(int(time.time()*10)) + str(random.randint(0,9)) + str(random.randint(0,9)))#internal ID, unique for each event, random number is to guarantee uniqueness
         
     def set_password(self,password):
         self.__password = password
@@ -29,6 +30,9 @@ class User:
 
     def get_id(self):
         return self.id
+        
+    def set_id(self,id):
+        self.id = id
 
     def __str__(self):
         return f"{self.name} - {self.email}"

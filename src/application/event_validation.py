@@ -14,7 +14,7 @@ def validate_event(event:Event):
         raise InvalidDateException("Event start date is in the past")
     if __validate_event_date(event.get_end_date()) == False:
         raise InvalidDateException("Event end date is in the past")
-
+    
 def __verify_event_end_after_start(start:date,end:date):
     return start <= end
 
@@ -22,5 +22,8 @@ def __validate_event_date(date:date):
     return date >= date.today()
 
 def __validate_invited_participants_in_private_event(visibility:bool,list_of_participants:list):
-    return visibility == False and len(list_of_participants) > 0
+    if visibility == False:
+        return len(list_of_participants) > 0
+    else:
+        return True
  

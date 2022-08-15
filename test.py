@@ -1,21 +1,17 @@
 import unittest
+from src.application.create_event import  create_event
+from src.data.Event import Event
+from src.data.Address import Address
+from src.data.User import User
+from datetime import date, time
 
 
-class TestaSolucao(unittest.TestCase):
+class TestEvent(unittest.TestCase):
     #exemplo só
-    def test_sucessor(self):
-        """
-        Testa a funcao sucessor para o estado "2_3541687"
-        :return:
-
-        """
-        # a lista de sucessores esperados é igual ao conjunto abaixo (ordem nao importa)
-        succ_esperados = {("abaixo", "2435_1687"), ("esquerda", "_23541687"), ("direita", "23_541687")}
-
-        sucessores = "2_3541687"  # obtem os sucessores chamando a funcao implementada
-        self.assertEqual(3, len(sucessores))     # verifica se foram retornados 3 sucessores
-        for s in sucessores:                     # verifica se os sucessores retornados estao entre os esperados
-            self.assertIn(s, succ_esperados)
-
+    def test_create_event(self):
+        user = User('nibs','nikolasps7@gmail.com','senha123')
+        user.set_id(1660521522845)
+        Post = {'name': ['nibs event'], 'date_start': ['2022-08-17'], 'date_end': ['2022-08-22'], 'time_start': ['22:44'], 'time_end': ['00:44'], 'visibility': ['public'], 'street': ['Mario Leitao'], 'house-number': ['60'], 'zip-code': ['90690425'], 'state': ['RS'], 'city': ['Porto Alegre']}
+        self.assertIsInstance(create_event(user,Post), Event) # verifica se o retorno é do tipo Event
 if __name__ == '__main__':
     unittest.main()
