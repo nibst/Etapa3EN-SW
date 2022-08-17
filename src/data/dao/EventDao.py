@@ -1,28 +1,13 @@
-import psycopg2
+from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.Event import Event
-class EventDaoSingleton:
+class EventDao:
     """
-    Singleton for event data acess object
+    event data acess object
     """
     #TODO error handling of connection
-    __eventDao = None    
-    def __init__(self) -> None:
-        if EventDaoSingleton.__eventDao is None:
-            #TODO connect parameters in a config file
-            self.__conn =  psycopg2.connect(dbname='event_manager', user='postgres', password='123', host='localhost', port='5432')
-            self.__cur = self.__conn.cursor()     
-            EventDaoSingleton.__eventDao = self
-        else:
-            raise Exception("EventDaoSingleton is a singleton")#TODO, create class for exception
-
-    @staticmethod
-    def get_event_dao():
-        if EventDaoSingleton.__eventDao is None:
-            EventDaoSingleton.__eventDao = EventDaoSingleton()
-        return EventDaoSingleton.__eventDao
-    
-    def get_conn(self):
-        return self.__conn
+    def __init__(self,connection:DBConnectionSingleton) -> None:
+        self.__conn = connection.get_connection()
+        self.__cur = connection.get_cursor()
     
     def insert_event(self,event:Event):
         inser_script = "INSERT INTO Events (event_id, host_id, event_name, address_id, start_date, end_date, visibility, check_in, check_out, event_parent_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
@@ -36,7 +21,6 @@ class EventDaoSingleton:
         self.__conn.commit()
         return event.get_id()
         
-
     def print_all_events(self):
         select_scrpit = "SELECT * FROM Events"
         self.__cur.execute(select_scrpit)
@@ -59,8 +43,4 @@ class EventDaoSingleton:
     def get_events_by_address(self,address):
         pass
 
-    def destroyer():
-        EventDaoSingleton.get_event_dao().__cur.close()
-        EventDaoSingleton.get_event_dao().__conn.close()
-        EventDaoSingleton.__eventDao = None
 

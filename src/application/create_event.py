@@ -2,9 +2,10 @@
 from src.data.Event import Event
 from src.data.Address import Address
 from datetime import date, time
-from src.data.dao.EventDao import EventDaoSingleton
+from src.data.dao.EventDao import EventDao
 from src.application.event_validation import validate_event
-
+from src.data.dao.DBConnection import DBConnectionSingleton
+from src.data.dao.AddressDao import AddressDao
 #TODO, maybe do in a class?
 
 def __process_date(date):
@@ -28,7 +29,7 @@ def create_event(host,input_data:dict):
     """
     process input data and create event object
     """
-    event_dao  = EventDaoSingleton.get_event_dao()
+    db_connection  = DBConnectionSingleton.get_singleton()
 
     name = input_data['name'][0]
 
@@ -54,9 +55,14 @@ def create_event(host,input_data:dict):
         invited_users = __process_participants(invited_users)
     
     address = Address(input_data['street'][0],input_data['city'][0],input_data['state'][0],input_data['house-number'][0],input_data['zip-code'][0] ,apartment,complement)
-    
+    address_dao = AddressDao(db_connection)
+
+    if address_dao.get_address_by_id(address.get_id()) is None: #if address is not in database
+        address_dao.insert_address(address)
+        
     visibility = __process_visibility(input_data['visibility'][0])
-    event = Event(host,name,address,start_date,end_date,visibility,time_start,time_end,parent,invited_users) 
+    event = Event(host,name,address,start_date,end_date,visibility,time_start,time_end,parent,invited_users)
+    event_dao = EventDao(db_connection) 
     try:
         validate_event(event)
     except Exception as e:
@@ -73,6 +79,6 @@ def create_event(host,input_data:dict):
         except Exception as e:
             print("NO EVENTS YET")
     finally:
-        EventDaoSingleton.destroyer()
+        DBConnectionSingleton.destroyer()
     return event
      
