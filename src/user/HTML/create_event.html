@@ -1,10 +1,10 @@
 <html>
     <title>Criar evento</title>
     <meta charset="UTF-8">
-    <body type="hidden">
+    <body>
         <div id="main-event" class="content">
             <h1>Criar evento</h1>
-            <form action="/" method="post">
+            <form action="/create" method="post">
                 <input id="event-name" type="text" placeholder="Nome do evento" name="name" required>
                 <br>
                 <h4>Data</h4>
@@ -38,18 +38,68 @@
                 <input id="event-state" name="state" required>
                 <label for="event-city">Cidade</label>
                 <input id="event-city" name="city" required>
+                
                 <br>
                 <ul>
-                    <li>
-                    Subevento1
-                    </li>
-                    <li>
-                    Subevento2
-                    </li>
                 </ul>
                 <br>
+                
                 <input type="submit" value="Criar evento">
             </form>
         </div>
+                <div id="myDIV" style=" display: none;">
+                    <h1>Criar subevento</h1>
+                    <form action="/" method="post">
+                        <input id="event-name" type="text" placeholder="Nome do evento" name="name" required>
+                        <br>
+                        <h4>Data</h4>
+                        <label for="event-date-start">Inicio</label>
+                        <input id="event-date-start" type="date" name="date_start" required>
+                        <label for="event-date-end">Fim</label>
+                        <input id="event-date-end" type="date" name="date_end" required>
+                        <br>
+                        <h4>Hora</h4>
+                        <label for="event-time-start">Check-in</label>
+                        <input id="event-time-start" type="time" name="time_start">
+                        <label for="event-time-end">Check-out</label>
+                        <input id="event-time-end" type="time" name="time_end">
+                        <br>
+                        <h4>Visibilidade</h4>
+                        <input type="radio" name="visibility" id="Publico" value="public" required checked/>
+                        <label for="Publico">Público</label>
+                        <input type="radio" name="visibility" id="Privado" value="private"/>
+                        <label for="Privado">Privado</label>
+                        <input id="participants-invited" type="text" placeholder="Convidado1,Covidado2,..." name="invited_users">
+                        <br>
+                        <h4>Endereço</h4>
+                        <label for="event-street">Rua</label>
+                        <input id="event-street" name="street" required>
+                        <label for="event-house-number">Número</label>
+                        <input id="event-house-number" name="house-number" required>
+                        <label for="event-zip-code">CEP</label>
+                        <input id="event-zip-code" name="zip-code" type="number" required>
+                        <br>
+                        <label for="event-state">Estado</label>
+                        <input id="event-state" name="state" required>
+                        <label for="event-city">Cidade</label>
+                        <input id="event-city" name="city" required>
+                    <input type="button" onclick="myFunction()" value="go back" /> 
+                    </div>
+                <script>
+                    function myFunction() {
+                        var x = document.getElementById("myDIV");
+                        var y = document.getElementById("main-event");
+                        if (x.style.display === "none") {
+                        x.style.display = "block";
+                        } else {
+                        x.style.display = "none";
+                        }
+                        if (y.style.display === "none") {
+                        y.style.display = "block";
+                        } else {
+                        y.style.display = "none";
+                        }
+                    } 
+                </script>
     </body>
 </html>

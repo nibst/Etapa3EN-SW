@@ -27,6 +27,15 @@ class EventDao:
         for record in self.__cur.fetchall():
             print(record)
         self.__conn.commit()
+        
+    def get_all_events(self):
+        select_scrpit = "SELECT * FROM Events"
+        self.__cur.execute(select_scrpit)
+        events_lst = []
+        for record in self.__cur.fetchall():
+            events_lst.append(record)
+        self.__conn.commit()
+        return events_lst
 
     def get_event_by_id(self,event_id):
         pass

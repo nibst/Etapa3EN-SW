@@ -28,7 +28,7 @@ CREATE TABLE Events(
 	visibility BOOLEAN NOT NULL,
 	check_in time,
 	check_out time,
-	event_parent_id int DEFAULT NULL,
+	event_parent_id bigint DEFAULT NULL,
 	FOREIGN KEY (event_parent_id) REFERENCES Events(event_id),
 	FOREIGN KEY (host_id) REFERENCES Users(user_id), 
 	FOREIGN KEY (address_id) REFERENCES Address(address_id)
@@ -43,5 +43,5 @@ CREATE TABLE Participants(
 );
 
 insert into Address values(9069042560,'a',20,'b','c',123456);
-insert into Users values(1660521522845,'algo','123','gmail.com');
+insert into Users values(166,'algo','123','gmail.com');
 

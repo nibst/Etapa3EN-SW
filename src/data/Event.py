@@ -1,23 +1,40 @@
 
+from dataclasses import dataclass
+import datetime
 import time
 from typing import List
 from datetime import date
 from src.data.User import User
 from src.data.Address import Address
 import random
+
+@dataclass
 class Event:
-    def __init__(self,host,name,address,start_date,end_date,event_visibility, check_in,check_out, event_parent = None, list_of_participants = []) -> None:
-        self.host:User = host
-        self.name:str = name
-        self.address:Address = address
-        self.start_date:date = start_date
-        self.end_date:date = end_date
-        self.visibility:bool = event_visibility #True if public, False if private
-        self.check_in:time = check_in
-        self.check_out:time = check_out
-        self.event_parent:Event = event_parent #one event can be a child of another event (sub-event)
-        self.list_of_participants:List[User] = list_of_participants #list of users that are invited to the event
+
+    host:User 
+    name:str 
+    address:Address 
+    start_date:date 
+    end_date:date 
+    visibility:bool #True if public, False if private
+    check_in:time 
+    check_out:time 
+    event_parent:"Event" = None
+    list_of_participants:List[str] = None # list of emails of the participants
+    
+        
+    def __post_init__(self):
+        #TODO, is this the right place to do this processing?
         self.id = int(str(int(time.time()*10)) + str(random.randrange(0,9)) + str(random.randrange(0,9))) #internal ID, unique for each event, random number is to guarantee uniqueness
+        self.start_date = datetime.datetime.strptime(self.start_date, '%Y-%m-%d') if isinstance(self.start_date, str) else self.start_date
+        self.end_date = datetime.datetime.strptime(self.end_date, '%Y-%m-%d') if isinstance(self.end_date, str) else self.end_date
+        self.check_in = datetime.datetime.strptime(self.check_in, '%H:%M') if isinstance(self.check_in, str) else self.check_in
+        if self.check_out=="":
+            self.check_out = None
+        else:
+            self.check_out = datetime.datetime.strptime(self.check_out, '%H:%M') if isinstance(self.check_out, str) else self.check_out
+        self.event_parent = None if self.event_parent == "" else self.event_parent
+        self.list_of_participants = [] if self.list_of_participants == "" or self.list_of_participants == None else self.list_of_participants
 
     def set_name(self,name):
         self.name = name
@@ -65,6 +82,9 @@ class Event:
 
     def get_id(self):
         return self.id
+        
+    def set_id(self,id):
+        self.id = id
 
     def get_event_parent(self):
         #TODO careful, returning not a copy of the object
@@ -86,6 +106,7 @@ class Event:
 
     def set_check_out(self,check_out):
         self.check_out = check_out
+
 
     def __str__(self) -> str:
         return f"""

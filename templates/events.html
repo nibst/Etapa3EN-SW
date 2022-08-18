@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Eventos</h1>
+  <p>Clique <a href="{{ url_for('new_event') }}">aqui</a> para criar evento </p>
+  <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Endereço</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                {% if event.visibility == True %}
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.start_date }}</td>
+                    <td>{{ event.check_in }}</td>
+                    <td>{{ event.address }}</td>
+                {% else %}
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+{% endblock %}
