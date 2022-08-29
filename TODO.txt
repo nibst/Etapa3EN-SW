@@ -1,0 +1,1 @@
+Talvez usar SQL ALchemy

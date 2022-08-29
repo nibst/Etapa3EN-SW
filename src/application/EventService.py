@@ -7,7 +7,8 @@ from src.data.dao.EventDao import EventDao
 from src.application.event_validation import validate_event
 from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.dao.AddressDao import AddressDao
-import sys
+from src.application.EventConverter import EventConverter
+
 #TODO, maybe do in a class?
 
 
@@ -21,48 +22,13 @@ class EventService:
     def __init__(self):
         pass
 
-    def __process_visibility(self,visibility:str):
-        if visibility == 'public':
-            return True
-        elif visibility == 'private':
-            return False
-        else:
-            raise ValueError("Invalid visibility")
-    def __process_optional_field(self,optional_field:str,input_data:dict,default_value=None):
-        if optional_field in input_data and input_data[optional_field] != '':
-            return input_data[optional_field]
-        else:
-            return default_value
-    #TODO maybe pass this method to another class 
-    def input_to_event_object(self,input_data:dict):
-        """
-        process input data and create event object
-        """
-        apartment = self.__process_optional_field('apartment',input_data)
-        complement = self.__process_optional_field('complement',input_data)
-        
-        address = Address(input_data['street'],input_data['city'],input_data['state'],input_data['house_number'],input_data['zip-code'] ,apartment,complement)
-        remove_keys = ('street','city','state','house_number','zip-code','apartment','complement') #remove these keys from input_data to use input_data as dict for event object
-        input_data['address'] = address
-        for key in remove_keys:
-            input_data.pop(key,None)
-        input_data['visibility']  = self.__process_visibility(input_data['visibility'])
-        event = Event(**input_data)
-        return event
 
-    def create_event(self,host,input_data:dict):
+    #TODO validate object on EventConverter maybe?
+    def save(self,event:Event):
         """
         process input data,create event object and insert in db
         """
         db_connection  = DBConnectionSingleton.get_singleton()
-        #copy input data dict, because we will remove some keys from it
-        print(input_data, flush=True)
-        input_data = dict(input_data)
-        print(input_data, flush=True)
-        input_data['host'] = host #TODO for now host is the only user and do not get passed with input_data
-        print('oi', flush=True)
-        event:Event = self.input_to_event_object(input_data)
-        print(input_data, flush=True)
         address = event.get_address()
         address_dao = AddressDao(db_connection)
         if address_dao.get_address_by_id(address.get_id()) is None: #if address is not in database

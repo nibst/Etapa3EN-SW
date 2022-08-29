@@ -7,6 +7,7 @@ from datetime import date
 from src.data.User import User
 from src.data.Address import Address
 import random
+#TODO talvez usar sql alchemy
 
 @dataclass
 class Event:
