@@ -1,10 +1,10 @@
-RUN INSTRUCTIONS:
+RUN INSTRUCTIONS: <br>
 
-cd C:\<path_here>\flask\Scripts
-activate
-cd ../..
-python aplication.py
+cd C:\<path_here>\flask\Scripts <br>
+activate <br>
+cd ../.. <br>
+python aplication.py <br>
 
-STOP INSTRUCTIONS:
+STOP INSTRUCTIONS: <br>
 
 deactivate
