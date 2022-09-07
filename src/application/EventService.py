@@ -28,7 +28,7 @@ class EventService:
         """
         process input data,create event object and insert in db
         """
-        db_connection  = DBConnectionSingleton.get_singleton()
+        db_connection  = DBConnectionSingleton.get_instance()
         address = event.get_address()
         address_dao = AddressDao(db_connection)
         if address_dao.get_address_by_id(address.get_id()) is None: #if address is not in database
@@ -48,7 +48,7 @@ class EventService:
         return event
      
     def get_events(self):
-        db_connection  = DBConnectionSingleton.get_singleton()
+        db_connection  = DBConnectionSingleton.get_instance()
         event_dao = EventDao(db_connection) 
         events = []
         #this address is an id of the address in the database
