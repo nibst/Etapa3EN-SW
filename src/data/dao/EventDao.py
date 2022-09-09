@@ -22,15 +22,15 @@ class EventDao:
         return event.get_id()
         
     def print_all_events(self):
-        select_scrpit = "SELECT * FROM Events"
-        self.__cur.execute(select_scrpit)
+        query_scrpit = "SELECT * FROM Events"
+        self.__cur.execute(query_scrpit)
         for record in self.__cur.fetchall():
             print(record)
         self.__conn.commit()
         
     def get_all_events(self):
-        select_scrpit = "SELECT * FROM Events"
-        self.__cur.execute(select_scrpit)
+        query_scrpit = "SELECT * FROM Events"
+        self.__cur.execute(query_scrpit)
         events_lst = []
         for record in self.__cur.fetchall():
             events_lst.append(record)
@@ -47,7 +47,15 @@ class EventDao:
         pass
 
     def get_events_by_name(self,name):
-        pass
+        query_scrpit = "SELECT * FROM Events WHERE event_name LIKE %s"
+        name = '%' + name + '%'#get event names that have this name as prefix, suffix or in the middle of the event name
+        input = (name,)
+        self.__cur.execute(query_scrpit,input)
+        events_lst = []
+        for record in self.__cur.fetchall():
+            events_lst.append(record)
+        self.__conn.commit()
+        return events_lst
 
     def get_events_by_address(self,address):
         pass

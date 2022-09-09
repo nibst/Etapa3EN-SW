@@ -23,7 +23,8 @@ class EventService:
         pass
 
 
-    #TODO validate object on EventConverter maybe?
+    #TODO dont destroy db connection every single time (it kills the purpose of singleton)
+    #TODO get events methods are so similiar, maybe there is a pattern to make this code looks cleaner, maybe a class for queries?
     def save(self,event:Event):
         """
         process input data,create event object and insert in db
@@ -57,6 +58,29 @@ class EventService:
             #TODO this dont get all info, need info from table Participants
             #Later on, get the address using the address id from the event
             events_tuples=event_dao.get_all_events()
+            for event_tuple in events_tuples:
+                input_data = dict(zip(keys,event_tuple[1:]))
+                event = Event(**input_data)
+                event.set_id(event_tuple[0])
+                events.append(event)
+        except Exception as e:
+            raise (e)
+        else:
+            return events
+        finally:
+            DBConnectionSingleton.destroyer()
+
+        
+    def get_events_by_name(self,name:str):
+        db_connection  = DBConnectionSingleton.get_instance()
+        event_dao = EventDao(db_connection) 
+        events = []
+        #this address is an id of the address in the database
+        keys = ('host','name','address','start_date','end_date','visibility','check_in','check_out','event_parent','list_of_participants')
+        try:
+            #TODO this dont get all info, need info from table Participants
+            #Later on, get the address using the address id from the event
+            events_tuples=event_dao.get_events_by_name(name)
             for event_tuple in events_tuples:
                 input_data = dict(zip(keys,event_tuple[1:]))
                 event = Event(**input_data)
