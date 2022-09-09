@@ -20,11 +20,18 @@ class TestEvent(unittest.TestCase):
         event = converter.input_to_event_object(Post)
         self.assertIsInstance(event_service.save(event), Event) # verifica se o retorno é do tipo Event
     def test_get_events(self):
-        user = User('nibs','nikolasps7@gmail.com','senha123')
-        user.set_id(166)
+
         event_service = EventService()
         events = event_service.get_events()
-        
+        #[print(event.name) for event in events]
+        self.assertIsInstance(events, list) # verifica se o retorno é uma lista
+        self.assertIsInstance(events[0], Event) # verifica se o retorno é uma lista de eventos
+
+    def test_get_events_by_name(self):
+        name = 'nibs' 
+        event_service = EventService()
+        events = event_service.get_events_by_name(name)
+        [print(event.name) for event in events]
         self.assertIsInstance(events, list) # verifica se o retorno é uma lista
         self.assertIsInstance(events[0], Event) # verifica se o retorno é uma lista de eventos
 if __name__ == '__main__':
