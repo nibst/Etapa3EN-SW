@@ -34,4 +34,51 @@ class AddressDao:
             return record[0] # just the id of the address
 
 
+    def get_adresses_by_street(self,street):
+
+        query_scrpit = "SELECT * FROM Address WHERE street LIKE %s"
+        street = street + '%' #just get by prefix
+        input = (street,)
+        self.__cur.execute(query_scrpit,input)
+        address_lst = []
+        for record in self.__cur.fetchall():
+            address_lst.append(record)
+        self.__conn.commit()
+        return address_lst
+
+
+    def get_adresses_by_city(self,city):
+        query_scrpit = "SELECT * FROM Address WHERE city LIKE %s"
+        city = city + '%'  #just get by prefix
+        input = (city,)
+        self.__cur.execute(query_scrpit,input)
+        address_lst = []
+        for record in self.__cur.fetchall():
+            address_lst.append(record)
+        self.__conn.commit()
+        return address_lst
+
+    def get_adresses_by_state(self,state):
+        query_scrpit = "SELECT * FROM Address WHERE event_state LIKE %s"
+        state = state + '%' #just get by prefix
+        input = (state,)
+        self.__cur.execute(query_scrpit,input)
+        address_lst = []
+        for record in self.__cur.fetchall():
+            address_lst.append(record)
+        self.__conn.commit()
+        return address_lst
+    
+    def get_adresses_by_zip_code(self,zip_code):
+        query_scrpit = "SELECT * FROM Address WHERE zip_code = %s"
+        self.__cur.execute(query_scrpit,(zip_code,))
+        address_lst = []
+        for record in self.__cur.fetchall():
+            address_lst.append(record)
+        self.__conn.commit()
+        return address_lst
+
+
+
+
 

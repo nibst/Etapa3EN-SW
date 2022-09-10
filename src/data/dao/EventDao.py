@@ -56,8 +56,27 @@ class EventDao:
             events_lst.append(record)
         self.__conn.commit()
         return events_lst
+        
+    def get_events_by_street(self,state):
+        query_scrpit = "SELECT * FROM Events WHERE event_name LIKE %s"
+        name = '%' + name + '%'#get event names that have this name as prefix, suffix or in the middle of the event name
+        input = (name,)
+        self.__cur.execute(query_scrpit,input)
+        events_lst = []
+        for record in self.__cur.fetchall():
+            events_lst.append(record)
+        self.__conn.commit()
+        return events_lst
 
-    def get_events_by_address(self,address):
+    def get_events_by_city(self,state):
         pass
 
+    def get_events_by_state(self,state):
+        pass
+
+    def get_events_by_state(self,state):
+        pass
+
+    def get_events_by_state(self,state):
+        pass
 
