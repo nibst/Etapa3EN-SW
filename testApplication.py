@@ -1,11 +1,12 @@
 import unittest
+from src.application.UserService import UserService
 from src.application.EventService import  EventService
 from src.data.Event import Event
 from src.data.Address import Address
 from src.data.User import User
 from src.application.EventConverter import EventConverter
 from datetime import date, time
-
+from random import randint
 
 class TestEvent(unittest.TestCase):
     #exemplo só
@@ -34,5 +35,15 @@ class TestEvent(unittest.TestCase):
         [print(event.name) for event in events]
         self.assertIsInstance(events, list) # verifica se o retorno é uma lista
         self.assertIsInstance(events[0], Event) # verifica se o retorno é uma lista de eventos
+
+    def test_create_user(self):
+        user_service = UserService()
+        name = 'nikolas'
+        
+        email = 'nikolas@gmail.com'
+        password = '123'
+        #TODO, email cannot be already on db, this test has to delete the email, then test it.
+        #self.assertIsInstance(user_service.create_user(name,email,password), User) # verifica se o retorno é do tipo User
+
 if __name__ == '__main__':
     unittest.main()
