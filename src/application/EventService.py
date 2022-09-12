@@ -82,7 +82,7 @@ class EventService:
             #Later on, get the address using the address id from the event
             events_tuples=event_dao.get_events_by_name(name)
             for event_tuple in events_tuples:
-                input_data = dict(zip(keys,event_tuple[1:]))
+                input_data = dict(zip(keys,event_tuple[1:])) #dont take host field from event tuple
                 event = Event(**input_data)
                 event.set_id(event_tuple[0])
                 events.append(event)
