@@ -1,7 +1,7 @@
 from src.data.Event import Event
 from src.application.EventService import EventService
 from src.data.User import User
-from src.application.create_user import create_user
+from application.UserService import create_user
 from src.application.EventConverter import EventConverter
 
 from flask import Flask, flash, redirect, render_template, \
@@ -31,7 +31,7 @@ def login():
 def new_event(sub_events=[]):
     
     if request.method == 'POST':
-        user = create_user('nibs','nikolasps7@gmail.com','senha123')
+        user = User('nibs','nikolasps7@gmail.com','senha123')
         user.set_id(166) #for testing purposes  
         converter = EventConverter()    
         event_service = EventService()
