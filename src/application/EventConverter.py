@@ -1,4 +1,5 @@
 
+from dataclasses import asdict
 from src.data.Event import Event
 from src.data.Address import Address
 
@@ -21,7 +22,7 @@ class EventConverter:
         else:
             return default_value
             
-    def input_to_event_object(self,input_data:dict):
+    def dict_to_object(self,input_data:dict):
         """
         process input data and create event object
         """
@@ -40,6 +41,15 @@ class EventConverter:
         event = Event(**input_data)
         return event
 
-    #TODO
-    def event_to_input_dict(self,event:Event):
-        pass
+    #TODO check if this works
+    def object_to_dict(self,event:Event):
+        return asdict(event)
+
+    def database_tuple_to_object(self,event_tuple):
+        #TODO this dont get all info, need info from table Participants
+        #Later on, get the address using the address id from the event
+        keys = ('host','name','address','start_date','end_date','visibility','check_in','check_out','event_parent','list_of_participants')
+        input_data = dict(zip(keys,event_tuple[1:])) #dont take id field, set later
+        event = Event(**input_data)
+        event.set_id(event_tuple[0]) #event_id is in tuple[0], then its host,name....
+        return event
