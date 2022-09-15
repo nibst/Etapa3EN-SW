@@ -1,23 +1,24 @@
 
 
 
-from math import floor
+from dataclasses import dataclass
 import random
 import time
 
-
+@dataclass
 class User:
-    def __init__(self,name,email,password) -> None:
-        self.name:str = name
-        self.email:str = email
-        self.__password:str = password
+
+    name:str 
+    email:str
+    password:str
+    def __post_init__(self):
         self.id = int(str(int(time.time()*10)) + str(random.randint(0,9)) + str(random.randint(0,9)))#internal ID, unique for each event, random number is to guarantee uniqueness
         
     def set_password(self,password):
-        self.__password = password
+        self.password = password
         
     def get_password(self):
-        return self.__password
+        return self.password
 
     def get_email(self):
         return self.email
