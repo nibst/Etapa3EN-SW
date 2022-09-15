@@ -9,3 +9,4 @@
 [] 7. Especifique uma interface para cada camada
 [] 8. Padronizar nome de metodos de services, talvez ter abstract service
 [] 9. Não testar diretamente com DB, passar uma classe simulando DAO para os services
+[] 10. Transformar classe Address para dataclass, manter o padrão
