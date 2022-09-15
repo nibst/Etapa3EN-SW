@@ -17,5 +17,27 @@ class UserDao:
         self.__conn.commit()
 
         return user.get_id()
+    def get_user_by_email(self,email):
+
+        query_script = "SELECT * FROM Users WHERE email = %s"
+        self.__cur.execute(query_script, (email,))
+        user = self.__cur.fetchall()
+        self.__conn.commit()
+        return user
+
+    def print_all_users(self):
+        query_scrpit = "SELECT * FROM Users;"
+        self.__cur.execute(query_scrpit)
+        for record in self.__cur.fetchall():
+            print(record)
+        self.__conn.commit()
+
+    def delete_by_email(self,email):
+        delete_script = "DELETE FROM Users WHERE email = %s"
+        self.__cur.execute(delete_script, (email,))
+        self.__conn.commit()
+        #Return something?
+        
+
         
     
