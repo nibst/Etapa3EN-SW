@@ -1,7 +1,9 @@
+
+from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.Event import Event
 from src.application.EventService import EventService
 from src.data.User import User
-from application.UserService import create_user
+from src.application.UserService import UserService
 from src.application.EventConverter import EventConverter
 
 from flask import Flask, flash, redirect, render_template, \
@@ -40,7 +42,7 @@ def new_event(sub_events=[]):
             #copy input data dict, because we will add a key in it
             input_data = dict(request.form)
             input_data['host'] = user
-            sub_event = converter.input_to_event_object(input_data)
+            sub_event = converter.dict_to_object(input_data)
             sub_events.append(sub_event)
             request.form = ''
 
@@ -50,7 +52,7 @@ def new_event(sub_events=[]):
             input_data = dict(request.form)
             input_data['host'] = user
             try:
-                event = converter.input_to_event_object(input_data)
+                event = converter.dict_to_object(input_data)
                 #return event if save successfully
                 event = event_service.save(event)
                 for sub_event in sub_events:
@@ -80,3 +82,5 @@ def new_subevent(sub_events=[]):
     
 if __name__ == '__main__':
     app.run(debug=True)
+    DBConnectionSingleton.get_instance() #in case there isnt an instance of DBconnection to destroy
+    DBConnectionSingleton.destroyer()
