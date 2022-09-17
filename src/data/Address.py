@@ -1,17 +1,21 @@
 
+from dataclasses import dataclass
 from sre_parse import State
 
-
+@dataclass
 class Address:
-    def __init__(self,street,city,state,house_number,zip_code,apartment = None,complement = None) -> None:
-        self.id :int = int(str(zip_code) + str(house_number)) #id is unique for each address (zip_code + house_number),do not diferrentiate between same addresses with different apartment numbers
-        self.street:str = street
-        self.city:str = city
-        self.state:str = state
-        self.house_number:int = house_number
-        self.zip_code :int = zip_code
-        self.apartment:int = apartment
-        self.complement:str = complement
+    #in DB id is the first attribute
+    street:str
+    house_number:int
+    city:str
+    state:str  
+    zip_code :int 
+    apartment:int = None
+    complement:str = None
+    id:int = None
+    def __post_init__(self):
+        if self.id is None:
+            self.id = int(str(self.zip_code) + str(self.house_number)) #id is unique for each address (zip_code + house_number),do not diferrentiate between same addresses with different apartment numbers
 
     def get_street(self):
         return self.street

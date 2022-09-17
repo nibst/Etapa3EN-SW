@@ -2,8 +2,9 @@ DROP TABLE IF EXISTS Users,Address,Events,Participants;
 CREATE TABLE Users(
 	user_id bigint PRIMARY KEY NOT NULL,
 	user_name varchar(50) NOT NULL,
-	passw varchar(20) NOT NULL,
-	email varchar(50) UNIQUE NOT NULL
+	email varchar(50) UNIQUE NOT NULL,
+	passw varchar(20) NOT NULL
+
 	
 );
 
@@ -43,5 +44,7 @@ CREATE TABLE Participants(
 );
 
 insert into Address values(9069042560,'a',20,'b','c',123456);
-insert into Users values(166,'algo','123','gmail.com');
+insert into Users values(1234, 'nikolas', 'emaildetesteparaevento@teste.eu', 'senha123');
+Insert INTO Events VALUES(01,1234,'event name',9069042560, '2023-06-03','2023-06-03',TRUE,'20:06:03','23:06:03',NULL);
+INSERT INTO Participants VALUES(1234,01);
 

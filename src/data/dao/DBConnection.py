@@ -17,7 +17,7 @@ class DBConnectionSingleton:
         if DBConnectionSingleton.__instance is None:
             DBConnectionSingleton.__instance = DBConnectionSingleton()
         return DBConnectionSingleton.__instance
-    
+
     def get_connection(self):
         return self.__conn
 

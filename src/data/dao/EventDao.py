@@ -15,7 +15,6 @@ class EventDao:
             event_parent_id = None
         else:
             event_parent_id = event.get_event_parent().get_id()
-
         insert_value = (event.get_id(), event.get_host().get_id(), event.get_name(), event.get_address().get_id(),event.get_start_date(), event.get_end_date(), event.get_visibility(), event.get_check_in(), event.get_check_out(),event_parent_id)
         self.__cur.execute(inser_script, insert_value)
         self.__conn.commit()
@@ -24,12 +23,14 @@ class EventDao:
     def print_all_events(self):
         query_scrpit = "SELECT * FROM Events"
         self.__cur.execute(query_scrpit)
+        participants = []
         for record in self.__cur.fetchall():
+            participants.append(record[10])
             print(record)
         self.__conn.commit()
         
     def get_all_events(self):
-        query_scrpit = "SELECT * FROM Events"
+        query_scrpit = "SELECT * FROM Events JOIN Participants using (event_id) ORDER BY event_id"
         self.__cur.execute(query_scrpit)
         events_lst = []
         for record in self.__cur.fetchall():
