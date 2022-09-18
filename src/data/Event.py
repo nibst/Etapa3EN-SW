@@ -21,11 +21,12 @@ class Event:
     check_out:time 
     event_parent:"Event" = None
     list_of_participants:List[User] = None # list of emails of the participants
-    id:int = int(str(int(time.time()*10)) + str(random.randrange(0,9)) + str(random.randrange(0,9))) #internal ID, unique for each event, random number is to guarantee uniqueness
+    id:int = None
     
         
     def __post_init__(self):
         #TODO, is this the right place to do this processing?
+        self.id = int(str(int(time.time()*10)) + str(random.randrange(0,100)) + str(random.randrange(0,100))) #internal ID, unique for each event, random number is to guarantee uniqueness
         self.start_date = datetime.datetime.strptime(self.start_date, '%Y-%m-%d') if isinstance(self.start_date, str) else self.start_date
         self.end_date = datetime.datetime.strptime(self.end_date, '%Y-%m-%d') if isinstance(self.end_date, str) else self.end_date
         self.check_in = datetime.datetime.strptime(self.check_in, '%H:%M') if isinstance(self.check_in, str) else self.check_in
