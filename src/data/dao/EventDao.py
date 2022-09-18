@@ -21,13 +21,17 @@ class EventDao:
             event_parent_id = event.get_event_parent().get_id()
         insert_value = (event.get_id(), event.get_host().get_id(), event.get_name(), event.get_address().get_id(),event.get_start_date(), event.get_end_date(), event.get_visibility(), event.get_check_in(), event.get_check_out(),event_parent_id)
         self.__cur.execute(insert_script, insert_value)
-        
-        insert_participants_script = "INSERT INTO Participants (user_id,event_id) VALUES (%s, %s)"
-        for participant in event.get_list_of_participants():
-            insert_participant_value = (participant.get_id(),event.get_id())
-            self.__cur.execute(insert_participants_script, insert_participant_value)
+        self.insert_participants(event)
         self.__conn.commit()
-        return event.get_id()
+        return event
+    
+    def insert_participants(self,event:Event):
+        insert_script = "INSERT INTO Participants (user_id,event_id) VALUES (%s, %s)"
+        for participant in event.get_list_of_participants():
+            insert_value = (participant.get_id(),event.get_id())
+            self.__cur.execute(insert_script, insert_value)
+            self.__conn.commit()
+        return event
         
     def print_all_events(self):
         """
@@ -35,13 +39,8 @@ class EventDao:
         """
         query_scrpit = "SELECT * FROM Events"
         self.__cur.execute(query_scrpit)
-        participants_dict = {}
         
         for record in self.__cur.fetchall():
-            if participants_dict[record[0]] is None:
-                participants = []
-            participants.append(record[10]) #record[10] = user_id
-            participants_dict[record[0]] = participants
             print(record)
         self.__conn.commit()
         
@@ -55,7 +54,7 @@ class EventDao:
 
         i.e there is multiple tuples of the same event, just varying the user participant
         """
-        query_scrpit = "SELECT * FROM Events JOIN Participants using (event_id) ORDER BY event_id"
+        query_scrpit = "SELECT * FROM Events LEFT OUTER JOIN Participants using (event_id) ORDER BY event_id"
         self.__cur.execute(query_scrpit)
         participants_dict = {}
         records = self.__cur.fetchall()
@@ -96,7 +95,7 @@ class EventDao:
 
         i.e there is multiple tuples of the same event, just varying the user participant
         """
-        query_scrpit = "SELECT * FROM Events JOIN Participants using (event_id) WHERE event_name LIKE %s ORDER BY event_id"
+        query_scrpit = "SELECT * FROM Events LEFT OUTER JOIN Participants using (event_id) WHERE event_name LIKE %s ORDER BY event_id"
         name = '%' + name + '%'#get event names that have this name as prefix, suffix or in the middle of the event name
         input = (name,)
         self.__cur.execute(query_scrpit,input)
@@ -121,39 +120,9 @@ class EventDao:
         self.__conn.commit()
         return events_lst
         
-    def get_events_by_street(self,state):
-        query_scrpit = "SELECT * FROM Events JOIN Participants using (event_id) WHERE event_name LIKE %s ORDER BY event_id"
-        name = '%' + name + '%'#get event names that have this name as prefix, suffix or in the middle of the event name
-        input = (name,)
-        self.__cur.execute(query_scrpit,input)
-        events_lst = []
-        records = self.__cur.fetchall()
-        participants_dict = {}
-        #populate participants dict, each key is an event_id, each value is a list of participants of that event
-        for record in records:
-            if record[0] not in participants_dict:
-                participants_dict[record[0]] = []
-            participants_dict[record[0]].append(record[10])
-        
-        event_id_lst = []
-        events_lst = []
-        #create new event tuples, adding list of participants
-        for record in records:    
-            if record[0] in event_id_lst:
-                continue
-            else:
-                event_id_lst.append(record[0])
-                events_lst.append((*record[:10],participants_dict[record[0]])) #record tuple without user_id + list of participants
-        self.__conn.commit()
-        return events_lst
-
-    def get_events_by_city(self,state):
+    def get_events_by_street(self,street):
         pass
-
-    def get_events_by_state(self,state):
-        pass
-
-    def get_events_by_state(self,state):
+    def get_events_by_city(self,city):
         pass
 
     def get_events_by_state(self,state):
