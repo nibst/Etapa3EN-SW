@@ -1,7 +1,7 @@
 #TODO, marcar com X o que completar
 [] 1. Inserir strings na DB em lower case sempre, facilitar as queries. Ou então usar LOWER dentro das queries
 [] 3. Criar classe de excecoes especificas para cada excecao
-[] 4. Utilizar a tabela de lista de participantes na DB na hora de montar um novo objeto de Evento a partir da DB
+[X] 4. Utilizar a tabela de lista de participantes na DB na hora de montar um novo objeto de Evento a partir da DB
 [] 5. Talvez fazer uma classe/wrapper de usuáriio que chama as funçoes da application. O motivo disso é que podemos
       controlar as restrições que um usuário possa ter. Ex: um usuário deslogado não pode criar Eventos
 [X] 6. Testar função de get_user_by_email, e as mudanças que fiz no dia 13/9-14/9
@@ -9,11 +9,11 @@
 [] 8. Padronizar nome de metodos de services, talvez ter abstract service
 [] 9. Não testar diretamente com DB, passar uma classe simulando DAO para os services
 [X] 10. Transformar classe Address para dataclass, manter o padrão
-[] 11. Testar Login
-[] 12. Quando pegar da DB para objeto Event, fazer host ser User e address ser Address (no momento sao so id)
+[X] 11. Testar Login
+[X] 12. Quando pegar da DB para objeto Event, fazer host ser User e address ser Address (no momento sao so id)
 [] 13. TODOS espalhados pelo codigo
-[] 14. Joins nas consultas de evento
-
+[X] 14. Joins nas consultas de evento
+[] 15. Rollbacks quando falha DB
 
 ----Principais----
 [] 1. Validar check in/check out
