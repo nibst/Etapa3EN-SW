@@ -14,7 +14,6 @@ class TestUserDAO(unittest.TestCase):
         user_dao = UserDao(db_connection)
         user_dao.print_all_users()
         user = user_dao.get_user_by_email('emaildetesteparaevento@teste.eu')
-        user = user[0]
         self.assertEqual(user[1],'nikolas')
         self.assertEqual(len(user),4)
 

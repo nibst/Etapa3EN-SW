@@ -17,7 +17,9 @@ class TestApplication(unittest.TestCase):
         user = User('nibs','nikolasps7@gmail.com','senha123')
         user.set_id(166)
         event_service = EventService()
-        Post = {'name': 'nibs event', 'start_date': '2022-09-17', 'end_date': '2022-09-22', 'check_in': '22:44', 'check_out': '00:44', 'visibility': 'public', 'street': 'Mario Leitao', 'house_number': '60', 'zip-code': '9069425', 'state': 'RS', 'city': 'Porto Alegre'}
+        Post = {'name': 'nibs event', 'start_date': '2033-09-17', 'end_date': '2033-09-22', 'check_in': '22:44', 'check_out': '00:44', \
+        'visibility': 'public', 'street': 'Mario Leitao', 'house_number': '60', 'zip-code': '9069425', 'state': 'RS', 'city': 'Porto Alegre', \
+        'list_of_participants': ['emaildetesteparaevento@teste.eu','emaildetest36eparaevento@teste.eu']}
         Post['host'] = user
         converter = EventConverter()
         event = converter.dict_to_object(Post)
@@ -31,7 +33,7 @@ class TestApplication(unittest.TestCase):
         self.assertIsInstance(events[0], Event) # verifica se o retorno é uma lista de eventos
 
     def test_get_events_by_name(self):
-        name = 'nibs' 
+        name = 'event name' 
         event_service = EventService()
         events = event_service.get_events_by_name(name)
         [print(event.name) for event in events]
@@ -51,7 +53,21 @@ class TestApplication(unittest.TestCase):
         DBConnectionSingleton.destroyer()
         user = user_service.create_user(user)
         self.assertIsInstance(user, User) # verifica se o retorno é do tipo User
-        
+    
+    def test_login_valido(self):
+        user_service = UserService()
+        name = 'nikolas'
+        email = 'emaildetesteparaevento@teste.eu'
+        password = 'senha123'
+        user = User(name,email,password)
+        user = user_service.login(email,password)
+        self.assertIsInstance(user, User) # verifica se o retorno é do tipo User
+        try:
+            user_service.login(email,'senha errada')
+        except:
+            self.assertTrue(True)#pass the test
+        else:
+            self.fail("Login should fail with exception")
 
 if __name__ == '__main__':
     unittest.main()
