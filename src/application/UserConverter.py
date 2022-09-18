@@ -15,6 +15,9 @@ class UserConverter:
         return asdict(user)
 
     def database_tuple_to_object(self,user_tuple):
+        if user_tuple is None:
+            return None
+            
         keys = ('name','email','password')
         input_data = dict(zip(keys,user_tuple[1:])) #dont take id field, set later
         user = User(**input_data)

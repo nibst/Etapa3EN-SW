@@ -50,6 +50,8 @@ class EventService:
         db_connection  = DBConnectionSingleton.get_instance()
         event_dao = EventDao(db_connection) 
         events = []
+        event_converter = EventConverter()
+
         #this address is an id of the address in the database
         keys = ('host','name','address','start_date','end_date','visibility','check_in','check_out','event_parent','list_of_participants')
         try:
@@ -57,9 +59,7 @@ class EventService:
             #Later on, get the address using the address id from the event
             events_tuples=event_dao.get_all_events()
             for event_tuple in events_tuples:
-                input_data = dict(zip(keys,event_tuple[1:]))
-                event = Event(**input_data)
-                event.set_id(event_tuple[0])
+                event = event_converter.database_tuple_to_object(event_tuple)
                 events.append(event)
         except Exception as e:
             raise (e)

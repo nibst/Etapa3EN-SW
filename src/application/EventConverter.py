@@ -4,6 +4,8 @@ from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.Event import Event
 from src.data.Address import Address
 from src.data.dao.AddressDao import AddressDao
+from src.data.dao.UserDao import UserDao
+from src.application.UserConverter import UserConverter
 
 class EventConverter:
     def __init__(self) -> None:
@@ -39,6 +41,15 @@ class EventConverter:
         for key in remove_keys:
             input_data.pop(key,None)
         input_data['visibility']  = self.__process_visibility(input_data['visibility'])
+
+        #get participants
+        user_dao = UserDao(DBConnectionSingleton.get_instance())
+        user_converter = UserConverter()
+        participants = []
+        for email in input_data['list_of_participants']:
+            participant = user_converter.database_tuple_to_object(user_dao.get_user_by_email(email))
+            participants.append(participant)
+        input_data['list_of_participants'] = participants    
         event = Event(**input_data)
         return event
 
@@ -47,12 +58,21 @@ class EventConverter:
         return asdict(event)
 
     def database_tuple_to_object(self,event_tuple):
-        #TODO this dont get all info, need info from table Participants
-        #Later on, get the address using the address id from the event
+
+        if event_tuple is None:
+            return None
         address_dao  = AddressDao(DBConnectionSingleton.get_instance())
         keys = ('id','host','name','address','start_date','end_date','visibility','check_in','check_out','event_parent','list_of_participants')
         event_input_data = dict(zip(keys,event_tuple))
         
+        #transform host id in actual User object
+        user_dao = UserDao(DBConnectionSingleton.get_instance())
+        host = user_dao.get_user_by_id(event_input_data['host'])
+        user_converter = UserConverter()
+        host = user_converter.database_tuple_to_object(host) 
+        event_input_data['host'] = host 
+
+        #transform Address id in Address object
         address_keys = ('id','street','house_number','city','state','zip_code','apartment','complement') 
         address_tuple = address_dao.get_address_by_id(event_input_data['address'])
         address_input_data = dict(zip(address_keys,address_tuple))

@@ -1,3 +1,4 @@
+from src.application.UserConverter import UserConverter
 from src.data.dao.UserDao import UserDao
 from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.User import User
@@ -28,11 +29,13 @@ class UserService:
         db_connection  = DBConnectionSingleton.get_instance()
         user_dao = UserDao(db_connection)
         user = user_dao.get_user_by_email(email)
+        user_converter = UserConverter()
+        user = user_converter.database_tuple_to_object(user)
         #TODO maybe raise one unique exception for email and password (more security)
         #TODO transform user in User object before doing logic to it
         if user is None:
             raise Exception("Invalid Email")
-        if user[2] != password: #user[2] its the password on db
+        if user.get_password() != password: 
             raise Exception("Invalid Password")
         return user
     
