@@ -20,7 +20,7 @@ class Event:
     check_in:time 
     check_out:time 
     event_parent:"Event" = None
-    list_of_participants:List[str] = None # list of emails of the participants
+    list_of_participants:List[User] = None # list of emails of the participants
     id:int = int(str(int(time.time()*10)) + str(random.randrange(0,9)) + str(random.randrange(0,9))) #internal ID, unique for each event, random number is to guarantee uniqueness
     
         
