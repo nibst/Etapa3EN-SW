@@ -21,7 +21,14 @@ class UserDao:
 
         query_script = "SELECT * FROM Users WHERE email = %s"
         self.__cur.execute(query_script, (email,))
-        user = self.__cur.fetchall()
+        user = self.__cur.fetchone()
+        self.__conn.commit()
+        return user
+    def get_user_by_id(self,id):
+
+        query_script = "SELECT * FROM Users WHERE user_id = %s"
+        self.__cur.execute(query_script, (id,))
+        user = self.__cur.fetchone()
         self.__conn.commit()
         return user
 

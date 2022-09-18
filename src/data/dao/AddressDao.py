@@ -25,14 +25,13 @@ class AddressDao:
         self.__conn.commit()
 
     def get_address_by_id(self,address_id):
-        select_query = "SELECT address_id FROM Address WHERE address_id = %s"
+        select_query = "SELECT * FROM Address WHERE address_id = %s"
         self.__cur.execute(select_query,(address_id,))
         record = self.__cur.fetchone()
         if record is None:
             return None
         else:
-            return record[0] # just the id of the address
-
+            return record
 
     def get_adresses_by_street(self,street):
 
