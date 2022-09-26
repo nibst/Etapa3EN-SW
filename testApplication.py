@@ -17,9 +17,9 @@ class TestApplication(unittest.TestCase):
         user = User('nibs','nikolasps7@gmail.com','senha123')
         user.set_id(166)
         event_service = EventService()
-        Post = {'name': 'nibs event', 'start_date': '2033-09-17', 'end_date': '2033-09-22', 'check_in': '22:44', 'check_out': '00:44', \
-        'visibility': 'public', 'street': 'Mario Leitao', 'house_number': '60', 'zip-code': '9069425', 'state': 'RS', 'city': 'Porto Alegre', \
-        'list_of_participants': ['emaildetesteparaevento@teste.eu','emaildetest36eparaevento@teste.eu']}
+        Post = {'name': 'nibs event', 'start_date': '2034-09-17', 'end_date': '2034-09-22', 'check_in': '22:44', 'check_out': '00:44', \
+        'visibility': 'private', 'street': 'Rua 2', 'house_number': '60', 'zip-code': '9069425', 'state': 'RS', 'city': 'Porto Alegre', \
+        'list_of_participants': 'emaildetesteparaevento@teste.eu,emaildetest36eparaevento@teste.eu'}
         Post['host'] = user
         converter = EventConverter()
         event = converter.dict_to_object(Post)
@@ -43,11 +43,10 @@ class TestApplication(unittest.TestCase):
     def test_create_user(self):
 
         user_service = UserService()
-        db_connection = DBConnectionSingleton.get_instance()
         name = 'nikolas'
         email = 'nikolas@gmail.com'
         password = '123'
-        user_dao = UserDao(db_connection)
+        user_dao = UserDao()
         user_dao.delete_by_email(email) #delete to create again
         user = User(name,email,password)
         DBConnectionSingleton.destroyer()

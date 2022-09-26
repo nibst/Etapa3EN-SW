@@ -43,8 +43,13 @@ CREATE TABLE Participants(
 	FOREIGN KEY (event_id) REFERENCES Events(event_id)
 );
 
+
 insert into Address values(9069042560,'a',20,'b','c',123456);
+insert into Users values(166,'nibs', 'nikolasps7@gmail.com', 'senha123');
 insert into Users values(1234, 'nikolas', 'emaildetesteparaevento@teste.eu', 'senha123');
+insert into Users values(1235, 'nikolas', 'emaildetest36eparaevento@teste.eu', 'senha123');
+
 Insert INTO Events VALUES(01,1234,'event name',9069042560, '2023-06-03','2023-06-03',TRUE,'20:06:03','23:06:03',NULL);
 INSERT INTO Participants VALUES(1234,01);
+
 

@@ -10,6 +10,9 @@ from src.application.UserConverter import UserConverter
 class EventConverter:
     def __init__(self) -> None:
         pass
+    
+    def __process_participants(self,participants):
+        return participants.split(',') 
 
     def __process_visibility(self,visibility:str):
         if visibility == 'public':
@@ -35,20 +38,24 @@ class EventConverter:
         apartment = self.__process_optional_field('apartment',input_data)
         complement = self.__process_optional_field('complement',input_data)
         
+
         address = Address(input_data['street'],input_data['house_number'],input_data['city'],input_data['state'],input_data['zip-code'] ,apartment,complement)
         remove_keys = ('street','city','state','house_number','zip-code','apartment','complement') #remove these keys from input_data to use input_data as dict for event object
         input_data['address'] = address
         for key in remove_keys:
             input_data.pop(key,None)
+
+        input_data['list_of_participants'] = self.__process_participants(input_data['list_of_participants'])
         input_data['visibility']  = self.__process_visibility(input_data['visibility'])
 
         #get participants
-        user_dao = UserDao(DBConnectionSingleton.get_instance())
+        user_dao = UserDao()
         user_converter = UserConverter()
         participants = []
         for email in input_data['list_of_participants']:
             participant = user_converter.database_tuple_to_object(user_dao.get_user_by_email(email))
-            participants.append(participant)
+            if participant is not None:
+                participants.append(participant)
         input_data['list_of_participants'] = participants    
         event = Event(**input_data)
         return event
@@ -61,12 +68,12 @@ class EventConverter:
 
         if event_tuple is None:
             return None
-        address_dao  = AddressDao(DBConnectionSingleton.get_instance())
+        address_dao  = AddressDao()
         keys = ('id','host','name','address','start_date','end_date','visibility','check_in','check_out','event_parent','list_of_participants')
         event_input_data = dict(zip(keys,event_tuple))
         
         #transform host id in actual User object
-        user_dao = UserDao(DBConnectionSingleton.get_instance())
+        user_dao = UserDao()
         host = user_dao.get_user_by_id(event_input_data['host'])
         user_converter = UserConverter()
         host = user_converter.database_tuple_to_object(host) 

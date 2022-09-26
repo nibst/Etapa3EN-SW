@@ -7,9 +7,8 @@ from src.data.dao.DBConnection import DBConnectionSingleton
 class TestAddress(unittest.TestCase):
     def test_query_by_street(self):
 
-        db_connection  = DBConnectionSingleton.get_instance()
         #order of tuple = (address_id, street, house_number, city, event_state, zip_code,apartment,complement)
-        address_dao = AddressDao(db_connection)
+        address_dao = AddressDao()
         
         addresses = address_dao.get_adresses_by_street('Mario Leitao')
         regex = "Mario Leitao/*"
@@ -24,9 +23,8 @@ class TestAddress(unittest.TestCase):
         DBConnectionSingleton.destroyer()
 
     def test_query_by_state(self):
-        db_connection  = DBConnectionSingleton.get_instance()
         #order of tuple = (address_id, street, house_number, city, event_state, zip_code,apartment,complement)
-        address_dao = AddressDao(db_connection)
+        address_dao = AddressDao()
         
         addresses = address_dao.get_adresses_by_state('Rio Grande do Sul')
         regex = "Rio Grande do Sul/*"
@@ -40,9 +38,8 @@ class TestAddress(unittest.TestCase):
         DBConnectionSingleton.destroyer()
 
     def test_query_by_city(self):
-        db_connection  = DBConnectionSingleton.get_instance()
         #order of tuple = (address_id, street, house_number, city, event_state, zip_code,apartment,complement)
-        address_dao = AddressDao(db_connection)
+        address_dao = AddressDao()
         
         addresses = address_dao.get_adresses_by_city('Porto Alegre')
         regex = "Porto Alegre/*"
@@ -57,9 +54,8 @@ class TestAddress(unittest.TestCase):
         DBConnectionSingleton.destroyer()
 
     def test_query_by_zip(self):
-        db_connection  = DBConnectionSingleton.get_instance()
         #order of tuple = (address_id, street, house_number, city, event_state, zip_code,apartment,complement)
-        address_dao = AddressDao(db_connection)
+        address_dao = AddressDao()
         
         addresses = address_dao.get_adresses_by_zip_code(90690425)
         for address_tuple in addresses:

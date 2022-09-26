@@ -15,19 +15,18 @@ class UserService:
         regex = re.compile(r"([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|\[[\t -Z^-~]*])")
         if  re.match(regex,user.get_email()) is None:
             raise Exception("Email not valid")
-        db_connection  = DBConnectionSingleton.get_instance()
-        user_dao = UserDao(db_connection)
+        user_dao = UserDao()
         try:
             user_dao.insert_user(user)
         except Exception as e:
             #probably user already exist
+            DBConnectionSingleton.rollback()
             raise(e)
 
         return user
     
     def login(self,email,password):
-        db_connection  = DBConnectionSingleton.get_instance()
-        user_dao = UserDao(db_connection)
+        user_dao = UserDao()
         user = user_dao.get_user_by_email(email)
         user_converter = UserConverter()
         user = user_converter.database_tuple_to_object(user)

@@ -23,7 +23,10 @@ class DBConnectionSingleton:
 
     def get_cursor(self):
         return self.__cur
-
+        
+    def rollback():
+        DBConnectionSingleton.get_instance().__conn.rollback()
+        
     def destroyer():
         DBConnectionSingleton.get_instance().__cur.close()
         DBConnectionSingleton.get_instance().__conn.close()

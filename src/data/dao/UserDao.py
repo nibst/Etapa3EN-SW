@@ -5,9 +5,10 @@ class UserDao:
     user data acess object
     """
     #TODO error handling of connection
-    def __init__(self,connection:DBConnectionSingleton) -> None:
-        self.__conn = connection.get_connection()
-        self.__cur = connection.get_cursor()
+    def __init__(self) -> None:
+        db_connection_instance:DBConnectionSingleton = DBConnectionSingleton.get_instance
+        self.__conn = db_connection_instance.get_connection()
+        self.__cur = db_connection_instance.get_cursor()
     
     def insert_user(self,user:User):
         inser_script = "INSERT INTO Users (user_id,user_name,email,passw) VALUES (%s, %s, %s,%s)"

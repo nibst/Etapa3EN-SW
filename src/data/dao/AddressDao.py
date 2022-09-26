@@ -6,9 +6,10 @@ class AddressDao:
     address data acess object
     """
     #TODO error handling of connection, sql injection
-    def __init__(self,connection:DBConnectionSingleton) -> None:
-        self.__conn = connection.get_connection()
-        self.__cur = connection.get_cursor()
+    def __init__(self) -> None:
+        db_connection_instance:DBConnectionSingleton = DBConnectionSingleton.get_instance
+        self.__conn = db_connection_instance.get_connection()
+        self.__cur = db_connection_instance.get_cursor()
     
     def insert_address(self,event:Address):
         insert_script = "INSERT INTO Address (address_id, street, house_number, city, event_state, zip_code,apartment,complement) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
