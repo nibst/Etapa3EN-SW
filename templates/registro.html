@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Gerenciador de Eventos</title>
+        <link rel="icon" href="images/favicon-32x32.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="images/user-id.css">
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <div class="w3-top">
+            <div id="myNavbar" class="w3-bar w3-white w3-card-2">
+                <a href="index.html" class="w3-bar-item w3-button"><img src="images/favicon-32x32.png"> &nbsp&nbspBem vindo, {{username}}!</a>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="image">
+            <!-- Register form -->
+            <div class="w3-display-middle">
+                <div id="login" class="w3-card-4 w3-round-large">
+                    <h1 style="transform: translateY(-20px);">Sign Up</h1>
+                    <div class="input">
+                        <input id="user" type="text" placeholder="Usuário" required>
+                        <span class="fa fa-user-circle-o icon" style="left: 6px; top: 45%;"></span><br>
+                    </div>
+                    <div class="input">
+                        <input id="user" type="text" placeholder="E-mail" required>
+                        <span class="fa fa-envelope icon" style="left: 6.5px; top: 45%;"></span><br>
+                    </div>
+                    <div class="input">
+                        <input id="passw" type="password" placeholder="Escolha uma senha" required>
+                        <span class="fa fa-lock icon" style="left: 9.5px; top: 46%;"></span><br>
+                    </div>
+                    <div class="input">
+                        <input id="passw" type="password" placeholder="Repita a senha" required>
+                        <span class="fa fa-lock icon" style="left: 9.5px; top: 46%;"></span><br>
+                    </div>
+                    <button type="submit">Cadastrar-se</button>
+                </div>
+            </div>
+        </header>
+    </body>
+</html>
