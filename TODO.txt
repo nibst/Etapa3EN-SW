@@ -13,7 +13,13 @@
 [X] 12. Quando pegar da DB para objeto Event, fazer host ser User e address ser Address (no momento sao so id)
 [] 13. TODOS espalhados pelo codigo
 [X] 14. Joins nas consultas de evento
-[] 15. Rollbacks quando falha DB
+[X] 15. Rollbacks quando falha DB
+[X] 16. URGENTE: ARRUMAR QUERIES DO EVENT DAO, o join de eventos com participantes faz com que eventos que ainda nao
+possuam participantes, acabem por não aparecer na consulta. Outros problemas tambem
+[X] 17. Pq diabos passo um db connection pro DAO, só chama DB.get_instance la dentro uai.
+[] 18. Flask ja tem uma lib de acesso de DB, considerar trocar ela ao inves de usar psycopg2?
+[] 19. Rever especificacao, sera que devo dar errro se eh criado evento privado sem participantes?
+[] 20. Colocar event_validation em uma classe
 
 ----Principais----
 [] 1. Validar check in/check out
