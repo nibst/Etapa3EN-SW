@@ -1,0 +1,138 @@
+html{
+    scroll-behavior: smooth;
+}
+
+body,h1,h2,h3,h4,h5,h6 {
+    font-family: "Raleway", sans-serif
+}
+
+body, html {
+    height: 100%;
+    line-height: 2;
+}
+
+/* Imagem do Header */
+.bgimg-1 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("mp.png");
+    min-height: 100%;
+}
+
+.w3-bar .w3-button {
+    padding: 16px;
+}
+
+/* Barra de Pesquisa */
+#search{
+    background: white;
+    border: none;
+    width: 320px;
+    height: 42px;
+    position: relative;
+    border-radius: 20px;
+    top: 9.5px;
+    outline: none;
+    caret-color: transparent;
+    color: black;
+    text-indent: 3px;
+    -webkit-box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
+}
+
+::placeholder{
+    color: black;
+}
+
+/* Botão de Pesquisa */
+#search-button{
+    color: rgb(85, 85, 85);
+    position: relative;
+    right: 45px;
+    top: 8px;
+    border: none;
+}
+
+#search-button:hover{
+    color: black;
+    transition: all .3s ease-in-out;
+}
+
+/* Texto mudando */
+span-main:after{
+    content: '';
+    animation: animate infinite 10s;
+}
+
+@keyframes animate{
+    0%{
+        content: 'shows ';
+    }
+    20%{
+        content: 'shows ';
+    }
+    45%{
+        content: 'festas ';
+    }
+    70%{
+        content: 'congressos ';
+    }
+    90%{
+        content: 'palestras ';
+    }
+    100%{
+        content: 'palestras ';
+    }
+}
+
+#invisible-button{
+    opacity: 0%;
+    transform: rotate(45deg) translateX(-8px) scale(3);
+}
+
+.arrow{
+    position: relative;
+    margin-left: 30px;
+    bottom: 10px;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-top: 3.5px solid white;
+    border-right: 3.5px solid white;
+    border-radius: 2.5px;
+    transform: rotate(135deg);
+}
+
+.bounce{
+    animation: bounce 3s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) rotate(135deg);
+    }
+    40% {
+        transform: translateY(-30px) rotate(135deg);
+    }
+    60% {
+        transform: translateY(-15px) rotate(135deg);
+    }
+}
+
+.image-card{
+    width:100%;
+    border-radius: 8px 8px 0 0;
+}
+
+.image-card:hover{
+    width:100%;
+    border-radius: 8px 8px 8px 8px;
+    transform: scale(1.03);
+    transition: all .3s ease-in-out;
+}
+
+#card{
+    background: rgba(255,255,255,0.1);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+}
