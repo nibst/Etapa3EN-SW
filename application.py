@@ -7,8 +7,9 @@ app = Flask(import_name=__name__,
 username = 'Gustavo'
 
 @app.route("/")
+@app.route("/home")
 def index():
-    return render_template('index.html', username=username)
+    return render_template('index.html', title = 'Gerenciador de eventos', username=username)
 
 @app.route("/login")
 def login():
