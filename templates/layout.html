@@ -37,18 +37,21 @@
     <!-- Navbar -->
     <div class="w3-top">
         <div id="myNavbar" class="w3-bar w3-white w3-card-2">
-            <a href="#home" class="w3-bar-item w3-button"><img src="images/favicon-32x32.png"> &nbsp&nbspBem vindo,
+            <a href="{{ url_for('home') }}" class="w3-bar-item w3-button"><img src="images/favicon-32x32.png">
+                &nbsp&nbspBem vindo,
                 {{username}}!</a>
 
             <div class="w3-right w3-hide-small">
                 <input id="search" placeholder="Pesquisar" class="w3-bar-item" maxlength="32" />
-                <a id="search-button" href="#home" class="w3-bar-item">
+                <a id="search-button" href="{{ url_for('home') }}" class="w3-bar-item">
                     <!-- Modificar para "search" quando implementar pesquisa -->
                     <search-button type="submit"><i class="fa fa-search"></i></search-button>
                 </a>
 
-                <a href="#login" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i> &nbspLOGIN</a>
-                <a href="#signup" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i> &nbspSIGN UP</a>
+                <a href="{{ url_for('login') }}" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i>
+                    &nbspLOGIN</a>
+                <a href="{{ url_for('registro') }}" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i>
+                    &nbspSIGN UP</a>
             </div>
         </div>
     </div>
