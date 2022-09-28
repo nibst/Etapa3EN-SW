@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
  <!-- Header -->
- <form action="{{ url_for('login')}}" method="post">
-    <header class="image">
+<header class="image">
+    <form action="{{ url_for('login')}}" method="post">
         <!-- Login form -->
         <div class="w3-display-middle">
             <div id="login" class="w3-card-4 w3-round-large">
@@ -15,9 +15,9 @@
                     <input id="passw" type="password" name="password" placeholder="Senha" required>
                     <span class="fa fa-lock icon" style="left: 9.5px; top: 46%;"></span><br>
                 </div>
-                <button type="submit">Entrar</button>
+                <button type="submit">Entrar<button>
             </div>
         </div>
-    </header>
- </form>
+    </form>
+</header>
 {% endblock content %}
