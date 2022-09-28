@@ -8,7 +8,6 @@
         - página de pesquisa de pessoas
         - página de scan do qr code
         - página de emitir o certificado
-
         outros:
         - ver se tem outra paleta de cores melhor
         - ver se tem outra fonte melhor
@@ -25,7 +24,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="images/styles.css">
+    <link rel="stylesheet" href="images/index.css">
     {% if title %}
     <title>{{ title }}</title>
     {% else %}
@@ -50,7 +49,7 @@
 
                 <a href="{{ url_for('login') }}" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i>
                     &nbspLOGIN</a>
-                <a href="{{ url_for('registro') }}" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i>
+                <a href="{{ url_for('register') }}" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i>
                     &nbspSIGN UP</a>
             </div>
         </div>
