@@ -7,7 +7,7 @@ class AddressDao:
     """
     #TODO error handling of connection, sql injection
     def __init__(self) -> None:
-        db_connection_instance:DBConnectionSingleton = DBConnectionSingleton.get_instance
+        db_connection_instance:DBConnectionSingleton = DBConnectionSingleton.get_instance()
         self.__conn = db_connection_instance.get_connection()
         self.__cur = db_connection_instance.get_cursor()
     

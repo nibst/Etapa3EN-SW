@@ -1,4 +1,5 @@
 
+import os
 from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.Event import Event
 from src.application.EventService import EventService
@@ -9,7 +10,9 @@ from src.application.EventConverter import EventConverter
 from flask import Flask, flash, redirect, render_template, \
      request, url_for
 
-app = Flask(__name__)
+app = Flask(import_name=__name__,
+            static_folder=os.getcwd() + r"\images")
+            
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 @app.route('/')
@@ -20,15 +23,19 @@ def home():
 def login():
     error = None
     if request.method == 'POST':
+        print(request.form.keys())
         if request.form['username'] != 'admin' or \
                 request.form['password'] != 'secret':
             error = 'Invalid credentials'
         else:
-            flash('You were successfully logged in')
-            return redirect(url_for('index'))
+            return redirect(url_for('home'))
     return render_template('login.html', error=error)
 
-    
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    return render_template('register.html') 
+
 @app.route('/event/new_event', methods=['GET', 'POST'])
 def new_event(sub_events=[]):
     
