@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<!--
+    TODO:
+        funcionalidades:
+        - página de pesquisa de eventos
+        - página de scan do qr code
+        - página de emitir o certificado
+        - talvez: página de pesquisa de pessoas
+
+        outros:
+        - ver se tem outra paleta de cores melhor
+        - ver se tem outra fonte melhor
+        - ver se tem foto melhor pra home page
+        - verificar responsividade no celular
+-->
+
+<html id="top">
+    <head>
+        <title>Gerenciador de Eventos</title>
+        <link rel="icon" href="images/favicon-32x32.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="images/search_form.css">
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <div class="w3-top">
+            <div class="w3-bar w3-white w3-card-2">
+                <a href="home.html" class="w3-bar-item w3-button"><img src="images/favicon-32x32.png"> &nbsp&nbspBem vindo, {{username}}!</a>
+
+                <div class="w3-right w3-hide-small">
+                    <a href="home.html" class="w3-bar-item w3-button"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbspLOGOUT</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="bgimg-3">
+            <div class="w3-display-left w3-padding w3-col l12" style="margin-top: 35px;">
+                <div id="shadow" class="w3-container w3-white w3-padding-16" style="border-radius: 5px 5px 5px 5px;">
+                    <select class="w3-input w3-border w3-col l1" id="filtro" name="filtro" style="height: 48.5px;">
+                        <option value="Tipo">Filtrar por</option>
+                        <option value="Localidade">Localidade</option>
+                        <option value="Genero">Gênero</option>
+                    </select>
+                    <div class="w3-col l5 w3-margin-left">
+                        <input class="w3-input w3-border" type="text" placeholder="Procurando por algo?">
+                    </div>
+                    <select class="w3-input w3-border w3-margin-left w3-col l2" id="ordem" name="ordem" style="height: 48.5px;">
+                        <option value="Tipo">Ordenar por</option>
+                        <option value="Localidade">Data</option>
+                        <option value="Genero">Proximidade</option>
+                    </select>
+                    <span id="search-button" class="w3-button w3-right w3-hover-white w3-col l1" type="submit" style="width: 150px;">
+                        <i class="fa fa-search" aria-hidden="true"></i> &nbsp;Pesquisar
+                    </span>
+                </div>
+
+                <div id="shadow" class="w3-left w3-margin-top w3-col l12">
+                    <div class="w3-container w3-white w3-padding-16" style="border-radius: 5px 5px 5px 5px; height: 450px;">
+                        <!-- Aqui vão os resultados da pesquisa -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
