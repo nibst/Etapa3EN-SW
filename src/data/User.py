@@ -4,16 +4,17 @@
 from dataclasses import dataclass
 import random
 import time
+from flask_login import UserMixin
 
 @dataclass
-class User:
+class User(UserMixin):
 
     name:str 
     email:str
     password:str
     def __post_init__(self):
         self.id = int(str(int(time.time()*10)) + str(random.randint(0,9)) + str(random.randint(0,9)))#internal ID, unique for each event, random number is to guarantee uniqueness
-        
+        #self.hosted_events -> pegar eventos que ele eh host
     def set_password(self,password):
         self.password = password
         

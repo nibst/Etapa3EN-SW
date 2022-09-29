@@ -1,7 +1,6 @@
 
 from dataclasses import asdict
 from src.data.User import User
-
 class UserConverter:
 
     def __init__(self) -> None:
@@ -9,6 +8,7 @@ class UserConverter:
 
     #TODO maybe encrypt password
     def dict_to_object(self,dict):
+        print(dict)
         return User(**dict)
 
     def object_to_dict(self,user:User):

@@ -1,5 +1,5 @@
 
-import os
+from src.application.UserConverter import UserConverter
 from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.Event import Event
 from src.application.EventService import EventService
@@ -7,13 +7,9 @@ from src.data.User import User
 from src.application.UserService import UserService
 from src.application.EventConverter import EventConverter
 
-from flask import Flask, flash, redirect, render_template, \
-     request, url_for
-
-app = Flask(import_name=__name__,
-            static_folder=os.getcwd() + r"\images")
-            
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+from flask import Flask, flash, redirect, render_template, request, url_for
+from flask_login import LoginManager,login_user, current_user, logout_user, login_required
+from src import login_manager,app
 
 @app.route('/')
 def home():
@@ -21,19 +17,28 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    error = None
+    print(current_user)
+  
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    
     if request.method == 'POST':
-        print(request.form.keys())
-        if request.form['username'] != 'admin' or \
-                request.form['password'] != 'secret':
-            error = 'Invalid credentials'
+        user_service = UserService()
+        input_data = dict(request.form)
+        user = user_service.login(request.form['email'],request.form['password'])
+        if user:
+            login_user(user)
+            next_page = request.args.get('next')
+            print(current_user)
+            return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
-            return redirect(url_for('home'))
-    return render_template('login.html', error=error)
+            flash('Login Unsuccessful. Please check email and password', 'danger')
+    return render_template('login.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    
     return render_template('register.html') 
 
 @app.route('/event/new_event', methods=['GET', 'POST'])
@@ -87,10 +92,6 @@ def new_subevent(sub_events=[]):
     return render_template('create_subevent.html',sub_events = sub_events,)
     
     
-if __name__ == '__main__':
-    app.run(debug=True)
-    DBConnectionSingleton.get_instance() #in case there isnt an instance of DBconnection to destroy
-    DBConnectionSingleton.destroyer()
 
 
 

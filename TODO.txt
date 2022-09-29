@@ -21,6 +21,7 @@ possuam participantes, acabem por não aparecer na consulta. Outros problemas ta
 [] 20. Colocar event_validation em uma classe
 [] 21. Abstract DAOS - AbstractDAO de event,de user,etc. Terá duas impl da abstract class, uma seria a default e outra seria uma mock class. 
 A mock seria uma classe simulando DAO para os services, assim sem usar a DB.
+[] 22. User ter uma lista de eventos que ele possui (é host) e lista dos eventos que ele participa
 ----Principais----
 [] 1. Validar check in/check out
 [] 2. Gerar QRCode

@@ -2,6 +2,7 @@ from src.application.UserConverter import UserConverter
 from src.data.dao.UserDao import UserDao
 from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.User import User
+from src import login_manager
 import re
 
 class UserService:
@@ -38,3 +39,10 @@ class UserService:
             raise Exception("Invalid Password")
         return user
     
+    @login_manager.user_loader
+    def load_user(user_id):
+        user_dao = UserDao()
+        user_converter = UserConverter()
+        user_tuple = user_dao.get_user_by_id(user_id)
+        user = user_converter.database_tuple_to_object(user_tuple)
+        return user
