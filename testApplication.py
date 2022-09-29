@@ -43,22 +43,22 @@ class TestApplication(unittest.TestCase):
     def test_create_user(self):
 
         user_service = UserService()
-        name = 'nikolas'
+        username = 'nikolas'
         email = 'nikolas@gmail.com'
         password = '123'
         user_dao = UserDao()
         user_dao.delete_by_email(email) #delete to create again
-        user = User(name,email,password)
+        user = User(username,email,password)
         DBConnectionSingleton.destroyer()
         user = user_service.create_user(user)
         self.assertIsInstance(user, User) # verifica se o retorno é do tipo User
     
     def test_login_valido(self):
         user_service = UserService()
-        name = 'nikolas'
+        username = 'nikolas'
         email = 'emaildetesteparaevento@teste.eu'
         password = 'senha123'
-        user = User(name,email,password)
+        user = User(username,email,password)
         user = user_service.login(email,password)
         self.assertIsInstance(user, User) # verifica se o retorno é do tipo User
         try:
