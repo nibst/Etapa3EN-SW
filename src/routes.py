@@ -42,15 +42,37 @@ def logout():
     return redirect(url_for('home'))
 
 @app.route('/account', methods=['GET', 'POST'])
+@login_required
 def account():
     return render_template('account.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     
+    if request.method == 'POST':
+        #hashed_password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
+        user_service = UserService()
+        user_converter = UserConverter()
+        input_data = dict(request.form)
+        confirm_password = input_data.pop('confirm_password',None)
+        if confirm_password == input_data['password']:
+            user = user_converter.dict_to_object(input_data)
+        else:
+            flash('Passwords are not the same')
+            user = None
+        try:
+            user = user_service.create_user(user)
+        except:
+            flash('Error creating user')
+        else:
+            flash('Your account has been created! You are now able to log in', 'success')
+            return redirect(url_for('login'))
     return render_template('register.html') 
 
 @app.route('/event/new_event', methods=['GET', 'POST'])
+@login_required
 def new_event(sub_events=[]):
     
     if request.method == 'POST':
@@ -96,6 +118,7 @@ def events():
     return render_template('events.html',events=events)
 
 @app.route('/event/new_event/new_subevent', methods=['GET'])
+@login_required
 def new_subevent(sub_events=[]):
     
     return render_template('create_subevent.html',sub_events = sub_events,)

@@ -8,7 +8,7 @@ class UserConverter:
 
     #TODO maybe encrypt password
     def dict_to_object(self,dict):
-        print(dict)
+        
         return User(**dict)
 
     def object_to_dict(self,user:User):
