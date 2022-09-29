@@ -24,17 +24,26 @@ def login():
     
     if request.method == 'POST':
         user_service = UserService()
-        input_data = dict(request.form)
-        user = user_service.login(request.form['email'],request.form['password'])
-        if user:
+        try:
+            user = user_service.login(request.form['email'],request.form['password'])
+        except:
+            flash('Login Unsuccessful. Please check email and password', 'danger')
+        else:
             login_user(user)
             next_page = request.args.get('next')
             print(current_user)
             return redirect(next_page) if next_page else redirect(url_for('home'))
-        else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
+
     return render_template('login.html')
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
+@app.route('/account', methods=['GET', 'POST'])
+def account():
+    return render_template('account.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

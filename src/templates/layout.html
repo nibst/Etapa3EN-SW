@@ -38,7 +38,7 @@
         <div id="myNavbar" class="w3-bar w3-white w3-card-2">
             <a href="{{ url_for('home') }}" class="w3-bar-item w3-button"><img src="images/favicon-32x32.png">
                 &nbsp&nbspBem vindo,
-                {{username}}!</a>
+                {{current_user.username}}!</a>
 
             <div class="w3-right w3-hide-small">
                 <input id="search" placeholder="Pesquisar" class="w3-bar-item" maxlength="32" />
@@ -46,11 +46,17 @@
                     <!-- Modificar para "search" quando implementar pesquisa -->
                     <search-button type="submit"><i class="fa fa-search"></i></search-button>
                 </a>
-
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('account') }}" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i>
+                    &nbspACCOUNT</a>
+                <a href="{{ url_for('logout') }}" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i>
+                    &nbspLOGOUT</a>
+                {% else %}
                 <a href="{{ url_for('login') }}" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i>
                     &nbspLOGIN</a>
                 <a href="{{ url_for('register') }}" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i>
                     &nbspSIGN UP</a>
+                {% endif %}
             </div>
         </div>
     </div>
