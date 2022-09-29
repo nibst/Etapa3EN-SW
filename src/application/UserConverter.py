@@ -18,9 +18,9 @@ class UserConverter:
         if user_tuple is None:
             return None
             
-        keys = ('name','email','password')
+        keys = ('username','email','password')
         input_data = dict(zip(keys,user_tuple[1:])) #dont take id field, set later
         user = User(**input_data)
-        user.set_id(user_tuple[0]) #event_id is in tuple[0], then its host,name....
+        user.set_id(user_tuple[0]) #user_id is in tuple[0], then its username,email....
         return user
 
