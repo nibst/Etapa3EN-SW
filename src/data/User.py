@@ -9,7 +9,7 @@ from flask_login import UserMixin
 @dataclass
 class User(UserMixin):
 
-    name:str 
+    username:str 
     email:str
     password:str
     def __post_init__(self):
@@ -27,11 +27,11 @@ class User(UserMixin):
     def set_email(self,email):
         self.email = email
         
-    def get_name(self):
-        return self.name
+    def get_username(self):
+        return self.username
 
-    def set_name(self,name):
-        self.name = name
+    def set_username(self,username):
+        self.username = username
 
     def get_id(self):
         return self.id
@@ -40,5 +40,5 @@ class User(UserMixin):
         self.id = id
     
     def __str__(self):
-        return f"{self.name} - {self.email}"
+        return f"{self.username} - {self.email}"
     
