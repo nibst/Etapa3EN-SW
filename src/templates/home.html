@@ -1,271 +1,256 @@
-{% extends "layout.html" %}
-{% block content %}
+<!DOCTYPE html>
 
-<!-- Header -->
-<header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
-    <div class="w3-display-left w3-text-white" style="padding:48px">
-        <span-main class="w3-xxxlarge w3-hide-small">Procurando por&nbsp</span-main><br>
-        <span class="w3-xxxlarge w3-hide-small">próximos de você?</span>
-        <span class="arrow bounce"><a id="invisible-button" href="#event-list" class="w3-button"></a></span>
-    </div>
-</header>
+<!--
+    TODO:
+        funcionalidades:
+        - página de pesquisa de pessoas
+        - página de scan do qr code
+        - página de emitir o certificado
 
-<!-- Eventos -->
-<div class="w3-container" style="padding:80px 16px" id="event-list">
-    <h3 class="w3-center">Explore eventos da nossa lista &#128512;</h3>
+        outros:
+        - ver se tem outra paleta de cores melhor
+        - ver se tem outra fonte melhor
+        - ver se tem foto melhor pra home page
+        - verificar responsividade no celular
+-->
 
-    <div class="w3-row-padding" style="margin-top:64px">
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/evento-show.jpg" alt="show" class="image-card">
-                <div class="w3-container">
-                    <h3>Nome do Evento</h3>
-                    <p style="color: red; font-size: 10pt; margin-top: -20px;">data/hora/período</p>
-                    <p class="w3-opacity">Tipo do Evento</p>
-                    <p>Aqui vai uma descrição do Evento.</p>
-                    <p><button class="w3-button w3-dark-grey w3-block w3-round-large"></i>Inscrever-se</button></p>
+<html>
+    <head>
+        <title>Qevent</title>
+        <link rel="icon" href="images/favicon-32x32.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="images/home.css">
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <div class="w3-top">
+            <div id="navbar" class="w3-bar w3-white w3-card-2">
+                <a href="home.html" class="w3-bar-item w3-button"><img src="images/favicon-32x32.png"> &nbsp&nbspBem vindo, {{username}}!</a>
+
+                <div class="w3-right w3-hide-small">
+                    <a href="search_form.html" class="w3-bar-item w3-button"><i class="fa fa-search"></i> &nbspPESQUISAR</a>
+                    
+                    <a onclick="switchLoginForm()" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i> &nbspLOGIN</a>
+                    <a onclick="switchRegisterForm()" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i> &nbspSIGN UP</a>
                 </div>
             </div>
         </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/evento-festa.jpg" alt="festa" class="image-card">
-                <div class="w3-container">
-                    <h3>Nome do Evento</h3>
-                    <p style="color: red; font-size: 10pt; margin-top: -20px;">data/hora/período</p>
-                    <p class="w3-opacity">Tipo do Evento</p>
-                    <p>Aqui vai uma descrição do Evento.</p>
-                    <p><button class="w3-button w3-dark-grey w3-block w3-round-large"></i>Inscrever-se</button></p>
-                </div>
+
+        <!-- Header -->
+        <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+            <div class="w3-display-left w3-text-white" style="padding:48px">
+                <span-main class="w3-xxxlarge w3-hide-small">Procurando por&nbsp</span-main><br>
+                <span class="w3-xxxlarge w3-hide-small">próximos de você?</span>
+                <span class="arrow bounce"><a id="invisible-button" href="#event-list" class="w3-button"></a></span>
             </div>
-        </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/evento-futebol.jpg" alt="futebol" class="image-card">
-                <div class="w3-container">
-                    <h3>Nome do Evento</h3>
-                    <p style="color: red; font-size: 10pt; margin-top: -20px;">data/hora/período</p>
-                    <p class="w3-opacity">Tipo do Evento</p>
-                    <p>Aqui vai uma descrição do Evento.</p>
-                    <p><button class="w3-button w3-dark-grey w3-block w3-round-large"></i>Inscrever-se</button></p>
-                </div>
-            </div>
-        </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/evento-congresso.webp" alt="congresso" class="image-card">
-                <div class="w3-container">
-                    <h3>Nome do Evento</h3>
-                    <p style="color: red; font-size: 10pt; margin-top: -20px;">data/hora/período</p>
-                    <p class="w3-opacity">Tipo do Evento</p>
-                    <p>Aqui vai uma descrição do Evento.</p>
-                    <p><button class="w3-button w3-dark-grey w3-block w3-round-large"></i>Inscrever-se</button></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Estatísticas -->
-<div class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
-    <div class="w3-third"><span class="w3-xxlarge">999+</span><br>Usuários cadastrados</div>
-    <div class="w3-third"><span class="w3-xxlarge">999+</span><br>Eventos gerenciados</div>
-    <div class="w3-third"><span class="w3-xxlarge">999+</span><br>Certificados emitidos</div>
-</div>
-
-<!-- Usuários -->
-<div class="w3-container" style="padding:80px 16px" id="event-list">
-    <h3 class="w3-center">Encontre pessoas que frequentem os mesmos eventos que você &#128525;</h3>
-
-    <div class="w3-row-padding" style="margin-top:64px">
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/pessoa1.jpg" alt="show" class="image-card">
-                <div class="w3-container">
-                    <!-- Header -->
-                    <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
-                        <div class="w3-display-left w3-text-white" style="padding:48px">
-                            <span-main class="w3-xxxlarge w3-hide-small">Procurando por&nbsp</span-main><br>
-                            <span class="w3-xxxlarge w3-hide-small">próximos de você?</span>
-                            <span class="arrow bounce"><a id="invisible-button" href="#event-list"
-                                    class="w3-button"></a></span>
-                        </div>
-                    </header>
-
-                    <!-- Eventos -->
-                    <div class="w3-container" style="padding:80px 16px" id="event-list">
-                        <h3 class="w3-center">Explore eventos da nossa lista &#128512;</h3>
-
-                        <div class="w3-row-padding" style="margin-top:64px">
-                            <div class="w3-col l3 m6 w3-margin-bottom">
-                                <div id="card" class="w3-card-4 w3-round-large">
-                                    <img src="images/evento-show.jpg" alt="show" class="image-card">
-                                    <div class="w3-container">
-                                        <h3>Nome do Evento</h3>
-                                        <p style="color: red; font-size: 10pt; margin-top: -20px;">data/hora/período</p>
-                                        <p class="w3-opacity">Tipo do Evento</p>
-                                        <p>Aqui vai uma descrição do Evento.</p>
-                                        <p><button
-                                                class="w3-button w3-dark-grey w3-block w3-round-large"></i>Inscrever-se</button>
-                                        </p>
-                                    </div>
-                                </div>
+            <!-- Login pop-up -->
+            <div id="login-popup">
+                <!-- Login form -->
+                <form>
+                    <div class="w3-display-right" style="margin-right: 50px; margin-top: 20px;">
+                        <div id="login" class="w3-card-4 w3-round-large">
+                            <h1 style="transform: translateY(-25px);">Log-in</h1>
+                            <div class="input">
+                                <input id="user" type="text" placeholder="Usuário" required>
+                                <span class="fa fa-user-circle-o icon" style="left: 6px; top: 45%;"></span><br>
                             </div>
-                            <div class="w3-col l3 m6 w3-margin-bottom">
-                                <div id="card" class="w3-card-4 w3-round-large">
-                                    <img src="images/evento-festa.jpg" alt="festa" class="image-card">
-                                    <div class="w3-container">
-                                        <h3>Nome do Evento</h3>
-                                        <p style="color: red; font-size: 10pt; margin-top: -20px;">data/hora/período</p>
-                                        <p class="w3-opacity">Tipo do Evento</p>
-                                        <p>Aqui vai uma descrição do Evento.</p>
-                                        <p><button
-                                                class="w3-button w3-dark-grey w3-block w3-round-large"></i>Inscrever-se</button>
-                                        </p>
-                                    </div>
-                                </div>
+                            <div class="input">
+                                <input id="passw" type="password" placeholder="Senha" required>
+                                <span class="fa fa-lock icon" style="left: 9.5px; top: 46%;"></span><br>
                             </div>
-                            <div class="w3-col l3 m6 w3-margin-bottom">
-                                <div id="card" class="w3-card-4 w3-round-large">
-                                    <img src="images/evento-futebol.jpg" alt="futebol" class="image-card">
-                                    <div class="w3-container">
-                                        <h3>Nome do Evento</h3>
-                                        <p style="color: red; font-size: 10pt; margin-top: -20px;">data/hora/período</p>
-                                        <p class="w3-opacity">Tipo do Evento</p>
-                                        <p>Aqui vai uma descrição do Evento.</p>
-                                        <p><button
-                                                class="w3-button w3-dark-grey w3-block w3-round-large"></i>Inscrever-se</button>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="w3-col l3 m6 w3-margin-bottom">
-                                <div id="card" class="w3-card-4 w3-round-large">
-                                    <img src="images/evento-congresso.webp" alt="congresso" class="image-card">
-                                    <div class="w3-container">
-                                        <h3>Nome do Evento</h3>
-                                        <p style="color: red; font-size: 10pt; margin-top: -20px;">data/hora/período</p>
-                                        <p class="w3-opacity">Tipo do Evento</p>
-                                        <p>Aqui vai uma descrição do Evento.</p>
-                                        <p><button
-                                                class="w3-button w3-dark-grey w3-block w3-round-large"></i>Inscrever-se</button>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            <u class="w3-hover-opacity" onclick="switchRegisterForm()" style="font-size: 9.5pt; transition: all .2s ease-in-out;">Não possui uma conta?</u>
+                            <button type="submit">Entrar</button>
                         </div>
                     </div>
+                </form>
+            </div>
 
-                    <!-- Estatísticas -->
-                    <div class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
-                        <div class="w3-third"><span class="w3-xxlarge">999+</span><br>Usuários cadastrados</div>
-                        <div class="w3-third"><span class="w3-xxlarge">999+</span><br>Eventos gerenciados</div>
-                        <div class="w3-third"><span class="w3-xxlarge">999+</span><br>Certificados emitidos</div>
-                    </div>
-
-                    <!-- Usuários -->
-                    <div class="w3-container" style="padding:80px 16px" id="event-list">
-                        <h3 class="w3-center">Encontre pessoas que frequentem os mesmos eventos que você &#128525;</h3>
-
-                        <div class="w3-row-padding" style="margin-top:64px">
-                            <div class="w3-col l3 m6 w3-margin-bottom">
-                                <div id="card" class="w3-card-4 w3-round-large">
-                                    <img src="images/pessoa1.jpg" alt="show" class="image-card">
-                                    <div class="w3-container">
-                                        <h3>Nome da Pessoa</h3>
-                                        <p>Aqui vai uma descrição sobre a pessoa.</p>
-                                        <p><button
-                                                class="w3-button w3-dark-grey w3-block w3-round-large"></i>Conectar-se</button>
-                                        </p>
-                                    </div>
-                                </div>
+            <!-- Register pop-up -->
+            <div id="register-popup">
+                <!-- Register form -->
+                <form>
+                    <div class="w3-display-right">
+                        <div id="register" class="w3-card-4 w3-round-large" style="margin-right: 50px; margin-top: 20px;">
+                            <h1 style="transform: translateY(-25px);">Sign-Up</h1>
+                            <div class="input">
+                                <input id="user" type="text" placeholder="Usuário" required>
+                                <span class="fa fa-user-circle-o icon" style="left: 6px; top: 45%;"></span><br>
                             </div>
-                            <div class="w3-col l3 m6 w3-margin-bottom">
-                                <div id="card" class="w3-card-4 w3-round-large">
-                                    <img src="images/pessoa2.webp" alt="festa" class="image-card">
-                                    <div class="w3-container">
-                                        <h3>Nome da Pessoa</h3>
-                                        <p>Aqui vai uma descrição sobre a pessoa.</p>
-                                        <p><button
-                                                class="w3-button w3-dark-grey w3-block w3-round-large"></i>Conectar-se</button>
-                                        </p>
-                                    </div>
-                                </div>
+                            <div class="input">
+                                <input id="user" type="text" placeholder="E-mail" required>
+                                <span class="fa fa-envelope icon" style="left: 6.5px; top: 45%;"></span><br>
                             </div>
-                            <div class="w3-col l3 m6 w3-margin-bottom">
-                                <div id="card" class="w3-card-4 w3-round-large">
-                                    <img src="images/pessoa3.jpeg" alt="futebol" class="image-card">
-                                    <div class="w3-container">
-                                        <h3>Nome da Pessoa</h3>
-                                        <p>Aqui vai uma descrição sobre a pessoa.</p>
-                                        <p><button
-                                                class="w3-button w3-dark-grey w3-block w3-round-large"></i>Conectar-se</button>
-                                        </p>
-                                    </div>
-                                </div>
+                            <div class="input">
+                                <input id="passw" type="password" placeholder="Escolha uma senha" required>
+                                <span class="fa fa-lock icon" style="left: 9.5px; top: 46%;"></span><br>
                             </div>
-                            <div class="w3-col l3 m6 w3-margin-bottom">
-                                <div id="card" class="w3-card-4 w3-round-large">
-                                    <img src="images/pessoa4.webp" alt="congresso" class="image-card">
-                                    <div class="w3-container">
-                                        <h3>Nome da Pessoa</h3>
-                                        <p>Aqui vai uma descrição sobre a pessoa.</p>
-                                        <p><button
-                                                class="w3-button w3-dark-grey w3-block w3-round-large"></i>Conectar-se</button>
-                                        </p>
-                                    </div>
-                                </div>
+                            <div class="input">
+                                <input id="passw" type="password" placeholder="Repita a senha" required>
+                                <span class="fa fa-lock icon" style="left: 9.5px; top: 46%;"></span><br>
                             </div>
+                            <button type="submit">Cadastrar-se</button>
                         </div>
                     </div>
+                </form>
+            </div>
+        </header>
 
-                    <!-- Footer -->
-                    <footer class="w3-center w3-black w3-padding-32">
-                        <a href="#home" class="w3-button w3-dark-grey"><i
-                                class="fa fa-arrow-up w3-margin-right"></i>Voltar ao topo</a>
-                    </footer>
-                    <h3>Nome da Pessoa</h3>
-                    <p>Aqui vai uma descrição sobre a pessoa.</p>
-                    <p><button class="w3-button w3-dark-grey w3-block w3-round-large"></i>Conectar-se</button></p>
-                </div>
-            </div>
-        </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/pessoa2.webp" alt="festa" class="image-card">
-                <div class="w3-container">
-                    <h3>Nome da Pessoa</h3>
-                    <p>Aqui vai uma descrição sobre a pessoa.</p>
-                    <p><button class="w3-button w3-dark-grey w3-block w3-round-large"></i>Conectar-se</button></p>
-                </div>
-            </div>
-        </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/pessoa3.jpeg" alt="futebol" class="image-card">
-                <div class="w3-container">
-                    <h3>Nome da Pessoa</h3>
-                    <p>Aqui vai uma descrição sobre a pessoa.</p>
-                    <p><button class="w3-button w3-dark-grey w3-block w3-round-large"></i>Conectar-se</button></p>
-                </div>
-            </div>
-        </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/pessoa4.webp" alt="congresso" class="image-card">
-                <div class="w3-container">
-                    <h3>Nome da Pessoa</h3>
-                    <p>Aqui vai uma descrição sobre a pessoa.</p>
-                    <p><button class="w3-button w3-dark-grey w3-block w3-round-large"></i>Conectar-se</button></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+        <!-- Eventos -->
+        <div class="w3-container" style="padding:80px 16px" id="event-list">
+            <h3 class="w3-center">Explore eventos da nossa lista &#128512;</h3>
 
-<!-- Footer -->
-<footer class="w3-center w3-black w3-padding-32">
-    <a href="#home" class="w3-button w3-dark-grey"><i class="fa fa-arrow-up w3-margin-right"></i>Voltar ao topo</a>
-</footer>
+            <div class="w3-row-padding" style="margin-top:64px">
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                    <div id="card" class="w3-card-4 w3-round-large">
+                        <img src="images/evento-show.jpg" alt="show" class="image-card">
+                        <div class="w3-container">
+                            <h3>Nome do Evento</h3>
+                            <p style="color: red; font-size: 10pt; margin-top: -20px;">data/hora/período</p>
+                            <p class="w3-opacity">Tipo do Evento</p>
+                            <p>Aqui vai uma descrição do Evento.</p>
+                            <a href="event_page.html" style="text-decoration:none;">
+                                <button class="w3-button w3-dark-grey w3-block w3-round-large w3-margin-bottom"></i>Inscrever-se</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                    <div id="card" class="w3-card-4 w3-round-large">
+                        <img src="images/evento-festa.jpg" alt="festa" class="image-card">
+                        <div class="w3-container">
+                            <h3>Nome do Evento</h3>
+                            <p style="color: red; font-size: 10pt; margin-top: -20px;">data/hora/período</p>
+                            <p class="w3-opacity">Tipo do Evento</p>
+                            <p>Aqui vai uma descrição do Evento.</p>
+                            <a href="event_page.html" style="text-decoration:none;">
+                                <button class="w3-button w3-dark-grey w3-block w3-round-large w3-margin-bottom"></i>Inscrever-se</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                    <div id="card" class="w3-card-4 w3-round-large">
+                        <img src="images/evento-futebol.jpg" alt="futebol" class="image-card">
+                        <div class="w3-container">
+                            <h3>Nome do Evento</h3>
+                            <p style="color: red; font-size: 10pt; margin-top: -20px;">data/hora/período</p>
+                            <p class="w3-opacity">Tipo do Evento</p>
+                            <p>Aqui vai uma descrição do Evento.</p>
+                            <a href="event_page.html" style="text-decoration:none;">
+                                <button class="w3-button w3-dark-grey w3-block w3-round-large w3-margin-bottom"></i>Inscrever-se</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                    <div id="card" class="w3-card-4 w3-round-large">
+                        <img src="images/evento-congresso.webp" alt="congresso" class="image-card">
+                        <div class="w3-container">
+                            <h3>Nome do Evento</h3>
+                            <p style="color: red; font-size: 10pt; margin-top: -20px;">data/hora/período</p>
+                            <p class="w3-opacity">Tipo do Evento</p>
+                            <p>Aqui vai uma descrição do Evento.</p>
+                            <a href="event_page.html" style="text-decoration:none;">
+                                <button class="w3-button w3-dark-grey w3-block w3-round-large w3-margin-bottom"></i>Inscrever-se</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-{% endblock content %}
+        <!-- Criar Evento -->
+        <div class="w3-container w3-center w3-light-grey w3-padding-64">
+            <div style="font-size: 22pt;">Possui um evento que gostaria de compartilhar com outras pessoas?</div>
+            <div style="font-size: 16pt;">Nós podemos te ajudar a divulgá-lo &#128521</div>
+            <a href="create_event.html">
+                <div class="w3-button w3-margin-top w3-dark-grey w3-round-xxlarge w3-xlarge">Crie seu Evento</div>
+            </a>
+        </div>
+
+        <!-- Usuários -->
+        <div class="w3-container" style="padding:80px 16px" id="event-list">
+            <h3 class="w3-center">Encontre pessoas que frequentem os mesmos eventos que você &#128525;</h3>
+        
+            <div class="w3-row-padding" style="margin-top:64px">
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                    <div id="card" class="w3-card-4 w3-round-large">
+                        <img src="images/pessoa1.jpg" alt="show" class="image-card">
+                        <div class="w3-container">
+                            <h3>Nome da Pessoa</h3>
+                            <p>Aqui vai uma descrição sobre a pessoa.</p>
+                            <a href="user_page.html" style="text-decoration:none;"><button class="w3-button w3-dark-grey w3-block w3-round-large w3-margin-bottom"></i>Conectar-se</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                    <div id="card" class="w3-card-4 w3-round-large">
+                        <img src="images/pessoa2.webp" alt="festa" class="image-card">
+                        <div class="w3-container">
+                            <h3>Nome da Pessoa</h3>
+                            <p>Aqui vai uma descrição sobre a pessoa.</p>
+                            <a href="user_page.html" style="text-decoration:none;"><button class="w3-button w3-dark-grey w3-block w3-round-large w3-margin-bottom"></i>Conectar-se</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                    <div id="card" class="w3-card-4 w3-round-large">
+                        <img src="images/pessoa3.jpeg" alt="futebol" class="image-card">
+                        <div class="w3-container">
+                            <h3>Nome da Pessoa</h3>
+                            <p>Aqui vai uma descrição sobre a pessoa.</p>
+                            <a href="user_page.html" style="text-decoration:none;"><button class="w3-button w3-dark-grey w3-block w3-round-large w3-margin-bottom"></i>Conectar-se</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                    <div id="card" class="w3-card-4 w3-round-large">
+                        <img src="images/pessoa4.webp" alt="congresso" class="image-card">
+                        <div class="w3-container">
+                            <h3>Nome da Pessoa</h3>
+                            <p>Aqui vai uma descrição sobre a pessoa.</p>
+                            <a href="user_page.html" style="text-decoration:none;"><button class="w3-button w3-dark-grey w3-block w3-round-large w3-margin-bottom"></i>Conectar-se</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="w3-center w3-black w3-padding-32">
+            <a href="#home" class="w3-button w3-dark-grey"><i class="fa fa-arrow-up w3-margin-right"></i>Voltar ao topo</a>
+        </footer>
+
+        <!-- Scripts -->
+        <script>
+            document.getElementById("login-popup").style.display = "none";
+            document.getElementById("register-popup").style.display = "none";
+
+            function switchLoginForm(){
+                if(document.getElementById("login-popup").style.display == "block"){
+                    document.getElementById("login-popup").style.display = "none";
+                }
+                else{
+                    document.getElementById("register-popup").style.display = "none";
+                    document.getElementById("login-popup").style.display = "block";
+                }
+            }
+
+            function switchRegisterForm(){
+                if(document.getElementById("register-popup").style.display == "block"){
+                    document.getElementById("register-popup").style.display = "none";
+                }
+                else{
+                    document.getElementById("login-popup").style.display = "none";
+                    document.getElementById("register-popup").style.display = "block";
+                }
+            }
+        </script>
+    </body>
+</html>

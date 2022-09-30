@@ -1,241 +1,271 @@
-{% extends "layout.html" %}
-{% block content %}
+<!DOCTYPE html>
 
-<!-- Create Event -->
-<div class="bgimg-2 w3-middle">
-    <div class="w3-display-left w3-padding w3-col l7" style="margin-top: 220px;">
-        <div class="w3-container w3-light-gray" style="border-radius: 5px 5px 0px 0px;">
-            <h2><i class="fa fa-building" aria-hidden="true"></i> &nbsp;Crie seu evento!</h2>
-        </div>
-        <div class="w3-container w3-white w3-padding-16">
-            <div class="w3-row-padding">
-                <h4><i class="fa fa-info" aria-hidden="true"></i> &nbsp;Identificação</h4>
-                <div class="w3-half w3-margin-bottom">
-                    <input class="w3-input w3-border" type="text" placeholder="Nome do Evento">
-                </div>
-                <div class="w3-half w3-margin-bottom">
-                    <select class="w3-input w3-border" id="estado" name="estado" style="height: 48.5px;">
-                        <option value="Tipo">Tipo do Evento</option>
-                        <option value="Show">Show</option>
-                        <option value="Convenção">Convenção</option>
-                        <option value="Palestra">Palestra</option>
-                        <option value="Festa">Festa</option>
-                        <option value="Outros">Outros</option>
-                    </select>
-                </div>
-            </div>
-            <div class="w3-row-padding">
-                <h4><i class="fa fa-low-vision" aria-hidden="true"></i> &nbsp;Visibilidade</h4>
-                <div class="w3-half w3-margin-bottom">
-                    <input type="radio" id="publico" name="visibilidade" value="Público">
-                    <label for="publico">Público</label><br>
-                    <input type="radio" id="privado" name="visibilidade" value="Privado">
-                    <label for="privado">Privado</label>&nbsp;&nbsp;&nbsp;<input class="w3-border" type="text"
-                        placeholder=" Nomes dos convidados">
-                </div>
-            </div>
-            <div class="w3-row-padding">
-                <h4><i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp;Endereço</h4>
-                <div class="w3-half w3-margin-bottom">
-                    <input class="w3-input w3-border" type="text" placeholder="Rua">
-                </div>
-                <div class="w3-half w3-margin-bottom">
-                    <input class="w3-input w3-border" type="number" placeholder="Número">
-                </div>
-            </div>
-            <div class="w3-row-padding">
-                <div class="w3-half w3-margin-bottom">
-                    <input class="w3-input w3-border" type="text" placeholder="Cidade">
-                </div>
-                <div class="w3-half w3-margin-bottom">
-                    <select class="w3-input w3-border" id="estado" name="estado" style="height: 48.5px;">
-                        <option value="EST">Estado</option>
-                        <option value="AC">Acre</option>
-                        <option value="AL">Alagoas</option>
-                        <option value="AP">Amapá</option>
-                        <option value="AM">Amazonas</option>
-                        <option value="BA">Bahia</option>
-                        <option value="CE">Ceará</option>
-                        <option value="DF">Distrito Federal</option>
-                        <option value="ES">Espírito Santo</option>
-                        <option value="GO">Goiás</option>
-                        <option value="MA">Maranhão</option>
-                        <option value="MT">Mato Grosso</option>
-                        <option value="MS">Mato Grosso do Sul</option>
-                        <option value="MG">Minas Gerais</option>
-                        <option value="PA">Pará</option>
-                        <option value="PB">Paraíba</option>
-                        <option value="PR">Paraná</option>
-                        <option value="PE">Pernambuco</option>
-                        <option value="PI">Piauí</option>
-                        <option value="RJ">Rio de Janeiro</option>
-                        <option value="RN">Rio Grande do Norte</option>
-                        <option value="RS">Rio Grande do Sul</option>
-                        <option value="RO">Rondônia</option>
-                        <option value="RR">Roraima</option>
-                        <option value="SC">Santa Catarina</option>
-                        <option value="SP">São Paulo</option>
-                        <option value="SE">Sergipe</option>
-                        <option value="TO">Tocantins</option>
-                    </select>
-                </div>
-            </div>
-            <div class="w3-row-padding">
-                <h4><i class="fa fa-calendar" aria-hidden="true"></i> &nbsp;Data e Horário</h4>
-                <div class="w3-half w3-margin-bottom">
-                    <label><i class="fa fa-calendar-plus-o"></i> Data de Início</label>
-                    <input class="w3-input w3-border" type="date" required>
-                </div>
-                <div class="w3-half">
-                    <label><i class="fa fa-clock-o" aria-hidden="true"></i> Horário de Início</label>
-                    <input class="w3-input w3-border" type="time" required>
-                </div>
-            </div>
-            <div class="w3-row-padding">
-                <div class="w3-half w3-margin-bottom">
-                    <label><i class="fa fa-calendar-minus-o"></i> Data de Fim</label>
-                    <input class="w3-input w3-border" type="date" required>
-                </div>
-                <div class="w3-half">
-                    <label><i class="fa fa-clock-o" aria-hidden="true"></i> Horário de Fim</label>
-                    <input class="w3-input w3-border" type="time" required>
+<!--
+    TODO:
+        funcionalidades:
+        - página de pesquisa de eventos
+        - página de scan do qr code
+        - página de emitir o certificado
+        - talvez: página de pesquisa de pessoas
+
+        outros:
+        - ver se tem outra paleta de cores melhor
+        - ver se tem outra fonte melhor
+        - ver se tem foto melhor pra home page
+        - verificar responsividade no celular
+-->
+
+<html id="top">
+    <head>
+        <title>Qevent</title>
+        <link rel="icon" href="images/favicon-32x32.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="images/home.css">
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <div class="w3-top">
+            <div class="w3-bar w3-white w3-card-2">
+                <a href="home.html" class="w3-bar-item w3-button"><img src="images/favicon-32x32.png"> &nbsp&nbspBem vindo, {{username}}!</a>
+
+                <div class="w3-right w3-hide-small">
+                    <a href="search_form.html" class="w3-bar-item w3-button"><i class="fa fa-search"></i> &nbspPESQUISAR</a>
+                    <a href="home.html" class="w3-bar-item w3-button"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbspLOGOUT</a>
                 </div>
             </div>
         </div>
-        <div class="w3-container w3-black" style="border-radius: 0px 0px 5px 5px; height: 85px;">
-            <button class="w3-button w3-white w3-right w3-round-xxlarge w3-margin-right w3-col l3" type="submit"><i
-                    class="fa fa-check" aria-hidden="true"></i> &nbsp;Criar Evento</button>
-            <a href="#top"><button onclick="addSubEvent()"
-                    class="w3-button w3-white w3-left w3-round-xxlarge w3-margin-right w3-col l4" type="submit"><i
-                        class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;Adicionar Sub-evento</button></a>
+
+        <!-- Create Event -->
+        <div class="bgimg-2">
+            <div class="w3-display-topleft w3-padding w3-col l7" style="margin-top: 65px;">
+                <div class="w3-container w3-light-gray" style="border-radius: 5px 5px 0px 0px;">
+                    <h2><i class="fa fa-building" aria-hidden="true"></i> &nbsp;Crie seu evento!</h2>
+                </div>
+                <div class="w3-container w3-white w3-padding-16">
+                    <div class="w3-row-padding">
+                        <h4><i class="fa fa-info" aria-hidden="true"></i> &nbsp;Identificação</h4>
+                        <div class="w3-half w3-margin-bottom">
+                            <input class="w3-input w3-border" type="text" placeholder="Nome do Evento">
+                        </div>
+                        <div class="w3-half w3-margin-bottom">
+                            <select class="w3-input w3-border" id="estado" name="estado" style="height: 48.5px;">
+                                <option value="Tipo">Tipo do Evento</option>
+                                <option value="Show">Show</option>
+                                <option value="Convenção">Convenção</option>
+                                <option value="Palestra">Palestra</option>
+                                <option value="Festa">Festa</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <h4><i class="fa fa-low-vision" aria-hidden="true"></i> &nbsp;Visibilidade</h4>
+                        <div class="w3-half w3-margin-bottom">
+                            <input type="radio" id="publico" name="visibilidade" value="Público">
+                            <label for="publico">Público</label><br>
+                            <input type="radio" id="privado" name="visibilidade" value="Privado">
+                            <label for="privado">Privado</label>&nbsp;&nbsp;&nbsp;<input class="w3-border" type="text" placeholder="Nomes dos convidados" style="width: 205px;">
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <h4><i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp;Endereço</h4>
+                        <div class="w3-half w3-margin-bottom">
+                            <input class="w3-input w3-border" type="text" placeholder="Rua">
+                        </div>
+                        <div class="w3-half w3-margin-bottom">
+                            <input class="w3-input w3-border" type="number" placeholder="Número">
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-half w3-margin-bottom">
+                            <input class="w3-input w3-border" type="text" placeholder="Cidade">
+                        </div>
+                        <div class="w3-half w3-margin-bottom">
+                            <select class="w3-input w3-border" id="estado" name="estado" style="height: 48.5px;">
+                                <option value="EST">Estado</option>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <h4><i class="fa fa-calendar" aria-hidden="true"></i> &nbsp;Data e Horário</h4>
+                        <div class="w3-half w3-margin-bottom">
+                            <label><i class="fa fa-calendar-plus-o"></i> Data de Início</label>
+                            <input class="w3-input w3-border" type="date" required>
+                        </div>
+                        <div class="w3-half">
+                            <label><i class="fa fa-clock-o" aria-hidden="true"></i> Horário de Início</label>
+                            <input class="w3-input w3-border" type="time" required>
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-half w3-margin-bottom">
+                            <label><i class="fa fa-calendar-minus-o"></i> Data de Fim</label>
+                            <input class="w3-input w3-border" type="date" required>
+                        </div>
+                        <div class="w3-half">
+                            <label><i class="fa fa-clock-o" aria-hidden="true"></i> Horário de Fim</label>
+                            <input class="w3-input w3-border" type="time" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3-container w3-black" style="border-radius: 0px 0px 5px 5px; height: 85px;">
+                    <button class="w3-button w3-white w3-right w3-round-xxlarge w3-margin-right w3-col l3" type="submit"><i class="fa fa-check" aria-hidden="true"></i> &nbsp;Criar Evento</button>
+                    <a href="#top"><button onclick="addSubEvent()" class="w3-button w3-white w3-left w3-round-xxlarge w3-margin-right w3-col l4" type="submit"><i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;Adicionar Sub-evento</button></a>
+                </div>
+            </div>
+
+            <!-- Create Sub-event -->
+            <div id="subevent-popup" class="w3-display-topright w3-padding w3-col l5" style="margin-top: 65px;">
+                <div class="w3-container w3-light-gray" style="border-radius: 5px 5px 0px 0px;">
+                    <h2><i class="fa fa-building-o" aria-hidden="true"></i> &nbsp;Adicione um Sub-evento!</h2>
+                </div>
+                <div class="w3-container w3-white w3-padding-16">
+                    <div class="w3-row-padding">
+                        <h4><i class="fa fa-info" aria-hidden="true"></i> &nbsp;Identificação</h4>
+                        <div class="w3-half w3-margin-bottom">
+                            <input class="w3-input w3-border" type="text" placeholder="Nome do Evento">
+                        </div>
+                        <div class="w3-half w3-margin-bottom">
+                            <select class="w3-input w3-border" id="estado1" name="estado1" style="height: 48.5px;">
+                                <option value="Tipo">Tipo do Evento</option>
+                                <option value="Show">Show</option>
+                                <option value="Convenção">Convenção</option>
+                                <option value="Palestra">Palestra</option>
+                                <option value="Festa">Festa</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <h4><i class="fa fa-low-vision" aria-hidden="true"></i> &nbsp;Visibilidade</h4>
+                        <div class="w3-half w3-margin-bottom">
+                            <input type="radio" id="publico1" name="visibilidade1" value="Público1">
+                            <label for="publico1">Público</label><br>
+                            <input type="radio" id="privado1" name="visibilidade1" value="Privado1">
+                            <label for="privado">Privado</label>&nbsp;&nbsp;&nbsp;<input class="w3-border" type="text" placeholder="Nomes dos convidados" style="width: 120px;">
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <h4><i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp;Endereço</h4>
+                        <div class="w3-half w3-margin-bottom">
+                            <input class="w3-input w3-border" type="text" placeholder="Rua">
+                        </div>
+                        <div class="w3-half w3-margin-bottom">
+                            <input class="w3-input w3-border" type="number" placeholder="Número">
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-half w3-margin-bottom">
+                            <input class="w3-input w3-border" type="text" placeholder="Cidade">
+                        </div>
+                        <div class="w3-half w3-margin-bottom">
+                            <select class="w3-input w3-border" id="estado" name="estado" style="height: 48.5px;">
+                                <option value="EST">Estado</option>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <h4><i class="fa fa-calendar" aria-hidden="true"></i> &nbsp;Data e Horário</h4>
+                        <div class="w3-half w3-margin-bottom">
+                            <label><i class="fa fa-calendar-plus-o"></i> Data de Início</label>
+                            <input class="w3-input w3-border" type="date" required>
+                        </div>
+                        <div class="w3-half">
+                            <label><i class="fa fa-clock-o" aria-hidden="true"></i> Horário de Início</label>
+                            <input class="w3-input w3-border" type="time" required>
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-half w3-margin-bottom">
+                            <label><i class="fa fa-calendar-minus-o"></i> Data de Fim</label>
+                            <input class="w3-input w3-border" type="date" required>
+                        </div>
+                        <div class="w3-half">
+                            <label><i class="fa fa-clock-o" aria-hidden="true"></i> Horário de Fim</label>
+                            <input class="w3-input w3-border" type="time" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3-container w3-black" style="border-radius: 0px 0px 5px 5px; height: 85px;">
+                    <button onclick="cancelSubEvent()" class="w3-button w3-white w3-left w3-round-xxlarge w3-margin-right w3-col l3" type="submit"><i class="fa fa-times" aria-hidden="true"></i> &nbsp;Cancelar</button>
+                    <button onclick="finishSubEvent()" class="w3-button w3-white w3-right w3-round-xxlarge w3-margin-right w3-col l3" type="submit"><i class="fa fa-check" aria-hidden="true"></i> &nbsp;Adicionar</button>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- Create Sub-event -->
-    <div id="subevent-popup" class="w3-display-right w3-padding w3-col l5" style="margin-top: 220px;">
-        <div class="w3-container w3-light-gray" style="border-radius: 5px 5px 0px 0px;">
-            <h2><i class="fa fa-building-o" aria-hidden="true"></i> &nbsp;Adicione um Sub-evento!</h2>
-        </div>
-        <div class="w3-container w3-white w3-padding-16">
-            <div class="w3-row-padding">
-                <h4><i class="fa fa-info" aria-hidden="true"></i> &nbsp;Identificação</h4>
-                <div class="w3-half w3-margin-bottom">
-                    <input class="w3-input w3-border" type="text" placeholder="Nome do Evento">
-                </div>
-                <div class="w3-half w3-margin-bottom">
-                    <select class="w3-input w3-border" id="estado1" name="estado1" style="height: 48.5px;">
-                        <option value="Tipo">Tipo do Evento</option>
-                        <option value="Show">Show</option>
-                        <option value="Convenção">Convenção</option>
-                        <option value="Palestra">Palestra</option>
-                        <option value="Festa">Festa</option>
-                        <option value="Outros">Outros</option>
-                    </select>
-                </div>
-            </div>
-            <div class="w3-row-padding">
-                <h4><i class="fa fa-low-vision" aria-hidden="true"></i> &nbsp;Visibilidade</h4>
-                <div class="w3-half w3-margin-bottom">
-                    <input type="radio" id="publico1" name="visibilidade1" value="Público1">
-                    <label for="publico1">Público</label><br>
-                    <input type="radio" id="privado1" name="visibilidade1" value="Privado1">
-                    <label for="privado1">Privado</label>&nbsp;&nbsp;&nbsp;<input class="w3-border" type="text"
-                        placeholder=" Nomes dos convidados" style="width: 140px;">
-                </div>
-            </div>
-            <div class="w3-row-padding">
-                <h4><i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp;Endereço</h4>
-                <div class="w3-half w3-margin-bottom">
-                    <input class="w3-input w3-border" type="text" placeholder="Rua">
-                </div>
-                <div class="w3-half w3-margin-bottom">
-                    <input class="w3-input w3-border" type="number" placeholder="Número">
-                </div>
-            </div>
-            <div class="w3-row-padding">
-                <div class="w3-half w3-margin-bottom">
-                    <input class="w3-input w3-border" type="text" placeholder="Cidade">
-                </div>
-                <div class="w3-half w3-margin-bottom">
-                    <select class="w3-input w3-border" id="estado" name="estado" style="height: 48.5px;">
-                        <option value="EST">Estado</option>
-                        <option value="AC">Acre</option>
-                        <option value="AL">Alagoas</option>
-                        <option value="AP">Amapá</option>
-                        <option value="AM">Amazonas</option>
-                        <option value="BA">Bahia</option>
-                        <option value="CE">Ceará</option>
-                        <option value="DF">Distrito Federal</option>
-                        <option value="ES">Espírito Santo</option>
-                        <option value="GO">Goiás</option>
-                        <option value="MA">Maranhão</option>
-                        <option value="MT">Mato Grosso</option>
-                        <option value="MS">Mato Grosso do Sul</option>
-                        <option value="MG">Minas Gerais</option>
-                        <option value="PA">Pará</option>
-                        <option value="PB">Paraíba</option>
-                        <option value="PR">Paraná</option>
-                        <option value="PE">Pernambuco</option>
-                        <option value="PI">Piauí</option>
-                        <option value="RJ">Rio de Janeiro</option>
-                        <option value="RN">Rio Grande do Norte</option>
-                        <option value="RS">Rio Grande do Sul</option>
-                        <option value="RO">Rondônia</option>
-                        <option value="RR">Roraima</option>
-                        <option value="SC">Santa Catarina</option>
-                        <option value="SP">São Paulo</option>
-                        <option value="SE">Sergipe</option>
-                        <option value="TO">Tocantins</option>
-                    </select>
-                </div>
-            </div>
-            <div class="w3-row-padding">
-                <h4><i class="fa fa-calendar" aria-hidden="true"></i> &nbsp;Data e Horário</h4>
-                <div class="w3-half w3-margin-bottom">
-                    <label><i class="fa fa-calendar-plus-o"></i> Data de Início</label>
-                    <input class="w3-input w3-border" type="date" required>
-                </div>
-                <div class="w3-half">
-                    <label><i class="fa fa-clock-o" aria-hidden="true"></i> Horário de Início</label>
-                    <input class="w3-input w3-border" type="time" required>
-                </div>
-            </div>
-            <div class="w3-row-padding">
-                <div class="w3-half w3-margin-bottom">
-                    <label><i class="fa fa-calendar-minus-o"></i> Data de Fim</label>
-                    <input class="w3-input w3-border" type="date" required>
-                </div>
-                <div class="w3-half">
-                    <label><i class="fa fa-clock-o" aria-hidden="true"></i> Horário de Fim</label>
-                    <input class="w3-input w3-border" type="time" required>
-                </div>
-            </div>
-        </div>
-        <div class="w3-container w3-black" style="border-radius: 0px 0px 5px 5px; height: 85px;">
-            <button onclick="cancelSubEvent()"
-                class="w3-button w3-white w3-left w3-round-xxlarge w3-margin-right w3-col l3" type="submit"><i
-                    class="fa fa-times" aria-hidden="true"></i> &nbsp;Cancelar</button>
-            <button onclick="finishSubEvent()"
-                class="w3-button w3-white w3-right w3-round-xxlarge w3-margin-right w3-col l3" type="submit"><i
-                    class="fa fa-check" aria-hidden="true"></i> &nbsp;Adicionar</button>
-        </div>
-    </div>
-</div>
+        <script>
+            document.getElementById("subevent-popup").style.display = "none";
 
-<script>
-    document.getElementById("subevent-popup").style.display = "none";
+            function addSubEvent(){
+                document.getElementById("subevent-popup").style.display = "block";
+            }
 
-    function addSubEvent() {
-        document.getElementById("subevent-popup").style.display = "block";
-    }
+            function cancelSubEvent(){
+                document.getElementById("subevent-popup").style.display = "none";
+            }
 
-    function cancelSubEvent() {
-        document.getElementById("subevent-popup").style.display = "none";
-    }
-
-    function finishSubEvent() {
-        cancelSubEvent();
-    }
-</script>
-
-{% endblock content %}
+            function finishSubEvent(){
+                cancelSubEvent();
+            }
+        </script>
+    </body>
+</html>

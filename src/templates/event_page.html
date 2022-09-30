@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<!--
+    TODO:
+        funcionalidades:
+        - página de scan do qr code
+        - página de emitir o certificado
+        - talvez: página de pesquisa de pessoas
+
+        outros:
+        - ver se tem outra paleta de cores melhor
+        - ver se tem outra fonte melhor
+        - ver se tem foto melhor pra home page
+        - verificar responsividade no celular
+-->
+
+<html id="top">
+    <head>
+        <title>Qevent</title>
+        <link rel="icon" href="images/favicon-32x32.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="images/home.css">
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <div class="w3-top">
+            <div id="navbar" class="w3-bar w3-white w3-card-2">
+                <a href="home.html" class="w3-bar-item w3-button"><img src="images/favicon-32x32.png"> &nbsp&nbspBem vindo, {{username}}!</a>
+
+                <div class="w3-right w3-hide-small">
+                    <a href="search_form.html" class="w3-bar-item w3-button"><i class="fa fa-search"></i> &nbspPESQUISAR</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="w3-display-container w3-margin-top">
+            <img src="images/evento-futebol.jpg" style="width:100%; height: 350px; object-fit: cover; margin-top: 48px;">
+            <div class="w3-card w3-white w3-container w3-display-middle" style="opacity: 0.9; width: 100%; height: 150px;">
+                <h1 class="w3-center"><b>NOME DO EVENTO</b></h1>
+                <a class="w3-button w3-round-xxlarge w3-light-gray w3-hover-opacity-min w3-display-bottommiddle w3-margin-bottom" style="width: 20%;">
+                    <b>Inscrever-se</b>
+                </a>
+            </div>
+        </div>
+        
+        <div class="w3-row w3-display-container bg-gradient">
+            <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-top w3-margin-right w3-round-large">
+                <h1 class="w3-center">Sobre o Evento &#x1F603;</h1>
+                <hr>
+                <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+            </div>
+
+            <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-right w3-round-large">
+                <h1 class="w3-center">Datas e Horários &#x1F4C5;</h1>
+                <hr>
+                <div class="w3-col l6 w3-center">
+                    <h4>&#x27A1; Check-In</h4>
+                    <h6><i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp;dd/mm/aaaa</h6>
+                    <h6><i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;hh:mm</h6>
+                </div>
+                <div class="w3-col l6 w3-center">
+                    <h4>Check-Out &#x27A1;</h4>
+                    <h6><i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp;dd/mm/aaaa</h6>
+                    <h6><i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;hh:mm</h6>
+                </div>
+            </div>
+
+            <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-right w3-round-large">
+                <h1 class="w3-center">Local &#x1F3E1;</h1>
+                <hr>
+                <div class="w3-col l12 w3-middle w3-center">
+                    <img src="images/foto1.jpg" alt="foto_evento" class="w3-round-xxlarge small-circle fit">
+                    <img src="images/foto2.webp" alt="foto_evento" class="w3-round-xxlarge w3-margin-top w3-margin-left small-circle fit">
+                    <img src="images/foto3.webp" alt="foto_evento" class="w3-round-xxlarge w3-margin-top w3-margin-left small-circle fit">
+                    <img src="images/foto4.webp" alt="foto_evento" class="w3-round-xxlarge w3-margin-top w3-margin-left small-circle fit">
+                    <img src="images/foto5.jpg" alt="foto_evento" class="w3-round-xxlarge w3-margin-top w3-margin-left small-circle fit">
+                </div>
+                <div class="w3-col l4 w3-middle w3-center w3-margin-top">
+                    <hr>
+                    <h3>Cidade, Estado (UF)</h3>
+                </div>
+                <div class="w3-col l4 w3-middle w3-center w3-margin-top">
+                    <hr>
+                    <h3>Bairro</h3>
+                </div>
+                <div class="w3-col l4 w3-middle w3-center w3-margin-top">
+                    <hr>
+                    <h3>Rua, Número</h3>
+                </div>
+            </div>
+
+            <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-top w3-margin-right w3-round-large">
+                <h1 class="w3-center">Outras Informações &#x2757;&#x2757;&#x2757;</h1>
+                <hr>
+                <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Velit laoreet id donec ultrices. Auctor urna nunc id cursus metus aliquam eleifend mi in. Volutpat blandit aliquam etiam erat velit scelerisque. Porttitor rhoncus dolor purus non enim praesent elementum. Varius quam quisque id diam vel. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Lectus sit amet est placerat in egestas erat imperdiet. Suspendisse in est ante in nibh mauris cursus mattis molestie. Ut sem viverra aliquet eget sit. Et pharetra pharetra massa massa ultricies mi quis. Leo in vitae turpis massa sed. Risus commodo viverra maecenas accumsan lacus vel facilisis volutpat. Vel pharetra vel turpis nunc eget lorem dolor sed. Amet est placerat in egestas erat imperdiet sed euismod. Est ullamcorper eget nulla facilisi etiam dignissim diam quis. Quam pellentesque nec nam aliquam sem et tortor consequat id. Vitae ultricies leo integer malesuada nunc.</h5>
+            </div>
+        </div>
+    </body>
+</html> 
