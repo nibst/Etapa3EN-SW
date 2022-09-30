@@ -5,3 +5,5 @@ import qrcode
 def cria_qr(link, nome_arquivo):
     img = qrcode.make(link)
     img.save('././QR/'+ nome_arquivo)
+
+#cria_qr("https://www.google.com", "google.png")
