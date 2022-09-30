@@ -4,6 +4,7 @@ import datetime
 import time
 from typing import List
 from datetime import date
+from unicodedata import category
 from src.data.User import User
 from src.data.Address import Address
 import random
@@ -18,7 +19,8 @@ class Event:
     end_date:date 
     visibility:bool #True if public, False if private
     check_in:time 
-    check_out:time 
+    check_out:time
+    category:str = None
     event_parent:"Event" = None
     list_of_participants:List[User] = None # list of emails of the participants
     id:int = None

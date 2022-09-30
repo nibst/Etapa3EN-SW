@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% macro duplicated() %}
+    {% block event %}{% endblock %}
+{% endmacro %}
+<!-- Create Event -->
+<form action="{{ url_for('new_event')}}" method="post">
+    <div class="bgimg-2 w3-middle">
+        <div class="w3-display-left w3-padding w3-col l7" style="margin-top: 220px;">
+            <div class="w3-container w3-light-gray" style="border-radius: 5px 5px 0px 0px;">
+                <h2><i class="fa fa-building" aria-hidden="true"></i> &nbsp;Crie seu evento!</h2>
+            </div>
+            {{ duplicated() }}
+            <div class="w3-container w3-black" style="border-radius: 0px 0px 5px 5px; height: 85px;">
+                <button class="w3-button w3-white w3-right w3-round-xxlarge w3-margin-right w3-col l3" type="submit"><i
+                        class="fa fa-check" aria-hidden="true"></i> &nbsp;Criar Evento</button>
+                <button onclick="addSubEvent()"
+                        class="w3-button w3-white w3-left w3-round-xxlarge w3-margin-right w3-col l4" type="button"><i
+                            class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;Adicionar Sub-evento</button>
+            </div>
+        </div>
+</form>
+
+    <!-- Create Sub-event -->
+    <form action="{{ url_for('new_subevent')}}" method="post">
+        <div id="subevent-popup" class="w3-display-right w3-padding w3-col l5" style="margin-top: 220px;">
+            <div class="w3-container w3-light-gray" style="border-radius: 5px 5px 0px 0px;">
+                <h2><i class="fa fa-building-o" aria-hidden="true"></i> &nbsp;Adicione um Sub-evento!</h2>
+            </div>
+            {{ duplicated() }}
+            <div class="w3-container w3-black" style="border-radius: 0px 0px 5px 5px; height: 85px;">
+                <button onclick="cancelSubEvent()"
+                    class="w3-button w3-white w3-left w3-round-xxlarge w3-margin-right w3-col l3" type="button"><i
+                        class="fa fa-times" aria-hidden="true"></i> &nbsp;Cancelar</button>
+                <button onclick="finishSubEvent()"
+                    class="w3-button w3-white w3-right w3-round-xxlarge w3-margin-right w3-col l3" type="submit"><i
+                        class="fa fa-check" aria-hidden="true"></i> &nbsp;Adicionar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById("subevent-popup").style.display = "none";
+
+    function addSubEvent() {
+        document.getElementById("subevent-popup").style.display = "block";
+    }
+
+    function cancelSubEvent() {
+        document.getElementById("subevent-popup").style.display = "none";
+    }
+
+    function finishSubEvent() {
+        cancelSubEvent();
+    }
+</script>
+
+{% endblock content %}
+
+

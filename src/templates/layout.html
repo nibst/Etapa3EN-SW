@@ -3,7 +3,6 @@
 <!--
     TODO:
         funcionalidades:
-        - página de criar eventos
         - página de pesquisa de eventos
         - página de pesquisa de pessoas
         - página de scan do qr code
@@ -16,21 +15,16 @@
 -->
 
 <html>
-
-<head>
-    <link rel="icon" href="images/favicon-32x32.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="images/index.css">
-    {% if title %}
-    <title>{{ title }}</title>
-    {% else %}
-    <title>Gerenciador de eventos</title>
-    {% endif %}
-</head>
+    <head>
+        <title>Gerenciador de Eventos</title>
+        <link rel="icon" href="images/favicon-32x32.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="images/index.css">
+    </head>
 
 <body>
     <!-- Navbar -->
@@ -42,7 +36,7 @@
 
             <div class="w3-right w3-hide-small">
                 <input id="search" placeholder="Pesquisar" class="w3-bar-item" maxlength="32" />
-                <a id="search-button" href="{{ url_for('home') }}" class="w3-bar-item">
+                <a id="search-button" href="{{ url_for('search') }}" class="w3-bar-item">
                     <!-- Modificar para "search" quando implementar pesquisa -->
                     <search-button type="submit"><i class="fa fa-search"></i></search-button>
                 </a>

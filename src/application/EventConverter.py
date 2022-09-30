@@ -37,10 +37,9 @@ class EventConverter:
         
         apartment = self.__process_optional_field('apartment',input_data)
         complement = self.__process_optional_field('complement',input_data)
-        
 
-        address = Address(input_data['street'],input_data['house_number'],input_data['city'],input_data['state'],input_data['zip-code'] ,apartment,complement)
-        remove_keys = ('street','city','state','house_number','zip-code','apartment','complement') #remove these keys from input_data to use input_data as dict for event object
+        address = Address(input_data['street'],input_data['house_number'],input_data['city'],input_data['state'],input_data['zip_code'] ,apartment,complement)
+        remove_keys = ('street','city','state','house_number','zip_code','apartment','complement') #remove these keys from input_data to use input_data as dict for event object
         input_data['address'] = address
         for key in remove_keys:
             input_data.pop(key,None)
