@@ -14,7 +14,7 @@ body, html {
 .bgimg-1 {
     background-position: center;
     background-size: cover;
-    background-image: url("mp.png");
+    background-image: url("mp.jpg");
     min-height: 100%;
 }
 
@@ -43,43 +43,8 @@ body, html {
     padding: 16px;
 }
 
-/* Barra de Pesquisa */
-#search{
-    background: white;
-    border: none;
-    width: 320px;
-    height: 42px;
-    position: relative;
-    border-radius: 20px;
-    top: 9.5px;
-    outline: none;
-    caret-color: transparent;
-    color: black;
-    text-indent: 3px;
-    -webkit-box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
-    box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
-}
-
-::placeholder{
-    color: black;
-}
-
-/* Botão de Pesquisa */
-#search-button{
-    color: rgb(85, 85, 85);
-    position: relative;
-    right: 45px;
-    top: 8px;
-    border: none;
-}
-
-#search-button:hover{
-    color: black;
-    transition: all .3s ease-in-out;
-}
-
 /* Texto mudando */
-span-main:after{
+.main-span:after{
     content: '';
     animation: animate infinite 10s;
 }
@@ -179,12 +144,12 @@ span-main:after{
     color: gray;
 }
 
-input{
-    padding-left: 17px;
-}
-  
 .input{
     position: relative;
+}
+
+input{
+    padding-left: 17px;
 }
 
 button{
