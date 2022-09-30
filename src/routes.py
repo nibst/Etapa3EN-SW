@@ -105,12 +105,14 @@ def new_event(sub_events=[]):
 @app.route('/new_event/new_subevent', methods=['GET','POST'],)
 @login_required
 def new_subevent(sub_events=[]):
-    converter = EventConverter()    
-    input_data = dict(request.form)
-    input_data['host'] = copy.deepcopy(current_user)
-    sub_event = converter.dict_to_object(input_data)
-    sub_events.append(sub_event)
-    request.form = ''
+    if request.method == 'POST':
+        print(request.form)
+        converter = EventConverter()    
+        input_data = dict(request.form)
+        input_data['host'] = copy.deepcopy(current_user)
+        sub_event = converter.dict_to_object(input_data)
+        sub_events.append(sub_event)
+        request.form = ''
     return redirect(url_for('new_event',sub_events = sub_events,))
     
 @app.route('/search')    
