@@ -61,5 +61,19 @@
         <hr>
         <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Velit laoreet id donec ultrices. Auctor urna nunc id cursus metus aliquam eleifend mi in. Volutpat blandit aliquam etiam erat velit scelerisque. Porttitor rhoncus dolor purus non enim praesent elementum. Varius quam quisque id diam vel. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Lectus sit amet est placerat in egestas erat imperdiet. Suspendisse in est ante in nibh mauris cursus mattis molestie. Ut sem viverra aliquet eget sit. Et pharetra pharetra massa massa ultricies mi quis. Leo in vitae turpis massa sed. Risus commodo viverra maecenas accumsan lacus vel facilisis volutpat. Vel pharetra vel turpis nunc eget lorem dolor sed. Amet est placerat in egestas erat imperdiet sed euismod. Est ullamcorper eget nulla facilisi etiam dignissim diam quis. Quam pellentesque nec nam aliquam sem et tortor consequat id. Vitae ultricies leo integer malesuada nunc.</h5>
     </div>
+    
+    {% if user_subscribed_to_event and user_done_checkout %}
+    <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-top w3-margin-right w3-round-large">
+        <h1 class="w3-center">Participou do Evento? &#x1F389;</h1>
+        <hr><br><br>
+        <a href="/images/{{current_user.id}}" download="certificado_evento">
+            <p class="w3-display-container">
+                <button class="w3-button w3-gray w3-margin-bottom w3-button w3-display-bottommiddle w3-large w3-round-xxlarge w3-center w3-col l3 m5 s5" style="height: 50px;">
+                    <b>Emitir certificado</b>
+                </button>
+            </p>
+        </a>
+    </div>
+    {% endif %}
 </div>
 {% endblock content %}
