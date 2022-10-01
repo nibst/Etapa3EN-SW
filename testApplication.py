@@ -18,7 +18,7 @@ class TestApplication(unittest.TestCase):
         user.set_id(166)
         event_service = EventService()
         Post = {'name': 'nibs event', 'start_date': '2034-09-17', 'end_date': '2034-09-22', 'check_in': '22:44', 'check_out': '00:44', \
-        'visibility': 'private', 'street': 'Rua 2', 'house_number': '60', 'zip-code': '9069425', 'state': 'RS', 'city': 'Porto Alegre', \
+        'visibility': 'private', 'street': 'Rua 2', 'house_number': '60', 'zip_code': '9069425', 'state': 'RS', 'city': 'Porto Alegre', \
         'list_of_participants': 'emaildetesteparaevento@teste.eu,emaildetest36eparaevento@teste.eu'}
         Post['host'] = user
         converter = EventConverter()
