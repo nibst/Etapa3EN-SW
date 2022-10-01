@@ -1,5 +1,7 @@
 
 import copy
+from email import header
+from re import sub
 from src.application.UserConverter import UserConverter
 from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.Event import Event
@@ -19,10 +21,10 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     print(current_user)
-  
+    
     if current_user.is_authenticated:
         return redirect(url_for('home'))
-    
+
     if request.method == 'POST':
         user_service = UserService()
         try:
@@ -32,7 +34,6 @@ def login():
         else:
             login_user(user)
             next_page = request.args.get('next')
-            print(current_user)
             return redirect(next_page) if next_page else redirect(url_for('home'))
 
     return render_template('login.html')
@@ -74,50 +75,43 @@ def register():
 
 @app.route('/new_event', methods=['GET', 'POST'])
 @login_required
-def new_event(sub_events=[]):
+def new_event(sub_events = [], is_subevent = False):
     if request.method == 'POST':
-        print(request.form)
-        print('oi')
-        converter = EventConverter()    
-        event_service = EventService()
-
-        print('post criar evento')
-        event = None
-        input_data = dict(request.form)
-        input_data['host'] = copy.deepcopy(current_user)
-        
-        try:
-            event = converter.dict_to_object(input_data)
-            #return event if save successfully
-            event = event_service.save(event)
-            for sub_event in sub_events:
-                sub_event.set_event_parent(event)
-                event_service.save(sub_event)
-        except Exception as e:
-            return render_template('create_event.html', error=e)
+        if request.args.get('is_subevent') == 'True':
+            converter = EventConverter()    
+            input_data = dict(request.form)
+            input_data['host'] = copy.deepcopy(current_user)
+            sub_event = converter.dict_to_object(input_data)
+            sub_events.append(sub_event)
+            #redirect to itself to avoid refreshing-resubmitting problem
+            return redirect(url_for('new_event', sub_events=sub_events))
         else:
+            converter = EventConverter()    
+            event_service = EventService()
+            event = None
+            input_data = dict(request.form)
+            input_data['host'] = copy.deepcopy(current_user)
             
-            flash('Evento criado com sucesso')
-            return redirect(url_for('home'))
+            try:
+                event = converter.dict_to_object(input_data)
+                #return event if save successfully
+                event = event_service.save(event)
+                for sub_event in sub_events:
+                    sub_event.set_event_parent(event)
+                    event_service.save(sub_event)
+            except Exception as e:
+                return render_template('create_event.html', sub_events = sub_events)
+            else:
+                flash('Evento criado com sucesso')
+                return redirect(url_for('home'))
+    return render_template('create_event.html',sub_events = sub_events)
 
-    return render_template('create_event.html',sub_events = sub_events,)
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    print(request.path)
+    return redirect(url_for('login',next=request.path))
 
-@app.route('/new_event/new_subevent', methods=['GET','POST'],)
-@login_required
-def new_subevent(sub_events=[]):
-    if request.method == 'POST':
-        print(request.form)
-        converter = EventConverter()    
-        input_data = dict(request.form)
-        input_data['host'] = copy.deepcopy(current_user)
-        sub_event = converter.dict_to_object(input_data)
-        sub_events.append(sub_event)
-        request.form = ''
-    return redirect(url_for('new_event',sub_events = sub_events,))
-    
 @app.route('/search')    
 def search():
     return render_template('home.html')
-
-
 
