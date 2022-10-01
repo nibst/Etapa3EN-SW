@@ -1,0 +1,221 @@
+html{
+    scroll-behavior: smooth;
+}
+
+body,h1,h2,h3,h4,h5,h6 {
+    font-family: "Raleway", sans-serif
+}
+
+body, html {
+    height: 100%;
+    line-height: 2;
+}
+
+.bgimg-1 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("mp.jpg");
+    min-height: 100%;
+}
+
+.bgimg-2 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("criar-evento.webp");
+    min-height: 160%;
+}
+
+.bgimg-3 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("bg-pesquisa.jpg");
+    min-height: 100%;
+}
+
+.bgimg-4 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("bg-profile-page.jpg");
+    min-height: 100%;
+}
+
+.w3-bar .w3-button {
+    padding: 16px;
+}
+
+/* Texto mudando */
+.main-span:after{
+    content: '';
+    animation: animate infinite 10s;
+}
+
+@keyframes animate{
+    0%{
+        content: 'shows ';
+    }
+    20%{
+        content: 'shows ';
+    }
+    45%{
+        content: 'festas ';
+    }
+    70%{
+        content: 'congressos ';
+    }
+    90%{
+        content: 'palestras ';
+    }
+    100%{
+        content: 'palestras ';
+    }
+}
+
+#invisible-button{
+    opacity: 0%;
+    transform: rotate(45deg) translateX(-8px) scale(3);
+}
+
+.arrow{
+    position: relative;
+    margin-left: 30px;
+    bottom: 10px;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-top: 3.5px solid white;
+    border-right: 3.5px solid white;
+    border-radius: 2.5px;
+    transform: rotate(135deg);
+}
+
+.bounce{
+    animation: bounce 3s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) rotate(135deg);
+    }
+    40% {
+        transform: translateY(-30px) rotate(135deg);
+    }
+    60% {
+        transform: translateY(-15px) rotate(135deg);
+    }
+}
+
+.image-card{
+    width:100%;
+    border-radius: 8px 8px 0 0;
+}
+
+.image-card:hover{
+    width:100%;
+    border-radius: 8px 8px 8px 8px;
+    transform: scale(1.03);
+    transition: all .3s ease-in-out;
+}
+
+#card{
+    background: rgba(255,255,255,0.1);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+}
+
+#login, #register{
+    padding: 50px 40px;
+    background-color: white;
+    -webkit-box-shadow: 0 0 31.5px -9px #585858;
+    -moz-box-shadow: 0 0 31.5px -9px #585858;
+    box-shadow: 0 0 31.5px -9px #585858;
+}
+
+#user, #passw{
+    position: relative;
+    margin-top: 10px;
+    border-radius: 8px 8px 8px 8px;
+    border: 1px solid rgb(74, 74, 74);
+    text-indent: 9px;
+    height: 38px;
+}
+
+.icon{
+    position: absolute;
+    color: gray;
+}
+
+.input{
+    position: relative;
+}
+
+input{
+    padding-left: 17px;
+}
+
+button{
+    position: relative;
+    margin-top: 20px;
+    border-radius: 8px 8px 8px 8px;
+	width: 100%;
+	background-color: rgb(51, 51, 51);
+	color: #FFF;
+	border: none
+}
+
+button:hover{
+    background-color: rgb(32, 32, 32);
+    transition: all .3s ease-in-out;
+}
+
+.circle{
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+}
+
+.small-circle{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
+
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fit{
+    object-fit: cover;
+    object-position: 80% 0px;
+}
+
+.image-strip1{
+    width: 100%;
+    height: 60px; 
+    object-fit: cover;
+}
+
+.image-strip2{
+    width: 100%;
+    height: 40px; 
+    object-fit: cover;
+}
+
+.image-strip3{
+    width: 100%;
+    height: 20px; 
+    object-fit: cover;
+}
+
+.bg-gradient{
+    background: #d7d7d7;
+    background: -webkit-linear-gradient(136deg, #d7d7d7 0%, #eeeeee 100%);
+    background: linear-gradient(136deg, #d7d7d7 0%, #eeeeee 100%);
+}
+
+.shadow{
+    -webkit-box-shadow: 3px 3px 10px -1px #5e5e5e;
+    -moz-box-shadow: 3px 3px 10px -1px #5e5e5e;
+    box-shadow: 3px 3px 10px -1px #5e5e5e;
+}

@@ -1,7 +1,10 @@
 
 import copy
+<<<<<<< HEAD
 from email import header
 from re import sub
+=======
+>>>>>>> origin/thiago2
 from src.application.UserConverter import UserConverter
 from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.Event import Event
@@ -75,6 +78,7 @@ def register():
 
 @app.route('/new_event', methods=['GET', 'POST'])
 @login_required
+<<<<<<< HEAD
 def new_event(sub_events = [], is_subevent = False):
     if request.method == 'POST':
         if request.args.get('is_subevent') == 'True':
@@ -115,3 +119,61 @@ def unauthorized_callback():
 def search():
     return render_template('home.html')
 
+=======
+def new_event(sub_events=[]):
+    if request.method == 'POST':
+        print(request.form)
+        print('oi')
+        converter = EventConverter()    
+        event_service = EventService()
+
+        print('post criar evento')
+        event = None
+        input_data = dict(request.form)
+        input_data['host'] = copy.deepcopy(current_user)
+        
+        try:
+            event = converter.dict_to_object(input_data)
+            #return event if save successfully
+            event = event_service.save(event)
+            for sub_event in sub_events:
+                sub_event.set_event_parent(event)
+                event_service.save(sub_event)
+        except Exception as e:
+            return render_template('create_event.html', error=e)
+        else:
+            
+            flash('Evento criado com sucesso')
+            return redirect(url_for('home'))
+
+    return render_template('create_event.html',sub_events = sub_events,)
+
+@app.route('/new_event/new_subevent', methods=['GET','POST'],)
+@login_required
+def new_subevent(sub_events=[]):
+    converter = EventConverter()    
+    input_data = dict(request.form)
+    input_data['host'] = copy.deepcopy(current_user)
+    sub_event = converter.dict_to_object(input_data)
+    sub_events.append(sub_event)
+    request.form = ''
+    return redirect(url_for('new_event',sub_events = sub_events,))
+    
+@app.route('/search_form')
+def search_form():
+    return render_template('search_form.html')
+    
+@app.route('/user_page')
+def profile():
+    return render_template('user_page.html')
+
+@app.route('/event_page')
+def event():
+    id_usuario = 1 #alterar pro id do usuário
+
+    return render_template('event_page.html', user_subscribed_to_event = True, user_done_checkout = True, nomeimg = str(id_usuario) + '.pdf')
+
+@app.route('/presence_confirmation')
+def presence_confirmation():
+    return render_template('presence_confirmation.html', action_name = "checkout", checkin = True, checkout = True)
+>>>>>>> origin/thiago2

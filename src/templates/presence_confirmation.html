@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="bgimg-4 w3-container">
+    <div class="w3-display-container w3-center w3-white w3-round-large" style="margin-top: 80px;">
+        <h1>O seu {{action_name}} foi efetuado com sucesso!</h1>
+        <div class="w3-container">
+            <hr class="w3-hide-medium w3-hide-small">
+            <h3 class="w3-left w3-hide-medium w3-hide-small" style="margin-left: 300px;">Check-in</h3>
+            <h3 class="w3-right w3-hide-medium w3-hide-small" style="margin-right: 300px;">Check-out</h3>
+            {% if checkin %}
+                <h3 class="w3-left w3-hide-medium w3-hide-small" style="margin-left: -65px; margin-top: 50px;">&#x2705;</h3>
+            {% else %}
+                <h3 class="w3-left w3-hide-medium w3-hide-small" style="margin-left: -65px; margin-top: 50px;">&#x274C;</h3>
+            {% endif %}
+
+            {% if checkout %}
+                <h3 class="w3-right w3-hide-medium w3-hide-small" style="margin-right: -78px; margin-top: 50px;">&#x2705;</h3>
+            {% else %}
+                <h3 class="w3-right w3-hide-medium w3-hide-small" style="margin-right: -78px; margin-top: 50px;">&#x274C;</h3>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if checkin and checkout %}
+    <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-top w3-margin-right w3-round-large">
+        <h1 class="w3-center">Resgate seu certificado &#x1F389;</h1>
+        <hr><br><br>
+        <a href="/images/{{current_user.id}}" download="certificado_evento">
+            <p class="w3-display-container">
+                <button class="w3-button w3-gray w3-margin-bottom w3-button w3-display-bottommiddle w3-large w3-round-xxlarge w3-center w3-col l3 m5 s5" style="height: 50px;">
+                    <b>Emitir certificado</b>
+                </button>
+            </p>
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

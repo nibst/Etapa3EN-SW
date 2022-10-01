@@ -2,6 +2,7 @@
 
 <!--
     TODO:
+<<<<<<< HEAD
         funcionalidades:
         - página de pesquisa de eventos
         - página de pesquisa de pessoas
@@ -12,18 +13,43 @@
         - ver se tem outra fonte melhor
         - ver se tem foto melhor pra home page
         - verificar responsividade no celular
+=======
+        - página de dashboard do host
+            * listar eventos criados pelo usuário
+            * listar confirmados no evento
+            * listar presentes e ausentes do evento
+        - verificar responsividade das páginas
+            - home page: ok
+            - login: ok
+            - registro: ok
+            - criar evento: não
+            - pesquisa de evento: ok
+            - perfil do usuário: ok
+            - evento: ok
+            - confirmação presença: ok
+        - upar fotos do evento?
+        - upar foto de perfil?
+>>>>>>> origin/thiago2
 -->
 
 <html>
     <head>
+<<<<<<< HEAD
         <title>Gerenciador de Eventos</title>
+=======
+        <title>Qeventos</title>
+>>>>>>> origin/thiago2
         <link rel="icon" href="images/favicon-32x32.png">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<<<<<<< HEAD
         <link rel="stylesheet" href="images/index.css">
+=======
+        <link rel="stylesheet" href="images/home.css">
+>>>>>>> origin/thiago2
     </head>
 
 <body>
@@ -34,21 +60,27 @@
                 &nbsp&nbspBem vindo,
                 {{current_user.username}}!</a>
 
+<<<<<<< HEAD
             <div class="w3-right w3-hide-small">
                 <input id="search" placeholder="Pesquisar" class="w3-bar-item" maxlength="32" />
                 <a id="search-button" href="{{ url_for('search') }}" class="w3-bar-item">
                     <!-- Modificar para "search" quando implementar pesquisa -->
                     <search-button type="submit"><i class="fa fa-search"></i></search-button>
                 </a>
+=======
+            <div class="w3-right">
+                <a id="search-button" href="{{ url_for('search_form') }}" class="w3-bar-item w3-button"><i class="fa fa-search"></i> &nbspPESQUISAR</a>
+
+>>>>>>> origin/thiago2
                 {% if current_user.is_authenticated %}
-                <a href="{{ url_for('account') }}" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i>
+                <a href="{{ url_for('account') }}" class="w3-bar-item w3-button w3-hide-small w3-hide-medium"><i class="fa fa-sign-in"></i>
                     &nbspACCOUNT</a>
-                <a href="{{ url_for('logout') }}" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i>
+                <a href="{{ url_for('logout') }}" class="w3-bar-item w3-button w3-hide-small w3-hide-medium"><i class="fa fa-sign-out"></i>
                     &nbspLOGOUT</a>
                 {% else %}
-                <a href="{{ url_for('login') }}" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i>
+                <a href="{{ url_for('login') }}" class="w3-bar-item w3-button w3-hide-small w3-hide-medium"><i class="fa fa-sign-in"></i>
                     &nbspLOGIN</a>
-                <a href="{{ url_for('register') }}" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i>
+                <a href="{{ url_for('register') }}" class="w3-bar-item w3-button w3-hide-small w3-hide-medium"><i class="fa fa-user-plus"></i>
                     &nbspSIGN UP</a>
                 {% endif %}
             </div>
