@@ -23,4 +23,3 @@ class UserConverter:
         user = User(**input_data)
         user.set_id(user_tuple[0]) #user_id is in tuple[0], then its username,email....
         return user
-

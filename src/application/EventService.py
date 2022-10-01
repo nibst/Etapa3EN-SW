@@ -1,8 +1,7 @@
 
-import copy
+
 from src.data.Event import Event
-from src.data.Address import Address
-from datetime import date, time
+from src.data.User import User
 from src.data.dao.EventDao import EventDao
 from src.application.event_validation import validate_event
 from src.data.dao.DBConnection import DBConnectionSingleton
@@ -74,3 +73,27 @@ class EventService:
             raise (e)
         else:
             return events
+
+    def get_events_by_host(self,user:User):
+        """
+        get events that user will host or have hosted
+        """
+        event_dao = EventDao()
+        events_tuples = event_dao.get_events_by_host(user.get_id())
+        event_converter = EventConverter()
+        events = []
+        for event in events_tuples:
+            events.append(event_converter.database_tuple_to_object(event))
+        return events
+
+    def get_events_by_participant(self,user:User):
+        """
+        get events that user will attend or have attended
+        """
+        event_dao = EventDao()
+        events_tuples = event_dao.get_events_by_participant(user.get_id())
+        event_converter = EventConverter()
+        events = []
+        for event in events_tuples:
+            events.append(event_converter.database_tuple_to_object(event))
+        return events

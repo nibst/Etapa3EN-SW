@@ -38,7 +38,27 @@ class UserService:
         if user.get_password() != password: 
             raise Exception("Invalid Password")
         return user
-    
+
+    def get_user_by_id(self,user_id):
+        """
+        get actual User object by user id
+        """
+        user_dao = UserDao()
+        user = user_dao.get_user_by_id(user_id)
+        user_converter = UserConverter()
+        user = user_converter.database_tuple_to_object(user)
+        return user
+        
+    def get_user_by_email(self,email):
+        """
+        get actual User object by user email
+        """
+        user_dao = UserDao()
+        user = user_dao.get_user_by_email(email)
+        user_converter = UserConverter()
+        user = user_converter.database_tuple_to_object(user)
+        return user
+
     @login_manager.user_loader
     def load_user(user_id):
         user_dao = UserDao()

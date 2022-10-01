@@ -28,15 +28,16 @@ class TestApplication(unittest.TestCase):
 
         event_service = EventService()
         events = event_service.get_events()
-        #[print(event.name) for event in events]
+        [print(event) for event in events]
         self.assertIsInstance(events, list) # verifica se o retorno é uma lista
         self.assertIsInstance(events[0], Event) # verifica se o retorno é uma lista de eventos
 
     def test_get_events_by_name(self):
+        print("TEST GET EVENT BY NAME")
         name = 'event name' 
         event_service = EventService()
         events = event_service.get_events_by_name(name)
-        [print(event.name) for event in events]
+        [print(event) for event in events]
         self.assertIsInstance(events, list) # verifica se o retorno é uma lista
         self.assertIsInstance(events[0], Event) # verifica se o retorno é uma lista de eventos
 
@@ -67,6 +68,36 @@ class TestApplication(unittest.TestCase):
             self.assertTrue(True)#pass the test
         else:
             self.fail("Login should fail with exception")
+    def test_get_events_by_host(self):
+        event_service = EventService()
+        
+        username = 'nikolas'
+        email = 'emaildetesteparaevento@teste.eu'
+        password = 'senha123'
+        user = User(username,email,password)
+        user.set_id(1234)
+
+        events = event_service.get_events_by_host(user)
+        print("HOSTED EVENTS BY 1234")
+        self.assertIsInstance(events, list) # verifica se o retorno é do tipo User
+        for event in events:
+            print(event)
+            self.assertIsInstance(event, Event) # verifica se o retorno é do tipo User
+    def test_get_events_by_participant(self):
+        event_service = EventService()
+        
+        username = 'nikolas'
+        email = 'emaildetesteparaevento@teste.eu'
+        password = 'senha123'
+        user = User(username,email,password)
+        user.set_id(1234)
+
+        events = event_service.get_events_by_participant(user)
+        print("ATTENDED EVENTS BY 1234")
+        self.assertIsInstance(events, list) # verifica se o retorno é do tipo User
+        for event in events:
+            print(event)
+            self.assertIsInstance(event, Event) # verifica se o retorno é do tipo User
 
 if __name__ == '__main__':
     unittest.main()

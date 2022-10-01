@@ -1,11 +1,10 @@
 
 from dataclasses import asdict
-from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.Event import Event
 from src.data.Address import Address
 from src.data.dao.AddressDao import AddressDao
 from src.data.dao.UserDao import UserDao
-from src.application.UserConverter import UserConverter
+from src.application.UserService import UserService
 
 class EventConverter:
     def __init__(self) -> None:
@@ -48,11 +47,10 @@ class EventConverter:
         input_data['visibility']  = self.__process_visibility(input_data['visibility'])
 
         #get participants
-        user_dao = UserDao()
-        user_converter = UserConverter()
+        user_service = UserService()
         participants = []
         for email in input_data['list_of_participants']:
-            participant = user_converter.database_tuple_to_object(user_dao.get_user_by_email(email))
+            participant = user_service.get_user_by_email(email)
             if participant is not None:
                 participants.append(participant)
         input_data['list_of_participants'] = participants    
@@ -72,11 +70,17 @@ class EventConverter:
         event_input_data = dict(zip(keys,event_tuple))
         
         #transform host id in actual User object
-        user_dao = UserDao()
-        host = user_dao.get_user_by_id(event_input_data['host'])
-        user_converter = UserConverter()
-        host = user_converter.database_tuple_to_object(host) 
+        user_service = UserService()
+        host = user_service.get_user_by_id(event_input_data['host'])
         event_input_data['host'] = host 
+
+        #transform participants id in actual User objects
+        if len(event_input_data['list_of_participants']) != 0:
+            new_list_of_participants = []
+            for id in event_input_data['list_of_participants']:
+                participant = user_service.get_user_by_id(id)
+                new_list_of_participants.append(participant)
+            event_input_data['list_of_participants'] = new_list_of_participants
 
         #transform Address id in Address object
         address_keys = ('id','street','house_number','city','state','zip_code','apartment','complement') 

@@ -11,6 +11,24 @@ class EventDao:
         self.__conn = db_connection_instance.get_connection()
         self.__cur = db_connection_instance.get_cursor()
     
+    def __append_participants_to_events(self,database_tuples):
+        participants_dict = {}
+        #populate participants dict, each key is an event_id, each value is a list of participants of that event
+        for record in database_tuples:
+            if record[0] not in participants_dict:
+                participants_dict[record[0]] = []
+            participants_dict[record[0]].append(record[10])
+        
+        event_id_lst = []
+        events_lst = []
+        for record in database_tuples:    
+            if record[0] in event_id_lst:
+                continue
+            else:
+                event_id_lst.append(record[0])
+                events_lst.append((*record[:10],participants_dict[record[0]])) #record tuple without user_id + list of participants
+        return events_lst
+
     def insert_event(self,event:Event):
         """
         insert event into database
@@ -58,22 +76,10 @@ class EventDao:
         """
         query_scrpit = "SELECT * FROM Events LEFT OUTER JOIN Participants using (event_id) ORDER BY event_id"
         self.__cur.execute(query_scrpit)
-        participants_dict = {}
-        records = self.__cur.fetchall()
-        #populate participants dict, each key is an event_id, each value is a list of participants of that event
-        for record in records:
-            if record[0] not in participants_dict:
-                participants_dict[record[0]] = []
-            participants_dict[record[0]].append(record[10])
         
-        event_id_lst = []
-        events_lst = []
-        for record in records:    
-            if record[0] in event_id_lst:
-                continue
-            else:
-                event_id_lst.append(record[0])
-                events_lst.append((*record[:10],participants_dict[record[0]])) #record tuple without user_id + list of participants
+        records = self.__cur.fetchall()
+
+        events_lst = self.__append_participants_to_events(records)
 
         self.__conn.commit()
         return events_lst
@@ -81,8 +87,28 @@ class EventDao:
     def get_event_by_id(self,event_id):
         pass
 
-    def get_events_by_user(self,user_id):
-        pass
+    def get_events_by_host(self,host_id):
+        query_scrpit = "SELECT * FROM Events LEFT OUTER JOIN Participants using (event_id) WHERE host_id = %s"
+        input = (host_id,)
+        self.__cur.execute(query_scrpit,input)
+        events_lst = []
+        records = self.__cur.fetchall()
+
+        events_lst = self.__append_participants_to_events(records)
+        self.__conn.commit()
+        return events_lst
+
+    def get_events_by_participant(self,participant_id):
+        query_scrpit = "SELECT * FROM Events LEFT OUTER JOIN Participants using (event_id) WHERE user_id = %s;"
+        input = (participant_id,)
+        self.__cur.execute(query_scrpit,input)
+        events_lst = []
+        records = self.__cur.fetchall()
+
+        events_lst = self.__append_participants_to_events(records)
+        self.__conn.commit()
+        return events_lst
+        
 
     def get_events_by_date(self,date):
         pass
@@ -103,22 +129,7 @@ class EventDao:
         self.__cur.execute(query_scrpit,input)
         events_lst = []
         records = self.__cur.fetchall()
-        participants_dict = {}
-        #populate participants dict, each key is an event_id, each value is a list of participants of that event
-        for record in records:
-            if record[0] not in participants_dict:
-                participants_dict[record[0]] = []
-            participants_dict[record[0]].append(record[10])
-        
-        event_id_lst = []
-        events_lst = []
-        #create new event tuples, adding list of participants
-        for record in records:    
-            if record[0] in event_id_lst:
-                continue
-            else:
-                event_id_lst.append(record[0])
-                events_lst.append((*record[:10],participants_dict[record[0]])) #record tuple without user_id + list of participants
+        events_lst = self.__append_participants_to_events(records)
         self.__conn.commit()
         return events_lst
         
@@ -129,4 +140,6 @@ class EventDao:
 
     def get_events_by_state(self,state):
         pass
+
+    
 
