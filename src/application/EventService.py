@@ -62,7 +62,6 @@ class EventService:
         events = []
         event_converter = EventConverter()
         #this address is an id of the address in the database, these are keys of the event object
-        keys = ('host','name','address','start_date','end_date','visibility','check_in','check_out','event_parent','list_of_participants')
         try:
             events_tuples=event_dao.get_events_by_name(name)
             for event_tuple in events_tuples:
@@ -93,6 +92,46 @@ class EventService:
         event_dao = EventDao()
         events_tuples = event_dao.get_events_by_participant(user.get_id())
         event_converter = EventConverter()
+        events = []
+        for event in events_tuples:
+            events.append(event_converter.database_tuple_to_object(event))
+        return events
+
+    def get_event_by_id(self,event_id):
+        """
+        get event by id
+        """
+        event_dao = EventDao()
+        event_tuple = event_dao.get_event_by_id(event_id)
+        event_converter = EventConverter()
+
+        return event_converter.database_tuple_to_object(event_tuple)
+
+    def get_events_by_category(self,category:str):
+        """
+        get events by category
+        """
+        event_dao = EventDao()
+        events_tuples = event_dao.get_events_by_category(category)
+        event_converter = EventConverter()
+        events = []
+        for event in events_tuples:
+            events.append(event_converter.database_tuple_to_object(event))
+        return events
+
+    def get_events_by_address_string(self,input:str):
+        """
+        get events by some string input that is meant to be an address. 
+        this method search for events that his street,city,state or zipcode are matched by input string
+        """
+        event_dao = EventDao()
+        event_converter = EventConverter()
+        events_tuples = []
+        events_tuples.extend(event_dao.get_events_by_street(input))
+        events_tuples.extend(event_dao.get_events_by_city(input))
+        events_tuples.extend(event_dao.get_events_by_state(input))
+        if input.isnumeric():
+            events_tuples.extend(event_dao.get_events_by_zip_code(int(input)))
         events = []
         for event in events_tuples:
             events.append(event_converter.database_tuple_to_object(event))

@@ -10,12 +10,11 @@ class Address:
     city:str
     state:str  
     zip_code :int 
-    apartment:int = None
     complement:str = None
     id:int = None
     def __post_init__(self):
         if self.id is None:
-            self.id = int(str(self.zip_code) + str(self.house_number)) #id is unique for each address (zip_code + house_number),do not diferrentiate between same addresses with different apartment numbers
+            self.id = int(str(self.zip_code) + str(self.house_number)) #id is unique for each address (zip_code + house_number)
 
     def get_street(self):
         return self.street
@@ -28,13 +27,8 @@ class Address:
 
     def set_house_number(self,house_number):
         self.house_number = house_number
-    
-    def get_apartment(self):
-        return self.apartment
-    
-    def set_apartment(self,apartment):
-        self.apartment = apartment
-    
+
+
     def get_complement(self):
         return self.complement
 

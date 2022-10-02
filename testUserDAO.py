@@ -9,7 +9,7 @@ from src.application.UserService import UserService
 class TestUserDAO(unittest.TestCase):
     def test_query_by_email(self):
 
-        #order of tuple = (address_id, street, house_number, city, event_state, zip_code,apartment,complement)
+        #order of tuple = (address_id, street, house_number, city, event_state, zip_code, ,complement)
         user_dao = UserDao()
         user_dao.print_all_users()
         user = user_dao.get_user_by_email('emaildetesteparaevento@teste.eu')

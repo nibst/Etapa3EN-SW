@@ -99,5 +99,12 @@ class TestApplication(unittest.TestCase):
             print(event)
             self.assertIsInstance(event, Event) # verifica se o retorno é do tipo User
 
+    def test_get_event_by_id(self):
+        print("TEST GET EVENT BY ID")
+        id = 1
+        event_service = EventService()
+        event = event_service.get_event_by_id(id)
+        self.assertIsInstance(event, Event) # verifica se o retorno é uma lista de eventos
+
 if __name__ == '__main__':
     unittest.main()

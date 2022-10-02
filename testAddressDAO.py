@@ -7,7 +7,7 @@ from src.data.dao.DBConnection import DBConnectionSingleton
 class TestAddress(unittest.TestCase):
     def test_query_by_street(self):
 
-        #order of tuple = (address_id, street, house_number, city, event_state, zip_code,apartment,complement)
+        #order of tuple = (address_id, street, house_number, city, event_state, zip_code, ,complement)
         address_dao = AddressDao()
         
         addresses = address_dao.get_adresses_by_street('Mario Leitao')
@@ -23,7 +23,7 @@ class TestAddress(unittest.TestCase):
         DBConnectionSingleton.destroyer()
 
     def test_query_by_state(self):
-        #order of tuple = (address_id, street, house_number, city, event_state, zip_code,apartment,complement)
+        #order of tuple = (address_id, street, house_number, city, event_state, zip_code, ,complement)
         address_dao = AddressDao()
         
         addresses = address_dao.get_adresses_by_state('Rio Grande do Sul')
@@ -38,7 +38,7 @@ class TestAddress(unittest.TestCase):
         DBConnectionSingleton.destroyer()
 
     def test_query_by_city(self):
-        #order of tuple = (address_id, street, house_number, city, event_state, zip_code,apartment,complement)
+        #order of tuple = (address_id, street, house_number, city, event_state, zip_code, ,complement)
         address_dao = AddressDao()
         
         addresses = address_dao.get_adresses_by_city('Porto Alegre')
@@ -54,7 +54,7 @@ class TestAddress(unittest.TestCase):
         DBConnectionSingleton.destroyer()
 
     def test_query_by_zip(self):
-        #order of tuple = (address_id, street, house_number, city, event_state, zip_code,apartment,complement)
+        #order of tuple = (address_id, street, house_number, city, event_state, zip_code,complement)
         address_dao = AddressDao()
         
         addresses = address_dao.get_adresses_by_zip_code(90690425)

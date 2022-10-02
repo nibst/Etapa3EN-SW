@@ -42,7 +42,7 @@ def logout():
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
-    return render_template('account.html')
+    return render_template('user_page.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -95,10 +95,11 @@ def new_event(sub_events = [], is_subevent = False):
                 for sub_event in sub_events:
                     sub_event.set_event_parent(event)
                     event_service.save(sub_event)
-            except Exception as e:
-                return render_template('create_event.html', sub_events = sub_events)
+            except Exception as error:
+                flash(error,'danger')
+                return render_template('create_event.html', sub_events = sub_events,error=error)
             else:
-                flash('Evento criado com sucesso')
+                flash('Evento criado com sucesso','success')
                 return redirect(url_for('home'))
     return render_template('create_event.html',sub_events = sub_events)
 
@@ -107,7 +108,52 @@ def unauthorized_callback():
     print(request.path)
     return redirect(url_for('login',next=request.path))
 
-@app.route('/search')    
+@app.route('/search', methods=['GET', 'POST'])    
 def search():
-    return render_template('home.html')
+    events = []
+    if request.method == 'POST':
+        event_service = EventService()
+        if request.form.get('filter') == 'Nome':
+            events = event_service.get_events_by_name(request.form.get('input'))
+        elif request.form.get('filter') == 'Genero':
+            events = event_service.get_events_by_category(request.form.get('input'))
+        elif request.form.get('filter') == 'Localidade':
+            events = event_service.get_events_by_address_string(request.form.get('input'))
+        #default search by event
+        else:
+            events = event_service.get_events_by_name(request.form.get('input'))
+    return render_template('search_form.html',events=events)
 
+@app.route("/event/<int:event_id>")
+def event(event_id):  
+    event_service = EventService()
+    event = event_service.get_event_by_id(event_id)
+    return render_template('event_page.html',event=event)
+
+@app.route("/event/<int:event_id>/subscribe")
+def subscribe(event_id):
+    user_service = UserService()
+    try:
+        user_service.subscribe_to_event(current_user.get_id(),event_id)
+    except Exception as error:
+        flash(error,'danger')
+    else:
+        flash('Check in feito com sucesso','success')
+    return redirect(url_for('home'))
+
+@app.route("/event/<int:event_id>/check_in")
+def check_in(event_id):
+    user_service = UserService()
+    try:
+        user_service.check_in(current_user.get_id(),event_id)
+    except Exception as error:
+        flash(error,'danger')
+    else:
+        flash('Check in feito com sucesso','success')
+    return redirect(url_for('home'))
+
+@app.route("/event/<int:event_id>/presence_confirmation")
+def presence_confirmation(event_id):  
+    event_service = EventService()
+    event = event_service.get_event_by_id(event_id)
+    return render_template('presence_confirmation.html',event=event)

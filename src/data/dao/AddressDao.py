@@ -12,8 +12,8 @@ class AddressDao:
         self.__cur = db_connection_instance.get_cursor()
     
     def insert_address(self,event:Address):
-        insert_script = "INSERT INTO Address (address_id, street, house_number, city, event_state, zip_code,apartment,complement) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-        insert_value = (event.get_id(), event.get_street(), event.get_house_number(), event.get_city(), event.get_state(), event.get_zip_code(), event.get_apartment(), event.get_complement())
+        insert_script = "INSERT INTO Address (address_id, street, house_number, city, event_state, zip_code,complement) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        insert_value = (event.get_id(), event.get_street(), event.get_house_number(), event.get_city(), event.get_state(), event.get_zip_code(), event.get_complement())
         self.__cur.execute(insert_script, insert_value)
         self.__conn.commit()
         return event.get_id()
@@ -37,7 +37,7 @@ class AddressDao:
     def get_adresses_by_street(self,street):
 
         query_scrpit = "SELECT * FROM Address WHERE street LIKE %s"
-        street = street + '%' #just get by prefix
+        street = '%' + street + '%' #just get by prefix
         input = (street,)
         self.__cur.execute(query_scrpit,input)
         address_lst = []

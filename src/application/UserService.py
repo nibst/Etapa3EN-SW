@@ -48,7 +48,7 @@ class UserService:
         user_converter = UserConverter()
         user = user_converter.database_tuple_to_object(user)
         return user
-        
+
     def get_user_by_email(self,email):
         """
         get actual User object by user email
@@ -58,6 +58,33 @@ class UserService:
         user_converter = UserConverter()
         user = user_converter.database_tuple_to_object(user)
         return user
+
+    def check_in(self,event_id,user_id):
+        """
+        do check in of an user in an event
+        """
+        user_dao = UserDao()
+        try:
+            nr_rows_updated = user_dao.check_in(event_id,user_id)
+        except Exception as e:
+            raise e
+        return nr_rows_updated
+
+    def check_out(self,event_id,user_id):
+        """
+        do check out of an user in an event
+        """
+
+    def subscribe_to_event(self,event_id,user_id):    
+        """"
+        puts user in participants list of an event
+        """
+        user_dao = UserDao()
+        try:
+            nr_rows_inserted = user_dao.insert_user_as_participant_of_event(event_id,user_id)
+        except Exception as error:
+            raise error
+        return nr_rows_inserted
 
     @login_manager.user_loader
     def load_user(user_id):

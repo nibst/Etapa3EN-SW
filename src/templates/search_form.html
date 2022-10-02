@@ -2,101 +2,49 @@
 {% block content %}
 <!-- Search -->
 <div class="bgimg-3 w3-display-container w3-padding w3-col l12">
-    <div class="w3-container w3-white shadow w3-round-large" style="margin-top: 65px;">
-        <select class="w3-input w3-border w3-col l2 w3-margin-right w3-margin-top w3-margin-bottom" id="filtro" name="filtro" style="height: 48px; max-width: 150px;">
-            <option value="Tipo">Filtrar por</option>
-            <option value="Localidade">Localidade</option>
-            <option value="Genero">Gênero</option>
-            <option value="Nome">Nome</option>
-        </select>
+    <form action="" method="POST">
+        <div class="w3-container w3-white shadow w3-round-large" style="margin-top: 65px;">
+            <select class="w3-input w3-border w3-col l2 w3-margin-right w3-margin-top w3-margin-bottom" id="filtro" name="filter" style="height: 48px; max-width: 150px;">
+                <option value="Tipo">Filtrar por</option>
+                <option value="Localidade">Localidade</option>
+                <option value="Genero">Gênero</option>
+                <option value="Nome">Nome</option>
+            </select>
 
-        <input type="text" class="w3-input w3-border w3-col l5 w3-margin-right w3-margin-top w3-margin-bottom" placeholder="Procurando por algo?" style="height: 48px; max-width: 550px;">
-        
-        <select class="w3-input w3-border w3-col l2 w3-margin-right w3-margin-top w3-margin-bottom" id="filtro" name="filtro" style="height: 48px; max-width: 150px;">
-            <option value="Tipo">Ordenar por</option>
-            <option value="Localidade">Distância</option>
-            <option value="Genero">Data</option>
-        </select>
+            <input type="text" class="w3-input w3-border w3-col l5 w3-margin-right w3-margin-top w3-margin-bottom"  name="input" placeholder="Procurando por algo?" style="height: 48px; max-width: 550px;">
+            
+            <select class="w3-input w3-border w3-col l2 w3-margin-right w3-margin-top w3-margin-bottom" id="filtro" name="order" style="height: 48px; max-width: 150px;">
+                <option value="Tipo">Ordenar por</option>
+                <option value="Localidade">Distância</option>
+                <option value="Genero">Data</option>
+            </select>
 
-        <div class="w3-button w3-right w3-border w3-margin-top w3-margin-bottom">
-            <i class="fa fa-search" aria-hidden="true"></i> &nbsp;Pesquisar
+            <div class="w3-button w3-right w3-border w3-margin-top w3-margin-bottom">
+                <button class="w3-button w3-right w3-border w3-margin-top w3-margin-bottom" type="submit"> 
+                <i class="fa fa-search" aria-hidden="true"></i> &nbsp;Pesquisar
+                </button>
+            </div>
         </div>
-    </div>
+    </form>
 
-
+    {% for event in events %}
     <div class="w3-card w3-margin-top w3-container w3-white w3-padding-16 w3-round-large shadow">
         <div class="w3-row w3-card w3-display-container w3-padding-16 w3-round-xxlarge">
             <div class="w3-display-container">
-                <img src="images/evento-futebol.jpg" class="image-strip1 w3-round-xxlarge w3-padding">
+                <img src="{{ url_for('static', filename='evento-futebol.jpg')}}" class="image-strip1 w3-round-xxlarge w3-padding">
                 <p class="w3-card w3-white w3-container w3-display-topleft w3-round-xxlarge" style="font-size: 12pt; opacity: 0.9; margin-left: 30px; margin-top: 14px;">
-                    <b>Nome do Evento (Cidade, UF)</b>
+                    <b>{{event.get_name() ~ ' (' ~ event.get_address().get_city() ~ ' ' ~ event.get_address().get_state() ~ ')'}} </b>
                 </p>
                 <p class="w3-card w3-white w3-container w3-display-topright w3-round-xxlarge w3-hide-medium w3-hide-small" style="font-size: 10pt; opacity: 0.9; margin-right: 30px; margin-top: 17px;">
-                    <b>De mm/dd/aaaa até mm/dd/aaaa</b>
+                    <b>De {{event.get_start_date() ~ ' até ' ~ event.get_end_date()}}</b>
                 </p>
             </div>
             <div class="w3-right">
-                <p class="w3-margin-left w3-margin-right" style="font-size: 11pt;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Velit laoreet id donec ultrices. Auctor urna nunc id cursus metus aliquam eleifend mi in. Volutpat blandit aliquam etiam erat velit scelerisque. Porttitor rhoncus dolor purus non enim praesent elementum. Varius quam quisque id diam vel. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Lectus sit amet est placerat in egestas erat imperdiet. Suspendisse in est ante in nibh mauris cursus mattis molestie. Ut sem viverra aliquet eget sit. Et pharetra pharetra massa massa ultricies mi quis. Leo in vitae turpis massa sed. Risus commodo viverra maecenas accumsan lacus vel facilisis volutpat.</p>
+                <p class="w3-margin-left w3-margin-right" style="font-size: 11pt;">{{event.get_description()}}</p>
             </div>
-            <a href="event_page.html" class="w3-button w3-right w3-margin-right w3-round-xxlarge w3-light-gray">Inscrever-se</a>
-        </div>
-
-        <div class="w3-row w3-card w3-display-container w3-padding-16 w3-margin-top w3-round-xxlarge">
-            <div class="w3-display-container">
-                <img src="images/evento-festa.jpg" class="image-strip1 w3-round-xxlarge w3-padding">
-                <p class="w3-card w3-white w3-container w3-display-topleft w3-round-xxlarge" style="font-size: 12pt; opacity: 0.9; margin-left: 30px; margin-top: 14px;">
-                    <b>Nome do Evento (Cidade, UF)</b>
-                </p>
-                <p class="w3-card w3-white w3-container w3-display-topright w3-round-xxlarge w3-hide-medium w3-hide-small" style="font-size: 10pt; opacity: 0.9; margin-right: 30px; margin-top: 17px;">
-                    <b>De mm/dd/aaaa até mm/dd/aaaa</b>
-                </p>
-            </div>
-            <div class="w3-right">
-                <p class="w3-margin-left w3-margin-right" style="font-size: 11pt;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Velit laoreet id donec ultrices. Auctor urna nunc id cursus metus aliquam eleifend mi in. Volutpat blandit aliquam etiam erat velit scelerisque. Porttitor rhoncus dolor purus non enim praesent elementum. Varius quam quisque id diam vel. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Lectus sit amet est placerat in egestas erat imperdiet. Suspendisse in est ante in nibh mauris cursus mattis molestie. Ut sem viverra aliquet eget sit. Et pharetra pharetra massa massa ultricies mi quis. Leo in vitae turpis massa sed. Risus commodo viverra maecenas accumsan lacus vel facilisis volutpat.</p>
-            </div>
-            <a href="event_page.html" class="w3-button w3-right w3-margin-right w3-round-xxlarge w3-light-gray">Inscrever-se</a>
-        </div>
-
-        <div class="w3-row w3-card w3-display-container w3-padding-16 w3-margin-top w3-round-xxlarge">
-            <div class="w3-display-container">
-                <img src="images/evento-show.jpg" class="image-strip1 w3-round-xxlarge w3-padding">
-                <p class="w3-card w3-white w3-container w3-display-topleft w3-round-xxlarge" style="font-size: 12pt; opacity: 0.9; margin-left: 30px; margin-top: 14px;">
-                    <b>Nome do Evento (Cidade, UF)</b>
-                </p>
-                <p class="w3-card w3-white w3-container w3-display-topright w3-round-xxlarge w3-hide-medium w3-hide-small" style="font-size: 10pt; opacity: 0.9; margin-right: 30px; margin-top: 17px;">
-                    <b>De mm/dd/aaaa até mm/dd/aaaa</b>
-                </p>
-            </div>
-            <div class="w3-right">
-                <p class="w3-margin-left w3-margin-right" style="font-size: 11pt;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Velit laoreet id donec ultrices. Auctor urna nunc id cursus metus aliquam eleifend mi in. Volutpat blandit aliquam etiam erat velit scelerisque. Porttitor rhoncus dolor purus non enim praesent elementum. Varius quam quisque id diam vel. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Lectus sit amet est placerat in egestas erat imperdiet. Suspendisse in est ante in nibh mauris cursus mattis molestie. Ut sem viverra aliquet eget sit. Et pharetra pharetra massa massa ultricies mi quis. Leo in vitae turpis massa sed. Risus commodo viverra maecenas accumsan lacus vel facilisis volutpat.</p>
-            </div>
-            <a href="event_page.html" class="w3-button w3-right w3-margin-right w3-round-xxlarge w3-light-gray">Inscrever-se</a>
-        </div>
-
-        <div class="w3-row w3-card w3-display-container w3-padding-16 w3-margin-top w3-round-xxlarge">
-            <div class="w3-display-container">
-                <img src="images/evento-corporativo-1.webp" class="image-strip1 w3-round-xxlarge w3-padding">
-                <p class="w3-card w3-white w3-container w3-display-topleft w3-round-xxlarge" style="font-size: 12pt; opacity: 0.9; margin-left: 30px; margin-top: 14px;">
-                    <b>Nome do Evento (Cidade, UF)</b>
-                </p>
-                <p class="w3-card w3-white w3-container w3-display-topright w3-round-xxlarge w3-hide-medium w3-hide-small" style="font-size: 10pt; opacity: 0.9; margin-right: 30px; margin-top: 17px;">
-                    <b>De mm/dd/aaaa até mm/dd/aaaa</b>
-                </p>
-            </div>
-            <div class="w3-right">
-                <p class="w3-margin-left w3-margin-right" style="font-size: 11pt;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Velit laoreet id donec ultrices. Auctor urna nunc id cursus metus aliquam eleifend mi in. Volutpat blandit aliquam etiam erat velit scelerisque. Porttitor rhoncus dolor purus non enim praesent elementum. Varius quam quisque id diam vel. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Lectus sit amet est placerat in egestas erat imperdiet. Suspendisse in est ante in nibh mauris cursus mattis molestie. Ut sem viverra aliquet eget sit. Et pharetra pharetra massa massa ultricies mi quis. Leo in vitae turpis massa sed. Risus commodo viverra maecenas accumsan lacus vel facilisis volutpat.</p>
-            </div>
-            <a href="event_page.html" class="w3-button w3-right w3-margin-right w3-round-xxlarge w3-light-gray">Inscrever-se</a>
-        </div>
-
-        <div class="w3-display-container w3-round-xxlarge" style="margin-top: 20px;">
-            <a class="w3-button w3-white w3-hover-white w3-position w3-right">
-                Próxima &nbsp;&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
-            </a>
-            <a class="w3-button w3-white w3-hover-white w3-display-leftmiddle">
-                <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;&nbsp; Anterior
-            </a>
+            <a href="{{url_for('event', event_id=event.get_id())}}" class="w3-button w3-right w3-margin-right w3-round-xxlarge w3-light-gray">Inscrever-se</a>
         </div>
     </div>
+    {% endfor %}
 </div>
 {% endblock content %}

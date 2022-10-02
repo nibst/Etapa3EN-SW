@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="w3-display-container w3-margin-top">
-    <img src="images/evento-futebol.jpg" style="width:100%; height: 350px; object-fit: cover; margin-top: 48px;">
+    <img src="{{ url_for('static', filename='evento-futebol.jpg')}}" style="width:100%; height: 350px; object-fit: cover; margin-top: 48px;">
     <div class="w3-card w3-white w3-container w3-display-middle" style="opacity: 0.9; width: 100%; height: 150px;">
-        <h1 class="w3-center"><b>NOME DO EVENTO</b></h1>
+        <h1 class="w3-center"><b>{{event.get_name()}}</b></h1>
         <a class="w3-button w3-round-xxlarge w3-light-gray w3-hover-opacity-min w3-display-bottommiddle w3-margin-bottom">
             <b>Inscrever-se</b>
         </a>
@@ -14,7 +14,7 @@
     <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-top w3-margin-right w3-round-large">
         <h1 class="w3-center">Sobre o Evento &#x1F603;</h1>
         <hr>
-        <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+        <h5>{{event.get_description()}}.</h5>
     </div>
 
     <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-right w3-round-large">
@@ -22,13 +22,13 @@
         <hr>
         <div class="w3-col l6 w3-center">
             <h4>&#x27A1; Check-In</h4>
-            <h6><i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp;dd/mm/aaaa</h6>
-            <h6><i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;hh:mm</h6>
+            <h6><i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp;{{event.get_start_date()}}</h6>
+            <h6><i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;{{event.get_check_in()}}</h6>
         </div>
         <div class="w3-col l6 w3-center">
             <h4>Check-Out &#x27A1;</h4>
-            <h6><i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp;dd/mm/aaaa</h6>
-            <h6><i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;hh:mm</h6>
+            <h6><i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp;{{event.get_end_date()}}</h6>
+            <h6><i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;{{event.get_check_out()}}</h6>
         </div>
     </div>
 
@@ -36,15 +36,15 @@
         <h1 class="w3-center">Local &#x1F3E1;</h1>
         <hr>
         <div class="w3-col l12 w3-middle w3-center">
-            <img src="images/foto1.jpg" alt="foto_evento" class="w3-round-xxlarge small-circle fit">
-            <img src="images/foto2.webp" alt="foto_evento" class="w3-round-xxlarge w3-margin-top w3-margin-left small-circle fit">
-            <img src="images/foto3.webp" alt="foto_evento" class="w3-round-xxlarge w3-margin-top w3-margin-left small-circle fit">
-            <img src="images/foto4.webp" alt="foto_evento" class="w3-round-xxlarge w3-margin-top w3-margin-left small-circle fit">
-            <img src="images/foto5.jpg" alt="foto_evento" class="w3-round-xxlarge w3-margin-top w3-margin-left small-circle fit">
+            <img src="{{ url_for('static', filename='foto1.jpg')}}" alt="foto_evento" class="w3-round-xxlarge small-circle fit">
+            <img src="{{ url_for('static', filename='foto2.webp')}}" alt="foto_evento" class="w3-round-xxlarge w3-margin-top w3-margin-left small-circle fit">
+            <img src="{{ url_for('static', filename='foto3.webp')}}" alt="foto_evento" class="w3-round-xxlarge w3-margin-top w3-margin-left small-circle fit">
+            <img src="{{ url_for('static', filename='foto4.webp')}}" alt="foto_evento" class="w3-round-xxlarge w3-margin-top w3-margin-left small-circle fit">
+            <img src="{{ url_for('static', filename='foto5.jpg')}}"" alt="foto_evento" class="w3-round-xxlarge w3-margin-top w3-margin-left small-circle fit">
         </div>
         <div class="w3-col l4 w3-middle w3-center w3-margin-top">
             <hr>
-            <h3>Cidade, Estado (UF)</h3>
+            <h3>{{event.get_address().get_city() ~  ', ' ~ event.get_address().get_state() ~ ' (UF)' }}</h3>
         </div>
         <div class="w3-col l4 w3-middle w3-center w3-margin-top">
             <hr>
@@ -52,7 +52,7 @@
         </div>
         <div class="w3-col l4 w3-middle w3-center w3-margin-top">
             <hr>
-            <h3>Rua, Número</h3>
+            <h3>{{event.get_address().get_street() ~ ', ' ~ event.get_address().get_house_number()}}</h3>
         </div>
     </div>
 

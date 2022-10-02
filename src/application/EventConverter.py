@@ -33,12 +33,13 @@ class EventConverter:
         """
         #copy of input data, just to make sure
         input_data = dict(input_data)
-        
-        apartment = self.__process_optional_field('apartment',input_data)
         complement = self.__process_optional_field('complement',input_data)
-
-        address = Address(input_data['street'],input_data['house_number'],input_data['city'],input_data['state'],input_data['zip_code'] ,apartment,complement)
-        remove_keys = ('street','city','state','house_number','zip_code','apartment','complement') #remove these keys from input_data to use input_data as dict for event object
+        if input_data['zip_code'].isnumeric():
+            input_data['zip_code'] = int(input_data['zip_code'])
+        else:
+            raise Exception("Zip Code not numerical")
+        address = Address(input_data['street'],input_data['house_number'],input_data['city'],input_data['state'],input_data['zip_code'] ,complement)
+        remove_keys = ('street','city','state','house_number','zip_code','complement') #remove these keys from input_data to use input_data as dict for event object
         input_data['address'] = address
         for key in remove_keys:
             input_data.pop(key,None)
@@ -66,7 +67,7 @@ class EventConverter:
         if event_tuple is None:
             return None
         address_dao  = AddressDao()
-        keys = ('id','host','name','address','start_date','end_date','visibility','check_in','check_out','event_parent','list_of_participants')
+        keys = ('id','host','name','address','start_date','end_date','visibility','check_in','check_out','description','category','event_parent','list_of_participants')
         event_input_data = dict(zip(keys,event_tuple))
         
         #transform host id in actual User object
@@ -83,7 +84,7 @@ class EventConverter:
             event_input_data['list_of_participants'] = new_list_of_participants
 
         #transform Address id in Address object
-        address_keys = ('id','street','house_number','city','state','zip_code','apartment','complement') 
+        address_keys = ('id','street','house_number','city','state','zip_code','complement') 
         address_tuple = address_dao.get_address_by_id(event_input_data['address'])
         address_input_data = dict(zip(address_keys,address_tuple))
         address = Address(**address_input_data)
@@ -91,4 +92,5 @@ class EventConverter:
         
 
         event = Event(**event_input_data)
+
         return event

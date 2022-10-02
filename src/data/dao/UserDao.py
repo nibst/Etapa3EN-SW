@@ -17,7 +17,7 @@ class UserDao:
         self.__cur.execute(inser_script, insert_value)
         self.__conn.commit()
 
-        return user.get_id()
+        return user
     def get_user_by_email(self,email):
 
         query_script = "SELECT * FROM Users WHERE email = %s"
@@ -44,8 +44,21 @@ class UserDao:
         delete_script = "DELETE FROM Users WHERE email = %s"
         self.__cur.execute(delete_script, (email,))
         self.__conn.commit()
-        #Return something?
-        
-
-        
+        return self.__cur.rowcount
     
+    def check_in(self,event_id,user_id):
+        update_script = "UPDATE Participants SET has_checked_in = true WHERE event_id = %s and user_id = %s"
+        self.__cur.execute(update_script, (event_id,user_id))
+        self.__conn.commit()
+        if self.__cur.rowcount == 0:
+            raise Exception("Event invalid or User has not subscribed to event previously")
+        return self.__cur.rowcount
+        
+    def insert_user_as_participant_of_event(self,event_id,user_id):
+        insert_script = "INSERT INTO Participants (event_id,user_id) VALUES (%s, %s)"
+        
+        insert_value = (event_id,user_id)
+        self.__cur.execute(insert_script, insert_value)
+        self.__conn.commit()
+
+        return self.__cur.rowcount

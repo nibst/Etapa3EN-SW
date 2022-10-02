@@ -1,6 +1,7 @@
 
 from dataclasses import dataclass
 import datetime
+import re
 import time
 from typing import List
 from datetime import date
@@ -20,6 +21,7 @@ class Event:
     visibility:bool #True if public, False if private
     check_in:time 
     check_out:time
+    description:str = None
     category:str = None
     event_parent:"Event" = None
     list_of_participants:List[User] = None # list of emails of the participants
@@ -28,7 +30,8 @@ class Event:
         
     def __post_init__(self):
         #TODO, is this the right place to do this processing?
-        self.id = int(str(int(time.time()*10)) + str(random.randrange(0,100)) + str(random.randrange(0,100))) #internal ID, unique for each event, random number is to guarantee uniqueness
+        if self.id is None:
+            self.id = int(str(int(time.time()*10)) + str(random.randrange(0,100)) + str(random.randrange(0,100))) #internal ID, unique for each event, random number is to guarantee uniqueness
         self.start_date = datetime.datetime.strptime(self.start_date, '%Y-%m-%d') if isinstance(self.start_date, str) else self.start_date
         self.end_date = datetime.datetime.strptime(self.end_date, '%Y-%m-%d') if isinstance(self.end_date, str) else self.end_date
         self.check_in = datetime.datetime.strptime(self.check_in, '%H:%M') if isinstance(self.check_in, str) else self.check_in
@@ -110,6 +113,17 @@ class Event:
     def set_check_out(self,check_out):
         self.check_out = check_out
 
+    def get_description(self):
+        return self.description
+
+    def set_description(self,description):
+        self.description = description
+
+    def get_category(self):
+        return self.category
+    
+    def set_category(self,category):
+        self.category = category
 
     def __str__(self) -> str:
         return f"""
