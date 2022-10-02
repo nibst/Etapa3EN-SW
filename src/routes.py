@@ -43,7 +43,11 @@ def logout():
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
-    return render_template('user_page.html')
+
+    event_service = EventService()
+    events_hosted = event_service.get_events_by_host(current_user.get_id())
+    events_subscribed = event_service.get_events_by_participant(current_user.get_id())
+    return render_template('user_page.html',events_hosted=events_hosted)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -129,9 +133,11 @@ def search():
 def event(event_id):  
     event_service = EventService()
     event = event_service.get_event_by_id(event_id)
-    return render_template('event_page.html',event=event)
+    sub_events = event_service.get_events_by_parent_id(event_id)
+    return render_template('event_page.html',event=event,sub_events=sub_events)
 
 @app.route("/event/<int:event_id>/subscribe")
+@login_required
 def subscribe(event_id):
     user_service = UserService()
     try:
@@ -144,6 +150,7 @@ def subscribe(event_id):
     return redirect(url_for('event',event_id=event_id))
 
 @app.route("/event/<int:event_id>/check_in")
+@login_required
 def check_in(event_id):
     user_service = UserService()
     try:

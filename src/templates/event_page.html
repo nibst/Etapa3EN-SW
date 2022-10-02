@@ -55,30 +55,32 @@
             <h3>{{event.get_address().get_street() ~ ', ' ~ event.get_address().get_house_number()}}</h3>
         </div>
     </div>
-
+    {% if sub_events %}
     <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-top w3-margin-right w3-round-large">
         <h1 class="w3-center">Sub-Eventos&#x2757;&#x2757;&#x2757;</h1>
-        {% for sub_event in sub_events %}
-        <div class="w3-card w3-margin-top w3-container w3-white w3-padding-16 w3-round-large shadow">
-            <div class="w3-row w3-card w3-display-container w3-padding-16 w3-round-xxlarge">
-                <div class="w3-display-container">
-                    <img src="{{ url_for('static', filename='evento-futebol.jpg')}}" class="image-strip1 w3-round-xxlarge w3-padding">
-                    <p class="w3-card w3-white w3-container w3-display-topleft w3-round-xxlarge" style="font-size: 12pt; opacity: 0.9; margin-left: 30px; margin-top: 14px;">
-                        <b>{{sub_event.get_name() ~ ' (' ~ sub_event.get_address().get_city() ~ ' ' ~ sub_event.get_address().get_state() ~ ')'}} </b>
-                    </p>
-                    <p class="w3-card w3-white w3-container w3-display-topright w3-round-xxlarge w3-hide-medium w3-hide-small" style="font-size: 10pt; opacity: 0.9; margin-right: 30px; margin-top: 17px;">
-                        <b>De {{sub_event.get_start_date() ~ ' até ' ~ sub_event.get_end_date()}}</b>
-                    </p>
+        
+            {% for sub_event in sub_events %}
+            <div class="w3-card w3-margin-top w3-container w3-white w3-padding-16 w3-round-large shadow">
+                <div class="w3-row w3-card w3-display-container w3-padding-16 w3-round-xxlarge">
+                    <div class="w3-display-container">
+                        <img src="{{ url_for('static', filename='evento-futebol.jpg')}}" class="image-strip1 w3-round-xxlarge w3-padding">
+                        <p class="w3-card w3-white w3-container w3-display-topleft w3-round-xxlarge" style="font-size: 12pt; opacity: 0.9; margin-left: 30px; margin-top: 14px;">
+                            <b>{{sub_event.get_name() ~ ' (' ~ sub_event.get_address().get_city() ~ ' ' ~ sub_event.get_address().get_state() ~ ')'}} </b>
+                        </p>
+                        <p class="w3-card w3-white w3-container w3-display-topright w3-round-xxlarge w3-hide-medium w3-hide-small" style="font-size: 10pt; opacity: 0.9; margin-right: 30px; margin-top: 17px;">
+                            <b>De {{sub_event.get_start_date() ~ ' até ' ~ sub_event.get_end_date()}}</b>
+                        </p>
+                    </div>
+                    <div class="w3-right">
+                        <p class="w3-margin-left w3-margin-right" style="font-size: 11pt;">{{sub_event.get_description()}}</p>
+                    </div>
+                    <a href="{{url_for('event', event_id=sub_event.get_id())}}" class="w3-button w3-right w3-margin-right w3-round-xxlarge w3-light-gray">Inscrever-se</a>
                 </div>
-                <div class="w3-right">
-                    <p class="w3-margin-left w3-margin-right" style="font-size: 11pt;">{{sub_event.get_description()}}</p>
-                </div>
-                <a href="{{url_for('event', event_id=sub_event.get_id())}}" class="w3-button w3-right w3-margin-right w3-round-xxlarge w3-light-gray">Inscrever-se</a>
             </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
+        
     </div>
-    
+    {% endif %}
     {% if user_subscribed_to_event and user_done_checkout %}
     <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-top w3-margin-right w3-round-large">
         <h1 class="w3-center">Participou do Evento? &#x1F389;</h1>
