@@ -19,32 +19,35 @@
                 <option value="Genero">Data</option>
             </select>
 
-            <div class="w3-button w3-right w3-border w3-margin-top w3-margin-bottom">
+            <div class="w3-right" name="search-button">
                 <button class="w3-button w3-right w3-border w3-margin-top w3-margin-bottom" type="submit"> 
-                <i class="fa fa-search" aria-hidden="true"></i> &nbsp;Pesquisar
+                    <i class="fa fa-search" aria-hidden="true"></i> &nbsp;Pesquisar
                 </button>
             </div>
         </div>
     </form>
 
-    {% for event in events %}
+    {% if events != [] %}
     <div class="w3-card w3-margin-top w3-container w3-white w3-padding-16 w3-round-large shadow">
-        <div class="w3-row w3-card w3-display-container w3-padding-16 w3-round-xxlarge">
+        {% for event in events %}
+        <div class="w3-row w3-card w3-display-container w3-padding-16 w3-round-xxlarge w3-margin-bottom">
             <div class="w3-display-container">
                 <img src="{{ url_for('static', filename='evento-futebol.jpg')}}" class="image-strip1 w3-round-xxlarge w3-padding">
                 <p class="w3-card w3-white w3-container w3-display-topleft w3-round-xxlarge" style="font-size: 12pt; opacity: 0.9; margin-left: 30px; margin-top: 14px;">
-                    <b>{{event.get_name() ~ ' (' ~ event.get_address().get_city() ~ ' ' ~ event.get_address().get_state() ~ ')'}} </b>
+                    <b>{{event.get_name() ~ ' (' ~ event.get_address().get_city() ~ ', ' ~ event.get_address().get_state() ~ ')'}} </b>
                 </p>
                 <p class="w3-card w3-white w3-container w3-display-topright w3-round-xxlarge w3-hide-medium w3-hide-small" style="font-size: 10pt; opacity: 0.9; margin-right: 30px; margin-top: 17px;">
                     <b>De {{event.get_start_date() ~ ' até ' ~ event.get_end_date()}}</b>
                 </p>
             </div>
-            <div class="w3-right">
+            <div class="w3-left">
                 <p class="w3-margin-left w3-margin-right" style="font-size: 11pt;">{{event.get_description()}}</p>
+                <p class="w3-margin-left w3-margin-right" style="font-size: 9pt;">Host: <b>{{event.get_host().get_username()}}</b></p>
             </div>
-            <a href="{{url_for('event', event_id=event.get_id())}}" class="w3-button w3-right w3-margin-right w3-round-xxlarge w3-light-gray">Inscrever-se</a>
+            <a href="{{url_for('event', event_id=event.get_id())}}" class="w3-button w3-right w3-margin-right w3-margin-top w3-round-xxlarge w3-light-gray">Inscrever-se</a>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+    {% endif %}
 </div>
 {% endblock content %}
