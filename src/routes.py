@@ -79,7 +79,7 @@ def register():
 def new_event(sub_events = [], is_subevent = False):
     if request.method == 'POST':
         if request.args.get('is_subevent') == 'True':
-            converter = EventConverter()    
+            converter = EventConverter()
             input_data = dict(request.form)
             input_data['host'] = copy.deepcopy(current_user)
             sub_event = converter.dict_to_object(input_data)
@@ -114,8 +114,9 @@ def unauthorized_callback():
     return redirect(url_for('login',next=request.path))
 
 @app.route('/search', methods=['GET', 'POST'])    
-def search():
-    events = []
+def search(event_list=[]):
+    events = event_list
+
     if request.method == 'POST':
         event_service = EventService()
         if request.form.get('filter') == 'Nome':
