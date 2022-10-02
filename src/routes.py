@@ -1,5 +1,6 @@
 
 import copy
+from src.application.QR_Code import cria_qr
 from src.application.UserConverter import UserConverter
 from src.application.EventService import EventService
 from src.data.User import User
@@ -8,6 +9,7 @@ from src.application.EventConverter import EventConverter
 from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from src import login_manager,app
+
 
 @app.route('/')
 def home():
@@ -40,20 +42,21 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route('/account', methods=['GET', 'POST'])
-@login_required
-def account():
+@app.route('/account/<int:user_id>', methods=['GET', 'POST'])
+def account(user_id):
 
     event_service = EventService()
-    events_hosted = event_service.get_events_by_host(current_user.get_id())
-    events_subscribed = event_service.get_events_by_participant(current_user.get_id())
-    return render_template('user_page.html',events_hosted=events_hosted)
+    user_service = UserService()
+    user = user_service.get_user_by_id(user_id)
+    events_hosted = event_service.get_events_by_host(user_id)
+    events_subscribed = event_service.get_events_by_participant(user_id)
+    return render_template('user_page.html',events_hosted=events_hosted, user = user)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
-    
+    print(request.headers)
     if request.method == 'POST':
         #hashed_password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
         user_service = UserService()
@@ -70,6 +73,13 @@ def register():
         except:
             flash('Error creating user')
         else:
+            print('bbbb')
+            id = 'user' + str(user.get_id())
+            site = request.headers.get('Host')
+            a = url_for('account',user_id=user.get_id())
+            print(site + a)
+            link = site + a
+            cria_qr(link, id)
             flash('Your account has been created! You are now able to log in', 'success')
             return redirect(url_for('login'))
     return render_template('register.html') 

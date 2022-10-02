@@ -6,8 +6,8 @@
             <!-- Perfil -->
             <div class="w3-card w3-round w3-white">
                 <div class="w3-container">
-                    <h4 class="w3-center">{{current_user.get_username()}}</h4>
-                    <p><img class="circle center fit" src="images/pessoa1.jpg" alt="foto_perfil"></p> 
+                    <h4 class="w3-center">{{user.get_username()}}</h4>
+                    <p><img class="circle center fit" src="{{ url_for('static', filename='pessoa1.jpg')}}" alt="foto_perfil"></p> 
                     <hr>
                     <p><i class="fa fa-globe w3-margin-right" aria-hidden="true"></i>Cidade, UF</p>
                     <p><i class="fa fa fa-birthday-cake w3-margin-right" aria-hidden="true"></i>Idade</p>
@@ -57,7 +57,7 @@
                     </a>
                 </div>
                 <div id="qr_code">
-                    <img class="w3-margin-top center" src="images/qrcode.png" alt="qrcode" style="width: 65%; height: 65%;">
+                    <img class="w3-margin-top center" src="{{ url_for('static', filename='QR/user' + user.get_id()|string + '.png' )}}" alt="qrcode" style="width: 65%; height: 65%;">
                 </div>
             </div>
         </div>

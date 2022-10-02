@@ -4,6 +4,7 @@ from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.User import User
 from src import login_manager
 import re
+from src.application.QR_Code import cria_qr
 
 class UserService:
     
@@ -23,7 +24,6 @@ class UserService:
             #probably user already exist
             DBConnectionSingleton.rollback()
             raise(e)
-
         return user
     
     def login(self,email,password):
