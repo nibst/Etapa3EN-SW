@@ -53,6 +53,6 @@ insert into Users values(1234, 'nikolas', 'emaildetesteparaevento@teste.eu', 'se
 insert into Users values(1235, 'nikolas', 'emaildetest36eparaevento@teste.eu', 'senha123');
 
 Insert INTO Events VALUES(01,1234,'event name',9069042560, '2023-06-03','2023-06-03',TRUE,'20:06:03','23:06:03','Evento sobre bla bla bla','Festa');
-INSERT INTO Participants VALUES(1234,01);
+INSERT INTO Participants VALUES(1234,01,true,false);
 
 

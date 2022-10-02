@@ -5,7 +5,6 @@ from src.application.EventService import EventService
 from src.data.User import User
 from src.application.UserService import UserService
 from src.application.EventConverter import EventConverter
-
 from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from src import login_manager,app
@@ -96,7 +95,7 @@ def new_event(sub_events = [], is_subevent = False):
                     sub_event.set_event_parent(event)
                     event_service.save(sub_event)
             except Exception as error:
-                flash(error,'danger')
+                flash(str(error),'danger')
                 return render_template('create_event.html', sub_events = sub_events,error=error)
             else:
                 flash('Evento criado com sucesso','success')
@@ -134,26 +133,25 @@ def event(event_id):
 def subscribe(event_id):
     user_service = UserService()
     try:
-        user_service.subscribe_to_event(current_user.get_id(),event_id)
+        user_service.subscribe_to_event(event_id,current_user.get_id())
     except Exception as error:
-        flash(error,'danger')
+        flash(str(error),'danger')
     else:
-        flash('Check in feito com sucesso','success')
-    return redirect(url_for('home'))
+        flash('Inscrito com sucesso','success')
+        return redirect(url_for('home'))
+    return redirect(url_for('event',event_id=event_id))
 
 @app.route("/event/<int:event_id>/check_in")
 def check_in(event_id):
     user_service = UserService()
     try:
-        user_service.check_in(current_user.get_id(),event_id)
+        has_checked_in = False
+        user_service.check_in(event_id,current_user.get_id())
     except Exception as error:
-        flash(error,'danger')
+        flash(str(error),'danger')
     else:
+        has_checked_in = True
         flash('Check in feito com sucesso','success')
-    return redirect(url_for('home'))
+    print(has_checked_in)
+    return render_template('presence_confirmation.html',check_in=has_checked_in, action_name='check-in')
 
-@app.route("/event/<int:event_id>/presence_confirmation")
-def presence_confirmation(event_id):  
-    event_service = EventService()
-    event = event_service.get_event_by_id(event_id)
-    return render_template('presence_confirmation.html',event=event)

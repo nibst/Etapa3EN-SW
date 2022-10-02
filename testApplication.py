@@ -105,6 +105,27 @@ class TestApplication(unittest.TestCase):
         event_service = EventService()
         event = event_service.get_event_by_id(id)
         self.assertIsInstance(event, Event) # verifica se o retorno é uma lista de eventos
+    
+    def test_get_user_by_id(self):
+        print("TEST GET USER BY ID")
+        user_id = 1
+        user_service = UserService()
+        user = user_service.get_user_by_id(user_id)
+        self.assertEqual(user, None) # verifica se o retorno é uma lista de eventos
 
+    def test_has_checked_in(self):
+        event_id = 1
+        user_id = 1234
+        user_service = UserService()
+        has_checked_in = user_service.has_checked_in(event_id,user_id)
+        user_id = 54321
+        has_checked_in2 = user_service.has_checked_in(event_id,user_id)
+        self.assertIsInstance(has_checked_in, bool) 
+        self.assertIsInstance(has_checked_in2, bool) 
+        self.assertEqual(has_checked_in,True)
+        self.assertEqual(has_checked_in2,False)
+
+    def test_check_in(self):
+        pass
 if __name__ == '__main__':
     unittest.main()

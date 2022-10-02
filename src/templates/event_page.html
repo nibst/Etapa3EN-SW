@@ -4,7 +4,7 @@
     <img src="{{ url_for('static', filename='evento-futebol.jpg')}}" style="width:100%; height: 350px; object-fit: cover; margin-top: 48px;">
     <div class="w3-card w3-white w3-container w3-display-middle" style="opacity: 0.9; width: 100%; height: 150px;">
         <h1 class="w3-center"><b>{{event.get_name()}}</b></h1>
-        <a class="w3-button w3-round-xxlarge w3-light-gray w3-hover-opacity-min w3-display-bottommiddle w3-margin-bottom">
+        <a href="{{url_for('subscribe', event_id=event.get_id())}}" class="w3-button w3-round-xxlarge w3-light-gray w3-hover-opacity-min w3-display-bottommiddle w3-margin-bottom">
             <b>Inscrever-se</b>
         </a>
     </div>

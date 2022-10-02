@@ -32,6 +32,7 @@
     </head>
 
 <body>
+    
     <!-- Navbar -->
     <div class="w3-top">
         <div id="myNavbar" class="w3-bar w3-white w3-card-2">
@@ -57,6 +58,32 @@
         </div>
     </div>
     {% block content %}{% endblock %}
+    <div class="w3-panel w3-red">
+        {% with messages = get_flashed_messages(category_filter=["danger"]) %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div> 
+    
+    <div class="w3-panel w3-green">
+        {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div> 
+
+
 </body>
+
 
 </html>

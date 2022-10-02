@@ -54,6 +54,20 @@ class UserDao:
             raise Exception("Event invalid or User has not subscribed to event previously")
         return self.__cur.rowcount
         
+    def has_checked_in(self,event_id,user_id):
+        query_script = "SELECT has_checked_in FROM Participants WHERE event_id = %s and user_id = %s"
+ 
+        self.__cur.execute(query_script, (event_id,user_id))
+        tuple = self.__cur.fetchone()
+
+        if tuple is not None and tuple[0] == True:
+            has_checked_in = True
+        else:
+            has_checked_in = False
+        self.__conn.commit()
+        return has_checked_in
+
+        
     def insert_user_as_participant_of_event(self,event_id,user_id):
         insert_script = "INSERT INTO Participants (event_id,user_id) VALUES (%s, %s)"
         

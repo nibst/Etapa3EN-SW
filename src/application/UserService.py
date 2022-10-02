@@ -67,6 +67,7 @@ class UserService:
         try:
             nr_rows_updated = user_dao.check_in(event_id,user_id)
         except Exception as e:
+            DBConnectionSingleton.rollback()
             raise e
         return nr_rows_updated
 
@@ -74,6 +75,13 @@ class UserService:
         """
         do check out of an user in an event
         """
+
+    def has_checked_in(self,event_id,user_id):
+        """
+        check if user has checked in event
+        """
+        user_dao = UserDao()
+        return user_dao.has_checked_in(event_id,user_id)
 
     def subscribe_to_event(self,event_id,user_id):    
         """"
@@ -83,13 +91,16 @@ class UserService:
         try:
             nr_rows_inserted = user_dao.insert_user_as_participant_of_event(event_id,user_id)
         except Exception as error:
+            DBConnectionSingleton.rollback()
             raise error
         return nr_rows_inserted
 
+
+
     @login_manager.user_loader
     def load_user(user_id):
-        user_dao = UserDao()
-        user_converter = UserConverter()
-        user_tuple = user_dao.get_user_by_id(user_id)
-        user = user_converter.database_tuple_to_object(user_tuple)
+        user_service = UserService()
+        user = user_service.get_user_by_id(user_id)
         return user
+
+    
