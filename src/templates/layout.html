@@ -58,29 +58,33 @@
         </div>
     </div>
     {% block content %}{% endblock %}
-    <div class="w3-panel w3-red">
+    
         {% with messages = get_flashed_messages(category_filter=["danger"]) %}
         {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert">
-              {{ message }}
-            </div>
-          {% endfor %}
+          <div class="w3-panel w3-red">
+            {% for message in messages %}
+              <div class="alert alert">
+                {{ message }}
+              </div>
+              {% endfor %}
+          </div> 
         {% endif %}
       {% endwith %}
-    </div> 
+   
     
-    <div class="w3-panel w3-green">
+    
         {% with messages = get_flashed_messages(category_filter=["success"]) %}
         {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert">
-              {{ message }}
-            </div>
+          <div class="w3-panel w3-green">
+            {% for message in messages %}
+              <div class="alert alert">
+                {{ message }}
+              </div>
+          </div> 
           {% endfor %}
         {% endif %}
       {% endwith %}
-    </div> 
+
 
 
 </body>

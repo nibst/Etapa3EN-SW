@@ -204,5 +204,16 @@ class EventDao:
         events_lst = self.__append_participants_to_events(records)
         self.__conn.commit()
         return events_lst
+
+    def get_events_by_parent_id(self,parent_id):
+        query_scrpit = "SELECT * FROM Events LEFT OUTER JOIN Participants using (event_id) WHERE event_parent_id = %s"
+        input = (parent_id,)
+        self.__cur.execute(query_scrpit,input)
+        events_lst = []
+        records = self.__cur.fetchall()
+        events_lst = self.__append_participants_to_events(records)
+        self.__conn.commit()
+
+        return events_lst
     
 

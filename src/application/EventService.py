@@ -73,24 +73,24 @@ class EventService:
         else:
             return events
 
-    def get_events_by_host(self,user:User):
+    def get_events_by_host(self,user_id):
         """
         get events that user will host or have hosted
         """
         event_dao = EventDao()
-        events_tuples = event_dao.get_events_by_host(user.get_id())
+        events_tuples = event_dao.get_events_by_host(user_id)
         event_converter = EventConverter()
         events = []
         for event in events_tuples:
             events.append(event_converter.database_tuple_to_object(event))
         return events
 
-    def get_events_by_participant(self,user:User):
+    def get_events_by_participant(self,user_id):
         """
         get events that user will attend or have attended
         """
         event_dao = EventDao()
-        events_tuples = event_dao.get_events_by_participant(user.get_id())
+        events_tuples = event_dao.get_events_by_participant(user_id)
         event_converter = EventConverter()
         events = []
         for event in events_tuples:
@@ -132,6 +132,18 @@ class EventService:
         events_tuples.extend(event_dao.get_events_by_state(input))
         if input.isnumeric():
             events_tuples.extend(event_dao.get_events_by_zip_code(int(input)))
+        events = []
+        for event in events_tuples:
+            events.append(event_converter.database_tuple_to_object(event))
+        return events
+
+    def get_events_by_parent_id(self,parent_id):
+        """
+        get events by parent id
+        """
+        event_dao = EventDao()
+        events_tuples = event_dao.get_events_by_parent_id(parent_id)
+        event_converter = EventConverter()
         events = []
         for event in events_tuples:
             events.append(event_converter.database_tuple_to_object(event))

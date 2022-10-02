@@ -71,13 +71,9 @@ class TestApplication(unittest.TestCase):
     def test_get_events_by_host(self):
         event_service = EventService()
         
-        username = 'nikolas'
-        email = 'emaildetesteparaevento@teste.eu'
-        password = 'senha123'
-        user = User(username,email,password)
-        user.set_id(1234)
+        user_id = 1234
 
-        events = event_service.get_events_by_host(user)
+        events = event_service.get_events_by_host(user_id)
         print("HOSTED EVENTS BY 1234")
         self.assertIsInstance(events, list) # verifica se o retorno é do tipo User
         for event in events:
@@ -85,14 +81,10 @@ class TestApplication(unittest.TestCase):
             self.assertIsInstance(event, Event) # verifica se o retorno é do tipo User
     def test_get_events_by_participant(self):
         event_service = EventService()
-        
-        username = 'nikolas'
-        email = 'emaildetesteparaevento@teste.eu'
-        password = 'senha123'
-        user = User(username,email,password)
-        user.set_id(1234)
+    
+        user_id = 1234
 
-        events = event_service.get_events_by_participant(user)
+        events = event_service.get_events_by_participant(user_id)
         print("ATTENDED EVENTS BY 1234")
         self.assertIsInstance(events, list) # verifica se o retorno é do tipo User
         for event in events:

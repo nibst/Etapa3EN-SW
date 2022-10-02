@@ -20,18 +20,20 @@
     
     <div class="w3-row-padding" style="margin-top:64px">
         {% for event in events %}
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/evento-show.jpg" alt="show" class="image-card">
-                <div class="w3-container">
-                    <h3>{{event.get_name()}}</h3>
-                    <p style="color: red; font-size: 10pt; margin-top: -20px;">{{event.get_start_date()}}</p>
-                    <p class="w3-opacity">{{event.get_category()}}</p>
-                    <p>{{event.get_description()}}</p>
-                    <p><a href="{{url_for('subscribe', event_id=event.get_id())}}" class="w3-button w3-dark-grey w3-block w3-round-large"></i>Inscrever-se</a></p>
+            {% if not event.get_event_parent() %}
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                    <div id="card" class="w3-card-4 w3-round-large">
+                        <img src="images/evento-show.jpg" alt="show" class="image-card">
+                        <div class="w3-container">
+                            <h3>{{event.get_name()}}</h3>
+                            <p style="color: red; font-size: 10pt; margin-top: -20px;">{{event.get_start_date()}}</p>
+                            <p class="w3-opacity">{{event.get_category()}}</p>
+                            <p>{{event.get_description()}}</p>
+                            <p><a href="{{url_for('event', event_id=event.get_id())}}" class="w3-button w3-dark-grey w3-block w3-round-large"></i>Inscrever-se</a></p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+                {% endif %}
         {% endfor %}
         
     </div>
