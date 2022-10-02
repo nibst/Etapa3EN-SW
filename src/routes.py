@@ -11,7 +11,9 @@ from src import login_manager,app
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    event_service = EventService()
+    events = event_service.get_events()
+    return render_template('home.html',events=events)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
