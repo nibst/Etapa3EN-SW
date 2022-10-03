@@ -9,6 +9,24 @@ class UserDao:
         db_connection_instance:DBConnectionSingleton = DBConnectionSingleton.get_instance()
         self.__conn = db_connection_instance.get_connection()
         self.__cur = db_connection_instance.get_cursor()
+
+    def __append_user_to_userlist(self,database_tuples):
+        users_dict = {}
+        #populate participants dict, each key is an event_id, each value is a list of participants of that event
+        for record in database_tuples:
+            if record[0] not in users_dict:
+                users_dict[record[0]] = []
+            users_dict[record[0]].append(record[3])
+        
+        user_id_lst = []
+        users_lst = []
+        for record in database_tuples:    
+            if record[0] in user_id_lst:
+                continue
+            else:
+                user_id_lst.append(record[0])
+                users_lst.append((*record[:3],users_dict[record[0]])) #record tuple without user_id + list of participants
+        return users_lst
     
     def insert_user(self,user:User):
         inser_script = "INSERT INTO Users (user_id,user_name,email,passw) VALUES (%s, %s, %s,%s)"
@@ -34,11 +52,22 @@ class UserDao:
         return user
 
     def print_all_users(self):
-        query_scrpit = "SELECT * FROM Users;"
-        self.__cur.execute(query_scrpit)
+        query_script = "SELECT * FROM Users;"
+        self.__cur.execute(query_script)
         for record in self.__cur.fetchall():
             print(record)
         self.__conn.commit()
+
+    def get_all_users(self):
+        query_script = "SELECT * FROM Users;"
+        self.__cur.execute(query_script)
+        
+        records = self.__cur.fetchall()
+
+        users_lst = self.__append_user_to_userlist(records)
+
+        self.__conn.commit()
+        return users_lst
 
     def delete_by_email(self,email):
         delete_script = "DELETE FROM Users WHERE email = %s"
