@@ -37,7 +37,7 @@
                 </div>  
             </div>
 
-            <div class="w3-card w3-round w3-white w3-margin-top w3-padding-16">
+            <div class="w3-card w3-round w3-white w3-margin-top w3-margin-bottom w3-padding-16">
                 <div class="w3-container w3-center">
                     <div class="w3-button w3-light-gray w3-round-xxlarge w3-col w3-rest">
                         <i class="fa fa-check" aria-hidden="true"></i> &nbsp;Seguir
@@ -48,7 +48,8 @@
                 </div>  
             </div>
 
-            <div class="w3-card w3-round w3-white w3-margin-top w3-margin-bottom w3-padding-16">
+            {% if user.get_id() == user_id %}
+            <div class="w3-card w3-round w3-white w3-margin-bottom w3-padding-16">
                 <div class="w3-container w3-center">
                     <a onclick="switchQRCode()">
                         <div class="w3-button w3-light-gray w3-round-xxlarge w3-col w3-rest">
@@ -60,6 +61,7 @@
                     <img class="w3-margin-top center" src="{{ url_for('static', filename='QR/user' + user.get_id()|string + '.png' )}}" alt="qrcode" style="width: 65%; height: 65%;">
                 </div>
             </div>
+            {% endif %}
         </div>
         
         <div class="w3-col l9 s12">

@@ -9,13 +9,13 @@
         </a>
     </div>
     {% if current_user.get_id() == event.get_host().get_id() %}
-        <a href="{{ url_for('static', filename='certificates/certificate' + current_user.get_id()|string + '.pdf' )}}" download="check_in_QR">
+        <a href="{{ url_for('static', filename='QR/check_in' + event.get_id()|string + '.png')}}" download="check_in_QR.png">
             <div class="w3-button w3-light-grey w3-margin-bottom w3-margin-left w3-display-bottomleft w3-medium w3-round-xxlarge w3-col l3 m5 s5">
                 <b class="w3-hide-small">Emitir QR Code do Check In</b>
                 <b class="w3-hide-medium w3-hide-large">QR Code do Check In</b>
             </div>
         </a>
-        <a href="{{url_for('static', filename='QR/check_out' + event.get_id()|string + '.png')}}" download="check_out_QR">
+        <a href="{{url_for('static', filename='QR/check_out' + event.get_id()|string + '.png')}}" download="check_out_QR.png">
             <div class="w3-button w3-light-grey w3-margin-bottom w3-margin-right w3-display-bottomright w3-medium w3-round-xxlarge w3-col l3 m5 s5">
                 <b class="w3-hide-small">Emitir QR Code do Check Out</b>
                 <b class="w3-hide-medium w3-hide-large">QR Code do Check Out</b>
