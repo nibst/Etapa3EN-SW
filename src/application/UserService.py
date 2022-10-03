@@ -100,6 +100,26 @@ class UserService:
         user_dao = UserDao()
         return user_dao.has_checked_out(event_id,user_id)
 
+    def get_users(self):
+        """
+        get all users
+        """
+        user_dao = UserDao() 
+        users = []
+        user_converter = UserConverter()
+
+        try:
+            user_dao.print_all_users()
+            users_tuples=user_dao.get_all_users()
+            for user_tuple in users_tuples:
+                user = user_converter.database_tuple_to_object(user_tuple)
+                users.append(user)
+        except Exception as e:
+            DBConnectionSingleton.rollback()
+            raise (e)
+        else:
+            return users
+
     def subscribe_to_event(self,event_id,user_id):    
         """"
         puts user in participants list of an event
