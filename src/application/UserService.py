@@ -4,7 +4,6 @@ from src.data.dao.DBConnection import DBConnectionSingleton
 from src.data.User import User
 from src import login_manager
 import re
-from src.application.QR_Code import cria_qr
 
 class UserService:
     
@@ -86,7 +85,7 @@ class UserService:
             return nr_rows_updated
         else:
             raise Exception("Check-out não pode ser feito sem ter feito check-in")
-            
+
     def has_checked_in(self,event_id,user_id):
         """
         check if user has checked in event
@@ -112,7 +111,6 @@ class UserService:
             DBConnectionSingleton.rollback()
             raise error
         return nr_rows_inserted
-
 
 
     @login_manager.user_loader

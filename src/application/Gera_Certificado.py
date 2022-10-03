@@ -2,7 +2,7 @@
 from fpdf import FPDF
 import os
 
-def gera_certificado(nome_pessoa, nome_evento, data_inicio, data_fim, local):
+def gera_certificado(user_id, nome_pessoa, nome_evento, data_inicio, data_fim, local):
     pdf = FPDF('P', 'mm', (675, 500))
     pdf.add_page()
     base = os.path.abspath("./src/images/base.jpg")
@@ -42,7 +42,7 @@ def gera_certificado(nome_pessoa, nome_evento, data_inicio, data_fim, local):
     pdf.cell(650, 20, "Assinatura", align='C', border=0)
     pdf.ln(20)
     #Imprime o certificado
-    mensagem = "././Certificados/" + nome_pessoa + "_certificado.pdf"
+    mensagem = "src/images/certificates/certificate" + str(user_id) + ".pdf"
     pdf.output(mensagem, 'F')
 
 #gera_certificado("João da Silva", "Contrução avançada de robôs", "01/01/2020", "02/01/2020", "Porto Alegre")

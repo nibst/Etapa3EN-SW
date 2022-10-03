@@ -15,7 +15,7 @@ def validate_event(event:Event):
     if __validate_event_date(event.get_end_date()) == False:
         raise InvalidDateException("Event end date is in the past")
     if event.get_event_parent():
-        if __verify_subevent_date_outside_of_event_period(event,event.get_event_parent()):
+        if __verify_subevent_date_outside_of_event_period(event.get_event_parent(),event):
             raise InvalidDateException("Sub-Evento fora do período de tempo do evento")
 
 def __verify_subevent_date_outside_of_event_period(event:Event,sub_event:Event):

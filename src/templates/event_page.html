@@ -10,9 +10,24 @@
     </div>
 </div>
 {% if current_user.get_id() == event.get_host().get_id() %}
-    <a href="{{url_for('static', filename='QR/check_in' + event.get_id()|string + '.png')}}">QR CODE Check In</a>
-    <a href="{{url_for('static', filename='QR/check_out' + event.get_id()|string + '.png')}}"> QR CODE Check Out</a>
+    <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-top w3-margin-right w3-round-large">
+        <a href="{{ url_for('static', filename='certificates/certificate' + current_user.get_id()|string + '.pdf' )}}" download="check_in_QR">
+            <p class="w3-display-container">
+                <button class="w3-button w3-gray w3-margin-bottom w3-button w3-display-bottommiddle w3-large w3-round-xxlarge w3-center w3-col l3 m5 s5" style="height: 50px;">
+                    <b>Emitir QR Code do Check In</b>
+                </button>
+            </p>
+        </a>
+        <a href="{{url_for('static', filename='QR/check_out' + event.get_id()|string + '.png')}}" download="check_out_QR">
+            <p class="w3-display-container">
+                <button class="w3-button w3-gray w3-margin-bottom w3-button w3-display-bottommiddle w3-large w3-round-xxlarge w3-center w3-col l3 m5 s5" style="height: 50px;">
+                    <b>Emitir QR Code do Check Out</b>
+                </button>
+            </p>
+        </a>
+    </div>
 {% endif %}
+
 <div class="w3-row w3-display-container bg-gradient">
     <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-top w3-margin-right w3-round-large">
         <h1 class="w3-center">Sobre o Evento &#x1F603;</h1>
@@ -63,32 +78,31 @@
         <h1 class="w3-center">Sub-Eventos&#x2757;&#x2757;&#x2757;</h1>
         
             {% for sub_event in sub_events %}
-            <div class="w3-card w3-margin-top w3-container w3-white w3-padding-16 w3-round-large shadow">
-                <div class="w3-row w3-card w3-display-container w3-padding-16 w3-round-xxlarge">
-                    <div class="w3-display-container">
-                        <img src="{{ url_for('static', filename='evento-futebol.jpg')}}" class="image-strip1 w3-round-xxlarge w3-padding">
-                        <p class="w3-card w3-white w3-container w3-display-topleft w3-round-xxlarge" style="font-size: 12pt; opacity: 0.9; margin-left: 30px; margin-top: 14px;">
-                            <b>{{sub_event.get_name() ~ ' (' ~ sub_event.get_address().get_city() ~ ' ' ~ sub_event.get_address().get_state() ~ ')'}} </b>
-                        </p>
-                        <p class="w3-card w3-white w3-container w3-display-topright w3-round-xxlarge w3-hide-medium w3-hide-small" style="font-size: 10pt; opacity: 0.9; margin-right: 30px; margin-top: 17px;">
-                            <b>De {{sub_event.get_start_date() ~ ' até ' ~ sub_event.get_end_date()}}</b>
-                        </p>
-                    </div>
-                    <div class="w3-right">
-                        <p class="w3-margin-left w3-margin-right" style="font-size: 11pt;">{{sub_event.get_description()}}</p>
-                    </div>
-                    <a href="{{url_for('event', event_id=sub_event.get_id())}}" class="w3-button w3-right w3-margin-right w3-round-xxlarge w3-light-gray">Inscrever-se</a>
+            <div class="w3-row w3-card w3-display-container w3-padding-16 w3-round-xxlarge w3-margin-bottom">
+                <div class="w3-display-container">
+                    <img src="{{ url_for('static', filename='evento-futebol.jpg')}}" class="image-strip1 w3-round-xxlarge w3-padding">
+                    <p class="w3-card w3-white w3-container w3-display-topleft w3-round-xxlarge" style="font-size: 12pt; opacity: 0.9; margin-left: 30px; margin-top: 14px;">
+                        <b>{{sub_event.get_name() ~ ' (' ~ sub_event.get_address().get_city() ~ ' ' ~ sub_event.get_address().get_state() ~ ')'}} </b>
+                    </p>
+                    <p class="w3-card w3-white w3-container w3-display-topright w3-round-xxlarge w3-hide-medium w3-hide-small" style="font-size: 10pt; opacity: 0.9; margin-right: 30px; margin-top: 17px;">
+                        <b>De {{sub_event.get_start_date() ~ ' até ' ~ sub_event.get_end_date()}}</b>
+                    </p>
                 </div>
+                <div class="w3-left">
+                    <p class="w3-margin-left w3-margin-right" style="font-size: 11pt;">{{sub_event.get_description()}}</p>
+                    <p class="w3-margin-left w3-margin-right" style="font-size: 9pt;">Host: <b>{{sub_event.get_host().get_username()}}</b></p>
+                </div>
+                <a href="{{url_for('event', event_id=sub_event.get_id())}}" class="w3-button w3-right w3-margin-right w3-margin-top w3-round-xxlarge w3-light-gray">Inscrever-se</a>
             </div>
             {% endfor %}
         
     </div>
     {% endif %}
-    {% if user_subscribed_to_event and user_done_checkout %}
+    {% if check_out %}
     <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-top w3-margin-right w3-round-large">
         <h1 class="w3-center">Participou do Evento? &#x1F389;</h1>
         <hr><br><br>
-        <a href="/images/{{current_user.id}}" download="certificado_evento">
+        <a href="{{ url_for('static', filename='certificates/certificate' + current_user.get_id()|string + '.pdf' )}}" download="certificado_evento">
             <p class="w3-display-container">
                 <button class="w3-button w3-gray w3-margin-bottom w3-button w3-display-bottommiddle w3-large w3-round-xxlarge w3-center w3-col l3 m5 s5" style="height: 50px;">
                     <b>Emitir certificado</b>

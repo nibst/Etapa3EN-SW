@@ -93,8 +93,11 @@ class EventDao:
         records = self.__cur.fetchall()
         events_lst = self.__append_participants_to_events(records)
         self.__conn.commit()
-
-        return events_lst[0]
+        if events_lst:
+            event = events_lst[0]
+        else: 
+            event = None
+        return event
 
     def get_events_by_host(self,host_id):
         query_scrpit = "SELECT * FROM Events LEFT OUTER JOIN Participants using (event_id) WHERE host_id = %s"
