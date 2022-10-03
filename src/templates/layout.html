@@ -2,10 +2,6 @@
 
 <!--
     TODO:
-        - página de dashboard do host
-            * listar eventos criados pelo usuário
-            * listar confirmados no evento
-            * listar presentes e ausentes do evento
         - verificar responsividade das páginas
             - home page: ok
             - login: ok
@@ -35,7 +31,7 @@
     
     <!-- Navbar -->
     <div class="w3-top">
-        <div id="myNavbar" class="w3-bar w3-white w3-card-2">
+        <div id="navbar" class="w3-bar w3-white w3-card-2">
             <a href="{{ url_for('home') }}" class="w3-bar-item w3-button"><img src="{{ url_for('static', filename='favicon-32x32.png')}}">
                 &nbsp&nbspBem vindo,
                 {{current_user.username}}!</a>
@@ -59,34 +55,43 @@
     </div>
     {% block content %}{% endblock %}
     
-        {% with messages = get_flashed_messages(category_filter=["danger"]) %}
+    <div class="w3-container">
+      {% with messages = get_flashed_messages(category_filter=["success"]) %}
         {% if messages %}
-          <div class="w3-panel w3-red">
-            {% for message in messages %}
-              <div class="alert alert">
-                {{ message }}
-              </div>
-              {% endfor %}
-          </div> 
-        {% endif %}
-      {% endwith %}
-   
-    
-    
-        {% with messages = get_flashed_messages(category_filter=["success"]) %}
-        {% if messages %}
-          <div class="w3-panel w3-green">
-            {% for message in messages %}
-              <div class="alert alert">
-                {{ message }}
-              </div>
-          </div> 
+        <div id="flashed-msg" class="w3-card w3-display-container w3-top w3-green w3-round-xlarge w3-medium w3-col l5 m6 s7 w3-padding" style="margin-top: 70px; opacity: 0.9;">
+          <i class="fa fa-check w3-white w3-opacity-min w3-round-xxlarge w3-padding w3-left" aria-hidden="true"></i>
+          {% for message in messages %}
+            {{ message }}<br>
           {% endfor %}
+          <button class="w3-circle w3-display-topright w3-col l1 m1 s2 w3-small" style="margin-top: 5px; opacity: 0.9; background-color: transparent;">
+            <span onclick="closeFlashMessage()" class="fa fa-times"></span>
+          </button>
+        </div>
         {% endif %}
       {% endwith %}
 
+      {% with messages = get_flashed_messages(category_filter=["danger"]) %}
+        {% if messages %}
+        <div id="flashed-msg" class="w3-card w3-display-container w3-top w3-red w3-round-xlarge w3-medium w3-col l5 m6 s7 w3-padding" style="margin-top: 70px; opacity: 0.9;">
+          <i class="fa fa-check w3-white w3-opacity-min w3-round-xxlarge w3-padding w3-left" aria-hidden="true"></i>
+          {% for message in messages %}
+            {{ message }}<br>
+          {% endfor %}
+          <button class="w3-circle w3-display-topright w3-col l1 m1 s2 w3-small" style="margin-top: 5px; opacity: 0.9; background-color: transparent;">
+            <span onclick="closeFlashMessage()" class="fa fa-times"></span>
+          </button>
+        </div>
+        {% endif %}
+      {% endwith %}
+    </div>
 
+      <script>
+        document.getElementById("flashed-msg").style.display = "block";
 
+        function closeFlashMessage() {
+            document.getElementById("flashed-msg").style.display = "none";
+        }
+      </script>
 </body>
 
 
