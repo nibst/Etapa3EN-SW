@@ -75,13 +75,31 @@ class UserService:
         """
         do check out of an user in an event
         """
-
+        user_dao = UserDao()
+        #can only do checkout if has checked in before
+        if user_dao.has_checked_in(event_id,user_id):
+            try:
+                nr_rows_updated = user_dao.check_out(event_id,user_id)
+            except Exception as e:
+                DBConnectionSingleton.rollback()
+                raise e
+            return nr_rows_updated
+        else:
+            raise Exception("Check-out não pode ser feito sem ter feito check-in")
+            
     def has_checked_in(self,event_id,user_id):
         """
         check if user has checked in event
         """
         user_dao = UserDao()
         return user_dao.has_checked_in(event_id,user_id)
+
+    def has_checked_out(self,event_id,user_id):
+        """
+        check if user has checked in event
+        """
+        user_dao = UserDao()
+        return user_dao.has_checked_out(event_id,user_id)
 
     def subscribe_to_event(self,event_id,user_id):    
         """"

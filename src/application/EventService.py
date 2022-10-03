@@ -39,6 +39,9 @@ class EventService:
         return event
      
     def get_events(self):
+        """
+        get all events
+        """
         event_dao = EventDao() 
         events = []
         event_converter = EventConverter()

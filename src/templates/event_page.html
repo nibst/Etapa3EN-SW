@@ -9,7 +9,10 @@
         </a>
     </div>
 </div>
-
+{% if current_user.get_id() == event.get_host().get_id() %}
+    <a href="{{url_for('static', filename='QR/check_in' + event.get_id()|string + '.png')}}">QR CODE Check In</a>
+    <a href="{{url_for('static', filename='QR/check_out' + event.get_id()|string + '.png')}}"> QR CODE Check Out</a>
+{% endif %}
 <div class="w3-row w3-display-container bg-gradient">
     <div class="w3-card w3-white w3-container w3-margin-bottom w3-margin-left w3-margin-top w3-margin-right w3-round-large">
         <h1 class="w3-center">Sobre o Evento &#x1F603;</h1>

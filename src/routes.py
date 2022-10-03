@@ -3,6 +3,7 @@ import copy
 from src.application.QR_Code import cria_qr
 from src.application.UserConverter import UserConverter
 from src.application.EventService import EventService
+from src.application.event_validation import validate_event
 from src.data.User import User
 from src.application.UserService import UserService
 from src.application.EventConverter import EventConverter
@@ -56,7 +57,6 @@ def account(user_id):
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
-    print(request.headers)
     if request.method == 'POST':
         #hashed_password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
         user_service = UserService()
@@ -73,12 +73,10 @@ def register():
         except:
             flash('Error creating user')
         else:
-            print('bbbb')
             id = 'user' + str(user.get_id())
             site = request.headers.get('Host')
-            a = url_for('account',user_id=user.get_id())
-            print(site + a)
-            link = site + a
+            acc = url_for('account',user_id=user.get_id())
+            link = site + acc
             cria_qr(link, id)
             flash('Your account has been created! You are now able to log in', 'success')
             return redirect(url_for('login'))
@@ -92,8 +90,15 @@ def new_event(sub_events = [], is_subevent = False):
             converter = EventConverter()
             input_data = dict(request.form)
             input_data['host'] = copy.deepcopy(current_user)
+            
             sub_event = converter.dict_to_object(input_data)
-            sub_events.append(sub_event)
+            sub_event.set_event_parent(event)
+            try:
+                validate_event(sub_event)
+            except Exception as error:
+                flash(str(error),'danger')
+            else:
+                sub_events.append(sub_event)
             #redirect to itself to avoid refreshing-resubmitting problem
             return redirect(url_for('new_event', sub_events=sub_events))
         else:
@@ -108,12 +113,26 @@ def new_event(sub_events = [], is_subevent = False):
                 #return event if save successfully
                 event = event_service.save(event)
                 for sub_event in sub_events:
-                    sub_event.set_event_parent(event)
                     event_service.save(sub_event)
             except Exception as error:
                 flash(str(error),'danger')
                 return render_template('create_event.html', sub_events = sub_events,error=error)
             else:
+                #create events and subevents checkin and checkout qr codes
+                site = request.headers.get('Host')
+                id_check_in = 'check_in' + str(event.get_id())
+                link = site + "/event/" + str(event.get_id()) + "/check_in"
+                cria_qr(link,id_check_in)
+                id_check_out = 'check_out' + str(event.get_id())
+                link = site + "/event/" + str(event.get_id()) + "/check_out"
+                cria_qr(link,id_check_out)
+                for sub_event in sub_events:
+                    id_check_in = 'check_in' + str(sub_event.get_id())
+                    link = site + "/event/" + str(sub_event.get_id()) + "/check_in"
+                    cria_qr(link,id_check_in)
+                    id_check_out = 'check_out' + str(event.get_id())
+                    link = site + "/event/" + str(event.get_id()) + "/check_out"
+                    cria_qr(link,id_check_out)
                 flash('Evento criado com sucesso','success')
                 return redirect(url_for('home'))
     return render_template('create_event.html',sub_events = sub_events)
@@ -124,11 +143,11 @@ def unauthorized_callback():
     return redirect(url_for('login',next=request.path))
 
 @app.route('/search', methods=['GET', 'POST'])    
-def search(event_list=[]):
-    events = event_list
+def search():
+    event_service = EventService()
 
+    events = event_service.get_events()
     if request.method == 'POST':
-        event_service = EventService()
         if request.form.get('filter') == 'Nome':
             events = event_service.get_events_by_name(request.form.get('input'))
         elif request.form.get('filter') == 'Genero':
@@ -174,4 +193,19 @@ def check_in(event_id):
         flash('Check in feito com sucesso','success')
     print(has_checked_in)
     return render_template('presence_confirmation.html',check_in=has_checked_in, action_name='check-in')
+
+@app.route("/event/<int:event_id>/check_out")
+@login_required
+def check_out(event_id):
+    user_service = UserService()
+    try:
+        has_checked_out = False
+        user_service.check_out(event_id,current_user.get_id())
+    except Exception as error:
+        flash(str(error),'danger')
+    else:
+        has_checked_out = True
+        flash('Check out feito com sucesso','success')
+    print(has_checked_out)
+    return render_template('presence_confirmation.html',check_in=has_checked_out, action_name='check-out')
 
