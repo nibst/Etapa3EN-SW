@@ -15,8 +15,11 @@ from src.application.Gera_Certificado  import  gera_certificado
 @app.route('/')
 def home():
     event_service = EventService()
+    user_service = UserService()
+
     events = event_service.get_events()
-    return render_template('home.html',events=events)
+    users = user_service.get_users()
+    return render_template('home.html',events=events,users=users)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
