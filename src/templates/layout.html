@@ -61,7 +61,7 @@
         <div id="flashed-msg" class="w3-card w3-display-container w3-top w3-green w3-round-xlarge w3-medium w3-col l5 m6 s7 w3-padding" style="margin-top: 70px; opacity: 0.9;">
           <i class="fa fa-check w3-white w3-opacity-min w3-round-xxlarge w3-padding w3-left" aria-hidden="true"></i>
           {% for message in messages %}
-            {{ message }}<br>
+            <span style="margin-left: 10px;">{{ message }}<br></span>
           {% endfor %}
           <button class="w3-circle w3-display-topright w3-col l1 m1 s2 w3-small" style="margin-top: 5px; opacity: 0.9; background-color: transparent;">
             <span onclick="closeFlashMessage()" class="fa fa-times"></span>
@@ -75,7 +75,7 @@
         <div id="flashed-msg" class="w3-card w3-display-container w3-top w3-red w3-round-xlarge w3-medium w3-col l5 m6 s7 w3-padding" style="margin-top: 70px; opacity: 0.9;">
           <i class="fa fa-check w3-white w3-opacity-min w3-round-xxlarge w3-padding w3-left" aria-hidden="true"></i>
           {% for message in messages %}
-            {{ message }}<br>
+            <span style="margin-left: 10px;">{{ message }}<br></span>
           {% endfor %}
           <button class="w3-circle w3-display-topright w3-col l1 m1 s2 w3-small" style="margin-top: 5px; opacity: 0.9; background-color: transparent;">
             <span onclick="closeFlashMessage()" class="fa fa-times"></span>

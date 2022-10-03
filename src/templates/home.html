@@ -57,46 +57,22 @@
     <h3 class="w3-center">Encontre pessoas que frequentem os mesmos eventos que você &#128525;</h3>
 
     <div class="w3-row-padding" style="margin-top:64px">
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/pessoa1.jpg" alt="show" class="image-card">
-                <div class="w3-container">
-                    <h3>Nome da Pessoa</h3>
-                    <p>Aqui vai uma descrição sobre a pessoa.</p>
-                    <p><button class="w3-button w3-dark-grey w3-block w3-round-large"></i>Conectar-se</button></p>
+        {% set less_users = users[:4] %}
+        {% for user in less_users %}
+            <div class="w3-col l3 m6 w3-margin-bottom">
+                <div id="card" class="w3-card-4 w3-round-large">
+                    <img src="images/pessoa1.jpg" alt="show" class="image-card">
+                    <div class="w3-container">
+                        <h3>{{user.get_username()}}</h3>
+                        <div class="w3-container w3-light-grey w3-round-xxlarge w3-small w3-hide-medium w3-hide-small" style="max-width: 270px; max-height: 50px; overflow: hidden;">
+                            <p class="w3-left"><i class="fa fa-envelope" aria-hidden="true"></i></p>
+                            <p class="w3-left w3-margin-left" style="font-size: 9pt; margin-top: 13px;">{{user.get_email()}}</p>
+                        </div>
+                        <a href="{{ url_for('account',user_id=user.get_id() ) }}" style="text-decoration:none;"><button class="w3-button w3-dark-grey w3-block w3-round-large w3-margin-bottom"></i>Ver perfil</button></a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/pessoa2.webp" alt="festa" class="image-card">
-                <div class="w3-container">
-                    <h3>Nome da Pessoa</h3>
-                    <p>Aqui vai uma descrição sobre a pessoa.</p>
-                    <p><button class="w3-button w3-dark-grey w3-block w3-round-large"></i>Conectar-se</button></p>
-                </div>
-            </div>
-        </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/pessoa3.jpeg" alt="futebol" class="image-card">
-                <div class="w3-container">
-                    <h3>Nome da Pessoa</h3>
-                    <p>Aqui vai uma descrição sobre a pessoa.</p>
-                    <p><button class="w3-button w3-dark-grey w3-block w3-round-large"></i>Conectar-se</button></p>
-                </div>
-            </div>
-        </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-            <div id="card" class="w3-card-4 w3-round-large">
-                <img src="images/pessoa4.webp" alt="congresso" class="image-card">
-                <div class="w3-container">
-                    <h3>Nome da Pessoa</h3>
-                    <p>Aqui vai uma descrição sobre a pessoa.</p>
-                    <p><button class="w3-button w3-dark-grey w3-block w3-round-large"></i>Conectar-se</button></p>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 
