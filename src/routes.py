@@ -33,7 +33,7 @@ def login():
         try:
             user = user_service.login(request.form['email'],request.form['password'])
         except:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
+            flash('E-mail ou senha incorretos. Login não efetuado!', 'danger')
         else:
             login_user(user)
             next_page = request.args.get('next')
@@ -54,7 +54,7 @@ def account(user_id):
     user = user_service.get_user_by_id(user_id)
     events_hosted = event_service.get_events_by_host(user_id)
     events_subscribed = event_service.get_events_by_participant(user_id)
-    return render_template('user_page.html',events_hosted=events_hosted, user = user)
+    return render_template('user_page.html',events_hosted=events_hosted, user = user, user_id = current_user.get_id())
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -69,19 +69,19 @@ def register():
         if confirm_password == input_data['password']:
             user = user_converter.dict_to_object(input_data)
         else:
-            flash('Passwords are not the same')
+            flash('Verifique se as senhas foram digitadas corretamente.', 'danger')
             user = None
         try:
             user = user_service.create_user(user)
         except:
-            flash('Error creating user')
+            flash('Erro ao criar usuário.', 'danger')
         else:
             id = 'user' + str(user.get_id())
             site = request.headers.get('Host')
             acc = url_for('account',user_id=user.get_id())
             link = site + acc
             create_qr(link, id)
-            flash('Your account has been created! You are now able to log in', 'success')
+            flash('Sua conta foi criada! Agora você pode efetuar log-in.', 'success')
             return redirect(url_for('login'))
     return render_template('register.html') 
 
@@ -102,9 +102,9 @@ def new_event(sub_events = [], is_subevent = False):
             try:
                 validate_event(sub_event)
             except Exception as error:
-                flash(sub_event.get_name() + ':' + str(error),'danger')
+                flash(sub_event.get_name() + ':' + str(error), 'danger')
             else:
-                flash('Sub-Evento adicionado com sucesso','success')
+                flash('Sub-evento adicionado com sucesso!', 'success')
                 sub_events.append(sub_event)
             #redirect to itself to avoid refreshing-resubmitting problem
             return redirect(url_for('new_event', sub_events=sub_events))
@@ -121,7 +121,7 @@ def new_event(sub_events = [], is_subevent = False):
                 event = event_service.save(event)
 
             except Exception as error:
-                flash(event.get_name() + ':' + str(error),'danger')
+                flash(event.get_name() + ':' + str(error), 'danger')
                 return render_template('create_event.html', sub_events = sub_events,error=error)
             else:
                 create_qrs_for_event_creation(request.headers.get('Host'), event)
@@ -130,12 +130,12 @@ def new_event(sub_events = [], is_subevent = False):
                         sub_event.set_event_parent(event) 
                         event_service.save(sub_event)
                     except Exception as error:
-                        flash(str(error),'danger')
+                        flash(str(error), 'danger')
                     else:
                     
                         create_qrs_for_event_creation(request.headers.get('Host'),sub_event)
     
-                flash('Evento criado com sucesso','success')
+                flash('Evento criado com sucesso!', 'success')
                 return redirect(url_for('home'))
 
     return render_template('create_event.html',sub_events = sub_events)
@@ -179,9 +179,9 @@ def subscribe(event_id):
     try:
         user_service.subscribe_to_event(event_id,current_user.get_id())
     except Exception as error:
-        flash(str(error),'danger')
+        flash(str(error), 'danger')
     else:
-        flash('Inscrito com sucesso','success')
+        flash('Inscrito com sucesso!', 'success')
         return redirect(url_for('home'))
     return redirect(url_for('event',event_id=event_id))
 
@@ -193,10 +193,10 @@ def check_in(event_id):
         has_checked_in = False
         user_service.check_in(event_id,current_user.get_id())
     except Exception as error:
-        flash(str(error),'danger')
+        flash(str(error), 'danger')
     else:
         has_checked_in = True
-        flash('Check in feito com sucesso','success')
+        #flash('Seu check-in foi efetuado!', 'success')
     print(has_checked_in)
     return render_template('presence_confirmation.html',check_in=has_checked_in, action_name='check-in')
 
@@ -208,13 +208,13 @@ def check_out(event_id):
         has_checked_out = False
         user_service.check_out(event_id,current_user.get_id())
     except Exception as error:
-        flash(str(error),'danger')
+        flash(str(error), 'danger')
     else:
         has_checked_out = True
         event_service = EventService()
         event = event_service.get_event_by_id(event_id)
-        gera_certificado(current_user.get_id(),current_user.get_username(),event.get_name(),event.get_start_date(),event.get_end_date(),event.get_address().get_city())
-        flash('Check out feito com sucesso','success')
+        gera_certificado(current_user.get_id(),current_user.get_username(),event.get_name(), event.get_start_date().strftime('%m/%d/%Y'),event.get_end_date().strftime('%m/%d/%Y'),event.get_address().get_city())
+        #flash('Seu check-out foi efetuado!', 'success')
     print(has_checked_out)
     return render_template('presence_confirmation.html',check_in=True, check_out = has_checked_out , action_name='check-out')
 
